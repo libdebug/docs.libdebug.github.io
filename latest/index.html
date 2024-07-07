@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quick Start &#8212; libdebug 0.5.0 documentation</title>
+    <title>Looking for previous versions? &#8212; libdebug 0.5.2 documentation</title>
   
   
   
@@ -18,28 +18,26 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="_static/code-tabs.css?v=1bc26e2f" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="_static/documentation_options.js?v=1dd76d02"></script>
+    <script src="_static/documentation_options.js?v=8e576371"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/code-tabs.js?v=c983d12e"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -99,7 +97,7 @@
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -109,8 +107,6 @@
       <div class="navbar-item">
 
   
-    
-  
 
 <a class="navbar-brand logo" href="#">
   
@@ -119,7 +115,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.0 documentation</p>
+    <p class="title logo__title">libdebug 0.5.2 documentation</p>
   
 </a></div>
     
@@ -130,64 +126,71 @@
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
-<nav>
+<nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="multithreading.html">
     Multithreading
   </a>
 </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown pst-header-nav-item">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-<li class=" ">
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class=" ">
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="logging.html">
     Logging
   </a>
 </li>
 
 
-<li class=" ">
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="examples.html">
+    Code Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="libdebug.html">
     libdebug package
   </a>
@@ -209,7 +212,7 @@
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -223,10 +226,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -240,7 +243,7 @@ document.write(`
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -251,7 +254,7 @@ document.write(`
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -279,59 +282,66 @@ document.write(`
           
           
             <div class="navbar-item">
-<nav>
+<nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="multithreading.html">
     Multithreading
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="logging.html">
     Logging
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="examples.html">
+    Code Examples
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="libdebug.html">
     libdebug package
   </a>
@@ -351,10 +361,10 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -388,43 +398,25 @@ document.write(`
                   
   <img alt="libdebug logo" class="align-center" src="_images/libdebug.png" />
 <hr class="docutils" />
+<section id="looking-for-previous-versions">
+<h1>Looking for previous versions?<a class="headerlink" href="#looking-for-previous-versions" title="Link to this heading">#</a></h1>
+<p>Go to <a class="reference external" href="https://docs.libdebug.github.io/archive/VERSION">https://docs.libdebug.github.io/archive/VERSION</a> to find the documentation for a specific version of libdebug.</p>
+<p>e.g, for version 0.5.0, go to <a class="reference external" href="https://docs.libdebug.github.io/archive/0.5.0">https://docs.libdebug.github.io/archive/0.5.0</a></p>
 <section id="quick-start">
-<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h1>
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
 <p>Welcome to libdebug! This powerful Python library can be used to debug your binary executables programmatically, providing a robust, user-friendly interface.</p>
 <p>Debugging multithreaded applications can be a nightmare, but libdebug has you covered. Hijack, and manage signals and syscalls with a simple API.</p>
 <section id="supported-architectures">
-<h2>Supported Architectures<a class="headerlink" href="#supported-architectures" title="Link to this heading">#</a></h2>
+<h3>Supported Architectures<a class="headerlink" href="#supported-architectures" title="Link to this heading">#</a></h3>
 <p>libdebug currently supports Linux under the x86_64 architecture.</p>
 <p>Other operating systems and architectures are not supported at this time.</p>
 </section>
 <section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h2>
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h3>
 <p>To install libdebug, you first need to have some dependencies that will not be automatically resolved. Depending on your distro, their names may change.</p>
-<div class="tabs docutils container" data-tabgroup="">
-<ul class="tabbar">
-<li class="tabbutton selected" data-id="0" onclick="sphinx_code_tabs_onclick(this)">
-Ubuntu</li><li class="tabbutton" data-id="1" onclick="sphinx_code_tabs_onclick(this)">
-Debian</li><li class="tabbutton" data-id="2" onclick="sphinx_code_tabs_onclick(this)">
-Arch Linux</li><li class="tabbutton" data-id="3" onclick="sphinx_code_tabs_onclick(this)">
-Fedora</li></ul><div class="tab codetab selected" data-id="0">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-dev<span class="w"> </span>libdwarf-dev<span class="w"> </span>libelf-dev<span class="w"> </span>libiberty-dev<span class="w"> </span>linux-headers-generic<span class="w"> </span>libc6-dbg
-</pre></div>
-</div>
-</div><div class="tab codetab" data-id="1">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-dev<span class="w"> </span>libdwarf-dev<span class="w"> </span>libelf-dev<span class="w"> </span>libiberty-dev<span class="w"> </span>linux-headers-generic<span class="w"> </span>libc6-dbg
-</pre></div>
-</div>
-</div><div class="tab codetab" data-id="2">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>python<span class="w"> </span>libelf<span class="w"> </span>libdwarf<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>debuginfod
-</pre></div>
-</div>
-</div><div class="tab codetab" data-id="3">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-devel<span class="w"> </span>kernel-devel<span class="w"> </span>binutils-devel<span class="w"> </span>libdwarf-devel
-</pre></div>
-</div>
-</div></div></section>
+</section>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h3>
 <p>Installing libdebug once you have dependencies is as simple as running the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>libdebug
 </pre></div>
@@ -435,7 +427,7 @@ Fedora</li></ul><div class="tab codetab selected" data-id="0">
 </div>
 </section>
 <section id="your-first-script">
-<h2>Your first script<a class="headerlink" href="#your-first-script" title="Link to this heading">#</a></h2>
+<h3>Your first script<a class="headerlink" href="#your-first-script" title="Link to this heading">#</a></h3>
 <p>Now that you have libdebug installed, you can start using it in your scripts. Here is a simple example of how to use libdebug to debug a binary:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">debugger</span>
 
@@ -513,6 +505,11 @@ Fedora</li></ul><div class="tab codetab selected" data-id="0">
 <li class="toctree-l2"><a class="reference internal" href="logging.html#temporary-logging">Temporary Logging</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Code Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#example-script-for-the-presentation-at-cyberchallenge-it-finals-2024">Example Script for the presentation at CyberChallenge.it Finals 2024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#defcon-quals-2022-ncuts">DEFCON Quals 2022 - nCuts</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
@@ -536,12 +533,13 @@ Fedora</li></ul><div class="tab codetab selected" data-id="0">
 </section>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">#</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+</section>
 </section>
 
 
@@ -581,18 +579,17 @@ Fedora</li></ul><div class="tab codetab selected" data-id="0">
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Quick Start</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-architectures">Supported Architectures</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-first-script">Your first script</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-architectures">Supported Architectures</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-first-script">Your first script</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-and-tables">Indices and tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
-
   </nav></div>
 
   <div class="sidebar-secondary-item">
@@ -617,8 +614,8 @@ Fedora</li></ul><div class="tab codetab selected" data-id="0">
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -651,7 +648,7 @@ Fedora</li></ul><div class="tab codetab selected" data-id="0">
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
 </p></div>
       
     </div>

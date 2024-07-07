@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.debugger.internal_debugger &#8212; libdebug 0.5.0 documentation</title>
+    <title>libdebug.debugger.internal_debugger &#8212; libdebug 0.5.2 documentation</title>
   
   
   
@@ -17,28 +17,26 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/code-tabs.css?v=1bc26e2f" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="../../../_static/documentation_options.js?v=1dd76d02"></script>
+    <script src="../../../_static/documentation_options.js?v=8e576371"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/debugger/internal_debugger';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -97,7 +95,7 @@
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -107,8 +105,6 @@
       <div class="navbar-item">
 
   
-    
-  
 
 <a class="navbar-brand logo" href="../../../index.html">
   
@@ -117,7 +113,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.0 documentation</p>
+    <p class="title logo__title">libdebug 0.5.2 documentation</p>
   
 </a></div>
     
@@ -128,64 +124,71 @@
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
-<nav>
+<nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../multithreading.html">
     Multithreading
   </a>
 </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown pst-header-nav-item">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-<li class=" ">
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="../../../quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class=" ">
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="../../../logging.html">
     Logging
   </a>
 </li>
 
 
-<li class=" ">
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../examples.html">
+    Code Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="../../../libdebug.html">
     libdebug package
   </a>
@@ -207,7 +210,7 @@
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -221,10 +224,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -238,7 +241,7 @@ document.write(`
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -273,59 +276,66 @@ document.write(`
           
           
             <div class="navbar-item">
-<nav>
+<nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../multithreading.html">
     Multithreading
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../logging.html">
     Logging
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Code Examples
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="../../../libdebug.html">
     libdebug package
   </a>
@@ -345,10 +355,10 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -424,6 +434,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">signal</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+<span class="kn">from</span> <span class="nn">signal</span> <span class="kn">import</span> <span class="n">SIGKILL</span><span class="p">,</span> <span class="n">SIGSTOP</span><span class="p">,</span> <span class="n">SIGTRAP</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">current_thread</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
@@ -431,12 +442,12 @@ document.write(`
 <span class="kn">import</span> <span class="nn">psutil</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.architectures.syscall_hijacking_provider</span> <span class="kn">import</span> <span class="n">syscall_hijacking_provider</span>
-<span class="kn">from</span> <span class="nn">libdebug.builtin.antidebug_syscall_hook</span> <span class="kn">import</span> <span class="n">on_enter_ptrace</span><span class="p">,</span> <span class="n">on_exit_ptrace</span>
-<span class="kn">from</span> <span class="nn">libdebug.builtin.pretty_print_syscall_hook</span> <span class="kn">import</span> <span class="n">pprint_on_enter</span><span class="p">,</span> <span class="n">pprint_on_exit</span>
+<span class="kn">from</span> <span class="nn">libdebug.builtin.antidebug_syscall_handler</span> <span class="kn">import</span> <span class="n">on_enter_ptrace</span><span class="p">,</span> <span class="n">on_exit_ptrace</span>
+<span class="kn">from</span> <span class="nn">libdebug.builtin.pretty_print_syscall_handler</span> <span class="kn">import</span> <span class="n">pprint_on_enter</span><span class="p">,</span> <span class="n">pprint_on_exit</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.memory_view</span> <span class="kn">import</span> <span class="n">MemoryView</span>
-<span class="kn">from</span> <span class="nn">libdebug.data.signal_hook</span> <span class="kn">import</span> <span class="n">SignalHook</span>
-<span class="kn">from</span> <span class="nn">libdebug.data.syscall_hook</span> <span class="kn">import</span> <span class="n">SyscallHook</span>
+<span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
+<span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">extend_internal_debugger</span><span class="p">,</span>
     <span class="n">link_to_internal_debugger</span><span class="p">,</span>
@@ -505,12 +516,12 @@ document.write(`
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A dictionary of all the breakpoints set on the process.</span>
 <span class="sd">    Key: the address of the breakpoint.&quot;&quot;&quot;</span>
 
-    <span class="n">syscall_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SyscallHook</span><span class="p">]</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A dictionary of all the syscall hooks set on the process.</span>
+    <span class="n">handled_syscalls</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SyscallHandler</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A dictionary of all the syscall handled in the process.</span>
 <span class="sd">    Key: the syscall number.&quot;&quot;&quot;</span>
 
-    <span class="n">signal_hooks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SignalHook</span><span class="p">]</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A dictionary of all the signal hooks set on the process.</span>
+    <span class="n">caught_signals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SignalCatcher</span><span class="p">]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A dictionary of all the signals caught in the process.</span>
 <span class="sd">    Key: the signal number.&quot;&quot;&quot;</span>
 
     <span class="n">signals_to_block</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
@@ -567,8 +578,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">escape_antidebug</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">breakpoints</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">signal_hooks</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caught_signals</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_pprint</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_not_pprint</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">signals_to_block</span> <span class="o">=</span> <span class="p">[]</span>
@@ -588,8 +599,8 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reinitializes the context, so it is ready for a new run.&quot;&quot;&quot;</span>
         <span class="c1"># These must be reinitialized on every call to &quot;run&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">signal_hooks</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caught_signals</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_pprint</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_not_pprint</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">signals_to_block</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -716,7 +727,7 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Kills the process.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
             <span class="c1"># This exception might occur if the process has already died</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;OSError raised during kill&quot;</span><span class="p">)</span>
 
@@ -778,7 +789,7 @@ document.write(`
             <span class="k">return</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">force_interrupt</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGSTOP</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">,</span> <span class="n">SIGSTOP</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
@@ -839,7 +850,7 @@ document.write(`
         <span class="n">condition</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">callback</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">Breakpoint</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Breakpoint</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets a breakpoint at the specified location.</span>
 
@@ -851,7 +862,7 @@ document.write(`
 <span class="sd">            length (int, optional): The length of the breakpoint. Only for watchpoints. Defaults to 1.</span>
 <span class="sd">            callback (Callable[[ThreadContext, Breakpoint], None], optional): A callback to be called when the</span>
 <span class="sd">            breakpoint is hit. Defaults to None.</span>
-<span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;default&quot;</span>
+<span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;hybrid&quot;</span>
 <span class="sd">            (libdebug will first try to solve the address as an absolute address, then as a relative address w.r.t.</span>
 <span class="sd">            the &quot;binary&quot; map file).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -869,7 +880,7 @@ document.write(`
 
             <span class="k">if</span> <span class="n">condition</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="s2">&quot;rw&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">]:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Invalid condition for watchpoints. Supported conditions are &#39;r&#39;, &#39;rw&#39;, &#39;x&#39;.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Invalid condition for watchpoints. Supported conditions are &#39;w&#39;, &#39;rw&#39;, &#39;x&#39;.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">length</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span>
@@ -895,87 +906,66 @@ document.write(`
         <span class="k">return</span> <span class="n">bp</span></div>
 
 
-<div class="viewcode-block" id="InternalDebugger.hook_signal">
-<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.hook_signal">[docs]</a>
+<div class="viewcode-block" id="InternalDebugger.catch_signal">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.catch_signal">[docs]</a>
     <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_invalid_call</span><span class="p">)</span>
     <span class="nd">@change_state_function_process</span>
-    <span class="k">def</span> <span class="nf">hook_signal</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">catch_signal</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
-        <span class="n">signal_to_hook</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">callback</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">hook_hijack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignalHook</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hooks a signal in the target process.</span>
+        <span class="n">signal</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">callback</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">SignalCatcher</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignalCatcher</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Catch a signal in the target process.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            signal_to_hook (int | str): The signal to hook.</span>
-<span class="sd">            callback (Callable[[ThreadContext, int], None], optional): A callback to be called when the signal is</span>
-<span class="sd">            received. Defaults to None.</span>
-<span class="sd">            hook_hijack (bool, optional): Whether to execute the hook/hijack of the new signal after an hijack or not.</span>
-<span class="sd">            Defaults to False.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;A callback must be specified.&quot;</span><span class="p">)</span>
+<span class="sd">            signal (int | str): The signal to catch.</span>
+<span class="sd">            callback (Callable[[ThreadContext, CaughtSignal], None], optional): A callback to be called when the signal is</span>
+<span class="sd">            caught. Defaults to None.</span>
+<span class="sd">            recursive (bool, optional): Whether, when the signal is hijacked with another one, the signal catcher</span>
+<span class="sd">            associated with the new signal should be considered as well. Defaults to False.</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">signal_to_hook</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">signal_number</span> <span class="o">=</span> <span class="n">resolve_signal_number</span><span class="p">(</span><span class="n">signal_to_hook</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">signal_to_hook</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">signal_number</span> <span class="o">=</span> <span class="n">signal_to_hook</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            CaughtSignal: The CaughtSignal object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">signal_number</span> <span class="o">=</span> <span class="n">resolve_signal_number</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">signal_number</span> <span class="o">=</span> <span class="n">signal</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;signal must be an int or a str&quot;</span><span class="p">)</span>
 
         <span class="k">match</span> <span class="n">signal_number</span><span class="p">:</span>
-            <span class="k">case</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGKILL</span><span class="p">:</span>
+            <span class="k">case</span> <span class="n">SIGKILL</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Cannot hook SIGKILL (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) as it cannot be caught or ignored. This is a kernel restriction.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Cannot catch SIGKILL (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) as it cannot be caught or ignored. This is a kernel restriction.&quot;</span>
                 <span class="p">)</span>
-            <span class="k">case</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGSTOP</span><span class="p">:</span>
+            <span class="k">case</span> <span class="n">SIGSTOP</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Cannot hook SIGSTOP (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) as it is used by the debugger or ptrace for their internal operations.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Cannot catch SIGSTOP (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) as it is used by the debugger or ptrace for their internal operations.&quot;</span>
                 <span class="p">)</span>
-            <span class="k">case</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTRAP</span><span class="p">:</span>
+            <span class="k">case</span> <span class="n">SIGTRAP</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Cannot hook SIGTRAP (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) as it is used by the debugger or ptrace for their internal operations.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Cannot catch SIGTRAP (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) as it is used by the debugger or ptrace for their internal operations.&quot;</span>
                 <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">signal_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_hooks</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">signal_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">caught_signals</span><span class="p">:</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Signal </span><span class="si">{</span><span class="n">resolve_signal_name</span><span class="p">(</span><span class="n">signal_number</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) is already hooked. Overriding it.&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Signal </span><span class="si">{</span><span class="n">resolve_signal_name</span><span class="p">(</span><span class="n">signal_number</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">) has already been caught. Overriding it.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">unhook_signal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signal_hooks</span><span class="p">[</span><span class="n">signal_number</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hook_hijack</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;hook_hijack must be a boolean&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">recursive</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;recursive must be a boolean&quot;</span><span class="p">)</span>
 
-        <span class="n">hook</span> <span class="o">=</span> <span class="n">SignalHook</span><span class="p">(</span><span class="n">signal_number</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">hook_hijack</span><span class="p">)</span>
+        <span class="n">catcher</span> <span class="o">=</span> <span class="n">SignalCatcher</span><span class="p">(</span><span class="n">signal_number</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)</span>
 
-        <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">hook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">catcher</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_signal_hook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_catch_signal</span><span class="p">,</span> <span class="p">(</span><span class="n">catcher</span><span class="p">,)))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">hook</span></div>
-
-
-<div class="viewcode-block" id="InternalDebugger.unhook_signal">
-<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.unhook_signal">[docs]</a>
-    <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_invalid_call</span><span class="p">)</span>
-    <span class="nd">@change_state_function_process</span>
-    <span class="k">def</span> <span class="nf">unhook_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">SignalHook</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unhooks a signal in the target process.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            hook (SignalHook): The signal hook to unhook.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">hook</span><span class="o">.</span><span class="n">signal_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_hooks</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Signal </span><span class="si">{</span><span class="n">hook</span><span class="o">.</span><span class="n">signal_number</span><span class="si">}</span><span class="s2"> is not hooked.&quot;</span><span class="p">)</span>
-
-        <span class="n">hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_hooks</span><span class="p">[</span><span class="n">hook</span><span class="o">.</span><span class="n">signal_number</span><span class="p">]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_signal_unhook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="n">catcher</span></div>
 
 
 <div class="viewcode-block" id="InternalDebugger.hijack_signal">
@@ -986,15 +976,18 @@ document.write(`
         <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
         <span class="n">original_signal</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">new_signal</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">hook_hijack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hijacks a signal in the target process.</span>
+        <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignalCatcher</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hijack a signal in the target process.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            original_signal (int | str): The signal to hijack.</span>
-<span class="sd">            new_signal (int | str): The signal to replace the original signal with.</span>
-<span class="sd">            hook_hijack (bool, optional): Whether to execute the hook/hijack of the new signal after the hijack or not.</span>
-<span class="sd">            Defaults to True.</span>
+<span class="sd">            new_signal (int | str): The signal to hijack the original signal with.</span>
+<span class="sd">            recursive (bool, optional): Whether, when the signal is hijacked with another one, the signal catcher</span>
+<span class="sd">            associated with the new signal should be considered as well. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            CaughtSignal: The CaughtSignal object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">original_signal</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">original_signal_number</span> <span class="o">=</span> <span class="n">resolve_signal_number</span><span class="p">(</span><span class="n">original_signal</span><span class="p">)</span>
@@ -1008,101 +1001,73 @@ document.write(`
                 <span class="s2">&quot;The original signal and the new signal must be different during hijacking.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">SignalCatcher</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;The callback to execute when the signal is received.&quot;&quot;&quot;</span>
             <span class="n">thread</span><span class="o">.</span><span class="n">signal</span> <span class="o">=</span> <span class="n">new_signal_number</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hook_signal</span><span class="p">(</span><span class="n">original_signal_number</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">hook_hijack</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">catch_signal</span><span class="p">(</span><span class="n">original_signal_number</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="InternalDebugger.hook_syscall">
-<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.hook_syscall">[docs]</a>
+<div class="viewcode-block" id="InternalDebugger.handle_syscall">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.handle_syscall">[docs]</a>
     <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_invalid_call</span><span class="p">)</span>
     <span class="nd">@change_state_function_process</span>
-    <span class="k">def</span> <span class="nf">hook_syscall</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">handle_syscall</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
         <span class="n">syscall</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">on_enter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">on_exit</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">hook_hijack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyscallHook</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hooks a syscall in the target process.</span>
+        <span class="n">on_enter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">SyscallHandler</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">on_exit</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">SyscallHandler</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyscallHandler</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a syscall in the target process.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            syscall (int | str): The syscall name or number to hook.</span>
-<span class="sd">            on_enter (Callable[[ThreadContext, int], None], optional): The callback to execute when the syscall is entered. Defaults to None.</span>
-<span class="sd">            on_exit (Callable[[ThreadContext, int], None], optional): The callback to execute when the syscall is exited. Defaults to None.</span>
-<span class="sd">            hook_hijack (bool, optional): Whether the syscall after the hijack should be hooked. Defaults to True.</span>
+<span class="sd">            syscall (int | str): The syscall name or number to handle.</span>
+<span class="sd">            on_enter (Callable[[ThreadContext, HandledSyscall], None], optional): The callback to execute when the</span>
+<span class="sd">            syscall is entered. Defaults to None.</span>
+<span class="sd">            on_exit (Callable[[ThreadContext, HandledSyscall], None], optional): The callback to execute when the</span>
+<span class="sd">            syscall is exited. Defaults to None.</span>
+<span class="sd">            recursive (bool, optional): Whether, when the syscall is hijacked with another one, the syscall handler</span>
+<span class="sd">            associated with the new syscall should be considered as well. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            SyscallHook: The syscall hook object.</span>
+<span class="sd">            HandledSyscall: The HandledSyscall object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">on_enter</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">on_exit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;At least one callback between on_enter and on_exit should be specified.&quot;</span><span class="p">,</span>
-            <span class="p">)</span>
-
         <span class="n">syscall_number</span> <span class="o">=</span> <span class="n">resolve_syscall_number</span><span class="p">(</span><span class="n">syscall</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">syscall</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">syscall</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hook_hijack</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;hook_hijack must be a boolean&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">recursive</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;recursive must be a boolean&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Check if the syscall is already hooked (by the user or by the pretty print hook)</span>
-        <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">:</span>
-            <span class="n">hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">[</span><span class="n">syscall_number</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">or</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_user</span><span class="p">:</span>
+        <span class="c1"># Check if the syscall is already handled (by the user or by the pretty print handler)</span>
+        <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">:</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">[</span><span class="n">syscall_number</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">or</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_user</span><span class="p">:</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Syscall </span><span class="si">{</span><span class="n">resolve_syscall_name</span><span class="p">(</span><span class="n">syscall_number</span><span class="p">)</span><span class="si">}</span><span class="s2"> is already hooked by a user-defined hook. Overriding it.&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Syscall </span><span class="si">{</span><span class="n">resolve_syscall_name</span><span class="p">(</span><span class="n">syscall_number</span><span class="p">)</span><span class="si">}</span><span class="s2"> is already handled by a user-defined handler. Overriding it.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="o">=</span> <span class="n">on_enter</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_user</span> <span class="o">=</span> <span class="n">on_exit</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">hook_hijack</span> <span class="o">=</span> <span class="n">hook_hijack</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="o">=</span> <span class="n">on_enter</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_user</span> <span class="o">=</span> <span class="n">on_exit</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">recursive</span> <span class="o">=</span> <span class="n">recursive</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">hook</span> <span class="o">=</span> <span class="n">SyscallHook</span><span class="p">(</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">SyscallHandler</span><span class="p">(</span>
                 <span class="n">syscall_number</span><span class="p">,</span>
                 <span class="n">on_enter</span><span class="p">,</span>
                 <span class="n">on_exit</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
-                <span class="n">hook_hijack</span><span class="p">,</span>
+                <span class="n">recursive</span><span class="p">,</span>
             <span class="p">)</span>
 
-            <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">hook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_syscall_hook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_handle_syscall</span><span class="p">,</span> <span class="p">(</span><span class="n">handler</span><span class="p">,)),</span>
             <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">hook</span></div>
-
-
-<div class="viewcode-block" id="InternalDebugger.unhook_syscall">
-<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.unhook_syscall">[docs]</a>
-    <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_invalid_call</span><span class="p">)</span>
-    <span class="nd">@change_state_function_process</span>
-    <span class="k">def</span> <span class="nf">unhook_syscall</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">SyscallHook</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unhooks a syscall in the target process.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            hook (SyscallHook): The syscall hook to unhook.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">hook</span><span class="o">.</span><span class="n">syscall_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Syscall </span><span class="si">{</span><span class="n">hook</span><span class="o">.</span><span class="n">syscall_number</span><span class="si">}</span><span class="s2"> is not hooked.&quot;</span><span class="p">)</span>
-
-        <span class="n">hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">[</span><span class="n">hook</span><span class="o">.</span><span class="n">syscall_number</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="ow">or</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_pprint</span><span class="p">:</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_user</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_syscall_unhook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)),</span>
-            <span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="n">handler</span></div>
 
 
 <div class="viewcode-block" id="InternalDebugger.hijack_syscall">
@@ -1113,19 +1078,20 @@ document.write(`
         <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
         <span class="n">original_syscall</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">new_syscall</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">hook_hijack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyscallHook</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyscallHandler</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Hijacks a syscall in the target process.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            original_syscall (int | str): The syscall name or number to hijack.</span>
-<span class="sd">            new_syscall (int | str): The syscall name or number to replace the original syscall with.</span>
-<span class="sd">            hook_hijack (bool, optional): Whether the syscall after the hijack should be hooked. Defaults to True.</span>
+<span class="sd">            new_syscall (int | str): The syscall name or number to hijack the original syscall with.</span>
+<span class="sd">            recursive (bool, optional): Whether, when the syscall is hijacked with another one, the syscall handler</span>
+<span class="sd">            associated with the new syscall should be considered as well. Defaults to False.</span>
 <span class="sd">            **kwargs: (int, optional): The arguments to pass to the new syscall.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            SyscallHook: The syscall hook object.</span>
+<span class="sd">            HandledSyscall: The HandledSyscall object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-</span> <span class="n">syscall_hijacking_provider</span><span class="p">()</span><span class="o">.</span><span class="n">allowed_args</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid keyword arguments in syscall hijack&quot;</span><span class="p">)</span>
@@ -1147,49 +1113,49 @@ document.write(`
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Check if the syscall is already hooked (by the user or by the pretty print hook)</span>
-        <span class="k">if</span> <span class="n">original_syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">:</span>
-            <span class="n">hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">[</span><span class="n">original_syscall_number</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">or</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_user</span><span class="p">:</span>
+        <span class="c1"># Check if the syscall is already handled (by the user or by the pretty print handler)</span>
+        <span class="k">if</span> <span class="n">original_syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">:</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">[</span><span class="n">original_syscall_number</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">or</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_user</span><span class="p">:</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Syscall </span><span class="si">{</span><span class="n">original_syscall_number</span><span class="si">}</span><span class="s2"> is already hooked by a user-defined hook. Overriding it.&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;Syscall </span><span class="si">{</span><span class="n">original_syscall_number</span><span class="si">}</span><span class="s2"> is already handled by a user-defined handler. Overriding it.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="o">=</span> <span class="n">on_enter</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_user</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">hook_hijack</span> <span class="o">=</span> <span class="n">hook_hijack</span>
-            <span class="n">hook</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="o">=</span> <span class="n">on_enter</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_user</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">recursive</span> <span class="o">=</span> <span class="n">recursive</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">hook</span> <span class="o">=</span> <span class="n">SyscallHook</span><span class="p">(</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">SyscallHandler</span><span class="p">(</span>
                 <span class="n">original_syscall_number</span><span class="p">,</span>
                 <span class="n">on_enter</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
-                <span class="n">hook_hijack</span><span class="p">,</span>
+                <span class="n">recursive</span><span class="p">,</span>
             <span class="p">)</span>
 
-            <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">hook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_syscall_hook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_handle_syscall</span><span class="p">,</span> <span class="p">(</span><span class="n">handler</span><span class="p">,)),</span>
             <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">hook</span></div>
+        <span class="k">return</span> <span class="n">handler</span></div>
 
 
-<div class="viewcode-block" id="InternalDebugger.migrate_to_gdb">
-<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.migrate_to_gdb">[docs]</a>
+<div class="viewcode-block" id="InternalDebugger.gdb">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.gdb">[docs]</a>
     <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_invalid_call</span><span class="p">)</span>
     <span class="nd">@change_state_function_process</span>
-    <span class="k">def</span> <span class="nf">migrate_to_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Migrates the current debugging session to GDB.&quot;&quot;&quot;</span>
 
         <span class="c1"># TODO: not needed?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interrupt</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_migrate_to_gdb</span><span class="p">,</span> <span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_gdb</span><span class="p">,</span> <span class="p">()))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
@@ -1204,11 +1170,7 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_migrate_from_gdb</span><span class="p">,</span> <span class="p">()))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
-
-        <span class="c1"># We have to ignore a SIGSTOP signal that is sent by GDB</span>
-        <span class="c1"># TODO: once we have signal handling, we should remove this</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
 
 
     <span class="k">def</span> <span class="nf">_craft_gdb_migration_command</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -1240,7 +1202,7 @@ document.write(`
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;b *&quot;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">))</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instruction_pointer</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instruction_pointer</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">address</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
                     <span class="c1"># We have to enqueue an additional continue</span>
                     <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-ex&quot;</span><span class="p">)</span>
                     <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;ni&quot;</span><span class="p">)</span>
@@ -1282,7 +1244,14 @@ document.write(`
             <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_command</span><span class="p">()</span>
             <span class="n">os</span><span class="o">.</span><span class="n">execv</span><span class="p">(</span><span class="s2">&quot;/bin/gdb&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># This is the parent process.</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">waitpid</span><span class="p">(</span><span class="n">gdb_pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Wait for the child process to finish.</span>
+            <span class="c1"># Parent ignores SIGINT, so only GDB (child) receives it</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
+
+            <span class="c1"># Wait for the child process to finish</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">waitpid</span><span class="p">(</span><span class="n">gdb_pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># Reset the SIGINT behavior to default handling after child exits</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_DFL</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_background_step</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes a single instruction of the process.</span>
@@ -1314,7 +1283,7 @@ document.write(`
         <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span>
         <span class="n">position</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes instructions of the process until the specified location is reached.</span>
 
@@ -1322,7 +1291,7 @@ document.write(`
 <span class="sd">            thread (ThreadContext): The thread to step. Defaults to None.</span>
 <span class="sd">            position (int | bytes): The location to reach.</span>
 <span class="sd">            max_steps (int, optional): The maximum number of steps to execute. Defaults to -1.</span>
-<span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;default&quot;</span>
+<span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;hybrid&quot;</span>
 <span class="sd">            (libdebug will first try to solve the address as an absolute address, then as a relative address w.r.t.</span>
 <span class="sd">            the &quot;binary&quot; map file).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1342,7 +1311,7 @@ document.write(`
         <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span>
         <span class="n">position</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes instructions of the process until the specified location is reached.</span>
 
@@ -1350,7 +1319,7 @@ document.write(`
 <span class="sd">            thread (ThreadContext): The thread to step. Defaults to None.</span>
 <span class="sd">            position (int | bytes): The location to reach.</span>
 <span class="sd">            max_steps (int, optional): The maximum number of steps to execute. Defaults to -1.</span>
-<span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;default&quot;</span>
+<span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;hybrid&quot;</span>
 <span class="sd">            (libdebug will first try to solve the address as an absolute address, then as a relative address w.r.t.</span>
 <span class="sd">            the &quot;binary&quot; map file).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1413,29 +1382,29 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.enable_pretty_print">[docs]</a>
     <span class="k">def</span> <span class="nf">enable_pretty_print</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyscallHook</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hooks a syscall in the target process to pretty prints its arguments and return value.&quot;&quot;&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyscallHandler</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handles a syscall in the target process to pretty prints its arguments and return value.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
 
         <span class="n">syscall_numbers</span> <span class="o">=</span> <span class="n">get_all_syscall_numbers</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="n">syscall_numbers</span><span class="p">:</span>
-            <span class="c1"># Check if the syscall is already hooked (by the user or by the pretty print hook)</span>
-            <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">:</span>
-                <span class="n">hook</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="p">[</span><span class="n">syscall_number</span><span class="p">]</span>
+            <span class="c1"># Check if the syscall is already handled (by the user or by the pretty print handler)</span>
+            <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">:</span>
+                <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">[</span><span class="n">syscall_number</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_not_pprint</span> <span class="ow">or</span> <span class="p">[])</span> <span class="ow">and</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_pprint</span> <span class="ow">or</span> <span class="n">syscall_numbers</span>
                 <span class="p">):</span>
-                    <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="o">=</span> <span class="n">pprint_on_enter</span>
-                    <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_pprint</span> <span class="o">=</span> <span class="n">pprint_on_exit</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="o">=</span> <span class="n">pprint_on_enter</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_pprint</span> <span class="o">=</span> <span class="n">pprint_on_exit</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># Remove the pretty print hook from previous pretty print calls</span>
-                    <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="o">=</span> <span class="kc">None</span>
-                    <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_pprint</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="c1"># Remove the pretty print handler from previous pretty print calls</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_pprint</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">elif</span> <span class="n">syscall_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_not_pprint</span> <span class="ow">or</span> <span class="p">[])</span> <span class="ow">and</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">syscalls_to_pprint</span> <span class="ow">or</span> <span class="n">syscall_numbers</span>
             <span class="p">):</span>
-                <span class="n">hook</span> <span class="o">=</span> <span class="n">SyscallHook</span><span class="p">(</span>
+                <span class="n">handler</span> <span class="o">=</span> <span class="n">SyscallHandler</span><span class="p">(</span>
                     <span class="n">syscall_number</span><span class="p">,</span>
                     <span class="kc">None</span><span class="p">,</span>
                     <span class="kc">None</span><span class="p">,</span>
@@ -1443,10 +1412,13 @@ document.write(`
                     <span class="n">pprint_on_exit</span><span class="p">,</span>
                 <span class="p">)</span>
 
-                <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">hook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+                <span class="c1"># We have to disable the handler since it is not user-defined</span>
+                <span class="n">handler</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_syscall_hook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)),</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_handle_syscall</span><span class="p">,</span> <span class="p">(</span><span class="n">handler</span><span class="p">,)),</span>
                 <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
@@ -1455,18 +1427,18 @@ document.write(`
 <div class="viewcode-block" id="InternalDebugger.disable_pretty_print">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.disable_pretty_print">[docs]</a>
     <span class="k">def</span> <span class="nf">disable_pretty_print</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unhooks all syscalls that are pretty printed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disable the handler for all the syscalls that are pretty printed.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
 
-        <span class="n">installed_hooks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">syscall_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">installed_hooks</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="ow">or</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_pprint</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">or</span> <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_user</span><span class="p">:</span>
-                    <span class="n">hook</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="o">=</span> <span class="kc">None</span>
-                    <span class="n">hook</span><span class="o">.</span><span class="n">on_exit_pprint</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">installed_handlers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">installed_handlers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="ow">or</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_pprint</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">or</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_user</span><span class="p">:</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_pprint</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_pprint</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_syscall_unhook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)),</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_unhandle_syscall</span><span class="p">,</span> <span class="p">(</span><span class="n">handler</span><span class="p">,)),</span>
                     <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
@@ -1544,7 +1516,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">backing_file</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">backing_file</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;hybrid&quot;</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">check_absolute_address</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
                 <span class="c1"># If the address is absolute, we can return it directly</span>
                 <span class="k">return</span> <span class="n">address</span>
@@ -1557,8 +1529,8 @@ document.write(`
                 <span class="c1"># If the address was not found and the backing file is not &quot;absolute&quot;,</span>
                 <span class="c1"># we have to assume it is in the main map</span>
                 <span class="n">backing_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_full_path</span><span class="p">()</span>
-                <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;No backing file specified and no correspondant absolute address for </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">address</span><span class="p">)</span><span class="si">}</span><span class="s2">. Assuming </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;No backing file specified and no corresponding absolute address found for </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">address</span><span class="p">)</span><span class="si">}</span><span class="s2">. Assuming </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
         <span class="k">elif</span> <span class="p">(</span>
             <span class="n">backing_file</span> <span class="o">==</span> <span class="p">(</span><span class="n">full_backing_path</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_full_path</span><span class="p">())</span>
@@ -1577,11 +1549,13 @@ document.write(`
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The substring </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> is present in multiple, different backing files. The address resolution cannot be accurate.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;The substring </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> is present in multiple, different backing files. The address resolution cannot be accurate. The matching backing files are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_files</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">filtered_maps</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The specified string </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> does not correspond to any backing file.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The specified string </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> does not correspond to any backing file. The available backing files are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">backing_file</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vmap</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">maps</span><span class="p">))</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">normalize_and_validate_address</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">filtered_maps</span><span class="p">)</span></div>
 
 
@@ -1602,7 +1576,7 @@ document.write(`
         <span class="k">if</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="s2">&quot;absolute&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use `absolute` backing file with symbols.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">:</span>
             <span class="c1"># If no explicit backing file is specified, we have to assume it is in the main map</span>
             <span class="n">backing_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_full_path</span><span class="p">()</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No backing file specified for the symbol </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2">. Assuming </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
@@ -1623,11 +1597,13 @@ document.write(`
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The substring </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> is present in multiple, different backing files. The address resolution cannot be accurate.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;The substring </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> is present in multiple, different backing files. The address resolution cannot be accurate. The matching backing files are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_files</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">filtered_maps</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The specified string </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> does not correspond to any backing file.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The specified string </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> does not correspond to any backing file. The available backing files are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">backing_file</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vmap</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">maps</span><span class="p">))</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">resolve_symbol_in_maps</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">filtered_maps</span><span class="p">)</span></div>
 
@@ -1776,23 +1752,19 @@ document.write(`
         <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Setting breakpoint at 0x</span><span class="si">%x</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">set_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__threaded_syscall_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">SyscallHook</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hooking syscall </span><span class="si">{</span><span class="n">hook</span><span class="o">.</span><span class="n">syscall_number</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">set_syscall_hook</span><span class="p">(</span><span class="n">hook</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__threaded_signal_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">SignalHook</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__threaded_catch_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">catcher</span><span class="p">:</span> <span class="n">SignalCatcher</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Hooking signal </span><span class="si">{</span><span class="n">resolve_signal_name</span><span class="p">(</span><span class="n">hook</span><span class="o">.</span><span class="n">signal_number</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">hook</span><span class="o">.</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;Setting the catcher for signal </span><span class="si">{</span><span class="n">resolve_signal_name</span><span class="p">(</span><span class="n">catcher</span><span class="o">.</span><span class="n">signal_number</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">catcher</span><span class="o">.</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">set_signal_hook</span><span class="p">(</span><span class="n">hook</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">set_signal_catcher</span><span class="p">(</span><span class="n">catcher</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__threaded_syscall_unhook</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">SyscallHook</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unhooking syscall </span><span class="si">{</span><span class="n">hook</span><span class="o">.</span><span class="n">syscall_number</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">unset_syscall_hook</span><span class="p">(</span><span class="n">hook</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__threaded_handle_syscall</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">handler</span><span class="p">:</span> <span class="n">SyscallHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting the handler for syscall </span><span class="si">{</span><span class="n">handler</span><span class="o">.</span><span class="n">syscall_number</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">set_syscall_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__threaded_signal_unhook</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">SignalHook</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unhooking syscall </span><span class="si">{</span><span class="n">hook</span><span class="o">.</span><span class="n">signal_number</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">unset_signal_hook</span><span class="p">(</span><span class="n">hook</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__threaded_unhandle_syscall</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">handler</span><span class="p">:</span> <span class="n">SyscallHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsetting the handler for syscall </span><span class="si">{</span><span class="n">handler</span><span class="o">.</span><span class="n">syscall_number</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">unset_syscall_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__threaded_step</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Stepping thread </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span>
@@ -1817,7 +1789,7 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_stopped</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__threaded_migrate_to_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__threaded_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">migrate_to_gdb</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__threaded_migrate_from_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1888,7 +1860,7 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_enable_antidebug_escaping</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Enables the anti-debugging escape mechanism.&quot;&quot;&quot;</span>
-        <span class="n">hook</span> <span class="o">=</span> <span class="n">SyscallHook</span><span class="p">(</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">SyscallHandler</span><span class="p">(</span>
             <span class="n">resolve_syscall_number</span><span class="p">(</span><span class="s2">&quot;ptrace&quot;</span><span class="p">),</span>
             <span class="n">on_enter_ptrace</span><span class="p">,</span>
             <span class="n">on_exit_ptrace</span><span class="p">,</span>
@@ -1896,13 +1868,13 @@ document.write(`
             <span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">hook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_syscall_hook</span><span class="p">,</span> <span class="p">(</span><span class="n">hook</span><span class="p">,)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_handle_syscall</span><span class="p">,</span> <span class="p">(</span><span class="n">handler</span><span class="p">,)))</span>
 
-        <span class="c1"># setup hidden state for the hook</span>
-        <span class="n">hook</span><span class="o">.</span><span class="n">_traceme_called</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">hook</span><span class="o">.</span><span class="n">_command</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Seutp hidden state for the handler</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">_traceme_called</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">_command</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">running</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1956,8 +1928,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1990,7 +1962,7 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
 </p></div>
       
     </div>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug.debugger package &#8212; libdebug 0.5.0 documentation</title>
+    <title>libdebug.debugger package &#8212; libdebug 0.5.2 documentation</title>
   
   
   
@@ -18,28 +18,26 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="_static/code-tabs.css?v=1bc26e2f" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script src="_static/documentation_options.js?v=1dd76d02"></script>
+    <script src="_static/documentation_options.js?v=8e576371"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/code-tabs.js?v=c983d12e"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'libdebug.debugger';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -100,7 +98,7 @@
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -110,8 +108,6 @@
       <div class="navbar-item">
 
   
-    
-  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -120,7 +116,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.0 documentation</p>
+    <p class="title logo__title">libdebug 0.5.2 documentation</p>
   
 </a></div>
     
@@ -131,64 +127,71 @@
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
-<nav>
+<nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="multithreading.html">
     Multithreading
   </a>
 </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown pst-header-nav-item">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-<li class=" ">
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class=" ">
+<li class="nav-item ">
   <a class="nav-link dropdown-item nav-internal" href="logging.html">
     Logging
   </a>
 </li>
 
 
-<li class=" current active">
+<li class="nav-item ">
+  <a class="nav-link dropdown-item nav-internal" href="examples.html">
+    Code Examples
+  </a>
+</li>
+
+
+<li class="nav-item  current active">
   <a class="nav-link dropdown-item nav-internal" href="libdebug.html">
     libdebug package
   </a>
@@ -210,7 +213,7 @@
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -224,10 +227,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -241,7 +244,7 @@ document.write(`
 
  <script>
  document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -252,7 +255,7 @@ document.write(`
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -278,59 +281,66 @@ document.write(`
           
           
             <div class="navbar-item">
-<nav>
+<nav class="navbar-nav">
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="multithreading.html">
     Multithreading
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class="nav-item pst-header-nav-item">
   <a class="nav-link nav-internal" href="logging.html">
     Logging
   </a>
 </li>
 
 
-<li class="nav-item current active">
+<li class="nav-item pst-header-nav-item">
+  <a class="nav-link nav-internal" href="examples.html">
+    Code Examples
+  </a>
+</li>
+
+
+<li class="nav-item pst-header-nav-item current active">
   <a class="nav-link nav-internal" href="libdebug.html">
     libdebug package
   </a>
@@ -350,10 +360,10 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -522,7 +532,7 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.breakpoint">
-<span class="sig-name descname"><span class="pre">breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hardware</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.breakpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.breakpoint" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hardware</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hybrid'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.breakpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.breakpoint" title="Link to this definition">#</a></dt>
 <dd><p>Sets a breakpoint at the specified location.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -534,7 +544,7 @@ This method should only be called to free up resources when the debugger object 
 <li><p><strong>length</strong> (<em>int</em><em>, </em><em>optional</em>) – The length of the breakpoint. Only for watchpoints. Defaults to 1.</p></li>
 <li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><em>Breakpoint</em></a><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the</p></li>
 <li><p><strong>None.</strong> (<em>breakpoint is hit. Defaults to</em>)</p></li>
-<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “default”</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “hybrid”</p></li>
 <li><p><strong>address</strong> (<em>(</em><em>libdebug will first try to solve the address as an absolute</em>)</p></li>
 <li><p><strong>w.r.t.</strong> (<em>then as a relative address</em>)</p></li>
 <li><p><strong>file</strong><strong>)</strong><strong>.</strong> (<em>the &quot;binary&quot; map</em>)</p></li>
@@ -545,18 +555,18 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.watchpoint">
-<span class="sig-name descname"><span class="pre">watchpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.watchpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.watchpoint" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">watchpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hybrid'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.watchpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.watchpoint" title="Link to this definition">#</a></dt>
 <dd><p>Sets a watchpoint at the specified location. Internally, watchpoints are implemented as breakpoints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>position</strong> (<em>int</em><em> | </em><em>bytes</em>) – The location of the breakpoint.</p></li>
-<li><p><strong>condition</strong> (<em>str</em><em>, </em><em>optional</em>) – The trigger condition for the watchpoint (either “r”, “rw” or “x”).</p></li>
+<li><p><strong>condition</strong> (<em>str</em><em>, </em><em>optional</em>) – The trigger condition for the watchpoint (either “w”, “rw” or “x”).</p></li>
 <li><p><strong>&quot;w&quot;.</strong> (<em>Defaults to</em>)</p></li>
 <li><p><strong>length</strong> (<em>int</em><em>, </em><em>optional</em>) – The size of the word in being watched (1, 2, 4 or 8). Defaults to 1.</p></li>
 <li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><em>Breakpoint</em></a><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the</p></li>
 <li><p><strong>None.</strong> (<em>watchpoint is hit. Defaults to</em>)</p></li>
-<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “default”</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “hybrid”</p></li>
 <li><p><strong>address</strong> (<em>(</em><em>libdebug will first try to solve the address as an absolute</em>)</p></li>
 <li><p><strong>w.r.t.</strong> (<em>then as a relative address</em>)</p></li>
 <li><p><strong>file</strong><strong>)</strong><strong>.</strong> (<em>the &quot;binary&quot; map</em>)</p></li>
@@ -566,104 +576,101 @@ This method should only be called to free up resources when the debugger object 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.hook_signal">
-<span class="sig-name descname"><span class="pre">hook_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_to_hook</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SignalHook</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.hook_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.hook_signal" title="Link to this definition">#</a></dt>
-<dd><p>Hooks a signal in the target process.</p>
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.catch_signal">
+<span class="sig-name descname"><span class="pre">catch_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher" title="libdebug.data.signal_catcher.SignalCatcher"><span class="pre">SignalCatcher</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher" title="libdebug.data.signal_catcher.SignalCatcher"><span class="pre">SignalCatcher</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.catch_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.catch_signal" title="Link to this definition">#</a></dt>
+<dd><p>Catch a signal in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>signal_to_hook</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to hook.</p></li>
-<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the signal is received. Defaults to None.</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to execute the hook/hijack of the new signal after an hijack or not. Defaults to False.</p></li>
+<li><p><strong>signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to catch.</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>CaughtSignal</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the signal</p></li>
+<li><p><strong>None.</strong> (<em>is caught. Defaults to</em>)</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the signal is hijacked with another one, the signal catcher</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new signal should be considered as well. Defaults to</em>)</p></li>
 </ul>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.unhook_signal">
-<span class="sig-name descname"><span class="pre">unhook_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SignalHook</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.unhook_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.unhook_signal" title="Link to this definition">#</a></dt>
-<dd><p>Unhooks a signal in the target process.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>hook</strong> (<em>SignalHook</em>) – The signal hook to unhook.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The CaughtSignal object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaughtSignal</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.hijack_signal">
-<span class="sig-name descname"><span class="pre">hijack_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.hijack_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.hijack_signal" title="Link to this definition">#</a></dt>
-<dd><p>Hijacks a signal in the target process.</p>
+<span class="sig-name descname"><span class="pre">hijack_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.hijack_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.hijack_signal" title="Link to this definition">#</a></dt>
+<dd><p>Hijack a signal in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>original_signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to hijack.</p></li>
-<li><p><strong>new_signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to replace the original signal with.</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to execute the hook/hijack of the new signal after the hijack or not. Defaults to True.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.hook_syscall">
-<span class="sig-name descname"><span class="pre">hook_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_enter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_exit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SyscallHook</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.hook_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.hook_syscall" title="Link to this definition">#</a></dt>
-<dd><p>Hooks a syscall in the target process.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to hook.</p></li>
-<li><p><strong>on_enter</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the syscall is entered. Defaults to None.</p></li>
-<li><p><strong>on_exit</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the syscall is exited. Defaults to None.</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the syscall after the hijack should be hooked. Defaults to True.</p></li>
+<li><p><strong>new_signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to hijack the original signal with.</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the signal is hijacked with another one, the signal catcher</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new signal should be considered as well. Defaults to</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The syscall hook object.</p>
+<dd class="field-even"><p>The CaughtSignal object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>SyscallHook</p>
+<dd class="field-odd"><p>CaughtSignal</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.unhook_syscall">
-<span class="sig-name descname"><span class="pre">unhook_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SyscallHook</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.unhook_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.unhook_syscall" title="Link to this definition">#</a></dt>
-<dd><p>Unhooks a syscall in the target process.</p>
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.handle_syscall">
+<span class="sig-name descname"><span class="pre">handle_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_enter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_exit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.handle_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.handle_syscall" title="Link to this definition">#</a></dt>
+<dd><p>Handle a syscall in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>hook</strong> (<em>SyscallHook</em>) – The syscall hook to unhook.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to handle.</p></li>
+<li><p><strong>on_enter</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>HandledSyscall</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the</p></li>
+<li><p><strong>None.</strong> (<em>syscall is exited. Defaults to</em>)</p></li>
+<li><p><strong>on_exit</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>HandledSyscall</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the</p></li>
+<li><p><strong>None.</strong></p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the syscall is hijacked with another one, the syscall handler</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new syscall should be considered as well. Defaults to</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The HandledSyscall object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HandledSyscall</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.hijack_syscall">
-<span class="sig-name descname"><span class="pre">hijack_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SyscallHook</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.hijack_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.hijack_syscall" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">hijack_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.hijack_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.hijack_syscall" title="Link to this definition">#</a></dt>
 <dd><p>Hijacks a syscall in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>original_syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to hijack.</p></li>
-<li><p><strong>new_syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to replace the original syscall with.</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the syscall after the hijack should be hooked. Defaults to True.</p></li>
+<li><p><strong>new_syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to hijack the original syscall with.</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the syscall is hijacked with another one, the syscall handler</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new syscall should be considered as well. Defaults to</em>)</p></li>
 <li><p><strong>**kwargs</strong> – (int, optional): The arguments to pass to the new syscall.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The syscall hook object.</p>
+<dd class="field-even"><p>The HandledSyscall object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>SyscallHook</p>
+<dd class="field-odd"><p>HandledSyscall</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.migrate_to_gdb">
-<span class="sig-name descname"><span class="pre">migrate_to_gdb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_in_new_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.migrate_to_gdb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.migrate_to_gdb" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.gdb">
+<span class="sig-name descname"><span class="pre">gdb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_in_new_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.gdb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.gdb" title="Link to this definition">#</a></dt>
 <dd><p>Migrates the current debugging session to GDB.</p>
 </dd></dl>
 
@@ -697,7 +704,7 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.bp">
-<span class="sig-name descname"><span class="pre">bp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hardware</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.bp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.bp" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hardware</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hybrid'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.bp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.bp" title="Link to this definition">#</a></dt>
 <dd><p>Alias for the <cite>breakpoint</cite> method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -709,7 +716,7 @@ This method should only be called to free up resources when the debugger object 
 <li><p><strong>length</strong> (<em>int</em><em>, </em><em>optional</em>) – The length of the breakpoint. Only for watchpoints. Defaults to 1.</p></li>
 <li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><em>Breakpoint</em></a><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the</p></li>
 <li><p><strong>None.</strong> (<em>breakpoint is hit. Defaults to</em>)</p></li>
-<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “default”</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “hybrid”</p></li>
 <li><p><strong>address</strong> (<em>(</em><em>libdebug will first try to solve the address as an absolute</em>)</p></li>
 <li><p><strong>w.r.t.</strong> (<em>then as a relative address</em>)</p></li>
 <li><p><strong>file</strong><strong>)</strong><strong>.</strong> (<em>the &quot;binary&quot; map</em>)</p></li>
@@ -720,19 +727,19 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.wp">
-<span class="sig-name descname"><span class="pre">wp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.wp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.wp" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">wp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hybrid'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.wp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.wp" title="Link to this definition">#</a></dt>
 <dd><p>Alias for the <cite>watchpoint</cite> method.</p>
 <p>Sets a watchpoint at the specified location. Internally, watchpoints are implemented as breakpoints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>position</strong> (<em>int</em><em> | </em><em>bytes</em>) – The location of the breakpoint.</p></li>
-<li><p><strong>condition</strong> (<em>str</em><em>, </em><em>optional</em>) – The trigger condition for the watchpoint (either “r”, “rw” or “x”).</p></li>
+<li><p><strong>condition</strong> (<em>str</em><em>, </em><em>optional</em>) – The trigger condition for the watchpoint (either “w”, “rw” or “x”).</p></li>
 <li><p><strong>&quot;w&quot;.</strong> (<em>Defaults to</em>)</p></li>
 <li><p><strong>length</strong> (<em>int</em><em>, </em><em>optional</em>) – The size of the word in being watched (1, 2, 4 or 8). Defaults to 1.</p></li>
 <li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><em>Breakpoint</em></a><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the</p></li>
 <li><p><strong>None.</strong> (<em>watchpoint is hit. Defaults to</em>)</p></li>
-<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “default”</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “hybrid”</p></li>
 <li><p><strong>address</strong> (<em>(</em><em>libdebug will first try to solve the address as an absolute</em>)</p></li>
 <li><p><strong>w.r.t.</strong> (<em>then as a relative address</em>)</p></li>
 <li><p><strong>file</strong><strong>)</strong><strong>.</strong> (<em>the &quot;binary&quot; map</em>)</p></li>
@@ -748,48 +755,35 @@ This method should only be called to free up resources when the debugger object 
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.memory">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_view.MemoryView" title="libdebug.data.memory_view.MemoryView"><span class="pre">MemoryView</span></a></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.memory" title="Link to this definition">#</a></dt>
-<dd><p>Get the memory view of the process.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.mem">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mem</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_view.MemoryView" title="libdebug.data.memory_view.MemoryView"><span class="pre">MemoryView</span></a></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.mem" title="Link to this definition">#</a></dt>
-<dd><p>Alias for the <cite>memory</cite> property.</p>
-<p>Get the memory view of the process.</p>
-</dd></dl>
-
-<dl class="py property">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.breakpoints">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">breakpoints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.breakpoints" title="Link to this definition">#</a></dt>
 <dd><p>Get the breakpoints set on the process.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_hooks">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_hooks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SyscallHook</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_hooks" title="Link to this definition">#</a></dt>
-<dd><p>Get the syscall hooks dictionary.</p>
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.handled_syscalls">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handled_syscalls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.handled_syscalls" title="Link to this definition">#</a></dt>
+<dd><p>Get the handled syscalls dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the syscall hooks dictionary.</p>
+<dd class="field-odd"><p>the handled syscalls dictionary.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict[int, SyscallHook]</p>
+<dd class="field-even"><p>dict[int, HandledSyscall]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.signal_hooks">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signal_hooks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SignalHook</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.signal_hooks" title="Link to this definition">#</a></dt>
-<dd><p>Get the signal hooks dictionary.</p>
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.caught_signals">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">caught_signals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher" title="libdebug.data.signal_catcher.SignalCatcher"><span class="pre">SignalCatcher</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.caught_signals" title="Link to this definition">#</a></dt>
+<dd><p>Get the caught signals dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the signal hooks dictionary.</p>
+<dd class="field-odd"><p>the caught signals dictionary.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict[int, SignalHook]</p>
+<dd class="field-even"><p>dict[int, CaughtSignal]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -930,16 +924,16 @@ Key: the address of the breakpoint.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.syscall_hooks">
-<span class="sig-name descname"><span class="pre">syscall_hooks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SyscallHook</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.syscall_hooks" title="Link to this definition">#</a></dt>
-<dd><p>A dictionary of all the syscall hooks set on the process.
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.handled_syscalls">
+<span class="sig-name descname"><span class="pre">handled_syscalls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.handled_syscalls" title="Link to this definition">#</a></dt>
+<dd><p>A dictionary of all the syscall handled in the process.
 Key: the syscall number.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.signal_hooks">
-<span class="sig-name descname"><span class="pre">signal_hooks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SignalHook</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.signal_hooks" title="Link to this definition">#</a></dt>
-<dd><p>A dictionary of all the signal hooks set on the process.
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.caught_signals">
+<span class="sig-name descname"><span class="pre">caught_signals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher" title="libdebug.data.signal_catcher.SignalCatcher"><span class="pre">SignalCatcher</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.caught_signals" title="Link to this definition">#</a></dt>
+<dd><p>A dictionary of all the signals caught in the process.
 Key: the signal number.</p>
 </dd></dl>
 
@@ -1084,7 +1078,7 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.breakpoint">
-<span class="sig-name descname"><span class="pre">breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hardware</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.breakpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.breakpoint" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hardware</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hybrid'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.breakpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.breakpoint" title="Link to this definition">#</a></dt>
 <dd><p>Sets a breakpoint at the specified location.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1096,7 +1090,7 @@ This method should only be called to free up resources when the debugger object 
 <li><p><strong>length</strong> (<em>int</em><em>, </em><em>optional</em>) – The length of the breakpoint. Only for watchpoints. Defaults to 1.</p></li>
 <li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><em>Breakpoint</em></a><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the</p></li>
 <li><p><strong>None.</strong> (<em>breakpoint is hit. Defaults to</em>)</p></li>
-<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “default”</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “hybrid”</p></li>
 <li><p><strong>address</strong> (<em>(</em><em>libdebug will first try to solve the address as an absolute</em>)</p></li>
 <li><p><strong>w.r.t.</strong> (<em>then as a relative address</em>)</p></li>
 <li><p><strong>file</strong><strong>)</strong><strong>.</strong> (<em>the &quot;binary&quot; map</em>)</p></li>
@@ -1106,107 +1100,101 @@ This method should only be called to free up resources when the debugger object 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.hook_signal">
-<span class="sig-name descname"><span class="pre">hook_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal_to_hook</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SignalHook</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.hook_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.hook_signal" title="Link to this definition">#</a></dt>
-<dd><p>Hooks a signal in the target process.</p>
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.catch_signal">
+<span class="sig-name descname"><span class="pre">catch_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher" title="libdebug.data.signal_catcher.SignalCatcher"><span class="pre">SignalCatcher</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher" title="libdebug.data.signal_catcher.SignalCatcher"><span class="pre">SignalCatcher</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.catch_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.catch_signal" title="Link to this definition">#</a></dt>
+<dd><p>Catch a signal in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>signal_to_hook</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to hook.</p></li>
-<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the signal is</p></li>
-<li><p><strong>None.</strong> (<em>received. Defaults to</em>)</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to execute the hook/hijack of the new signal after an hijack or not.</p></li>
-<li><p><strong>False.</strong> (<em>Defaults to</em>)</p></li>
+<li><p><strong>signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to catch.</p></li>
+<li><p><strong>callback</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>CaughtSignal</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – A callback to be called when the signal is</p></li>
+<li><p><strong>None.</strong> (<em>caught. Defaults to</em>)</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the signal is hijacked with another one, the signal catcher</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new signal should be considered as well. Defaults to</em>)</p></li>
 </ul>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.unhook_signal">
-<span class="sig-name descname"><span class="pre">unhook_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SignalHook</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.unhook_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.unhook_signal" title="Link to this definition">#</a></dt>
-<dd><p>Unhooks a signal in the target process.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>hook</strong> (<em>SignalHook</em>) – The signal hook to unhook.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The CaughtSignal object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CaughtSignal</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.hijack_signal">
-<span class="sig-name descname"><span class="pre">hijack_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.hijack_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.hijack_signal" title="Link to this definition">#</a></dt>
-<dd><p>Hijacks a signal in the target process.</p>
+<span class="sig-name descname"><span class="pre">hijack_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher" title="libdebug.data.signal_catcher.SignalCatcher"><span class="pre">SignalCatcher</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.hijack_signal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.hijack_signal" title="Link to this definition">#</a></dt>
+<dd><p>Hijack a signal in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>original_signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to hijack.</p></li>
-<li><p><strong>new_signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to replace the original signal with.</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to execute the hook/hijack of the new signal after the hijack or not.</p></li>
-<li><p><strong>True.</strong> (<em>Defaults to</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.hook_syscall">
-<span class="sig-name descname"><span class="pre">hook_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_enter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_exit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SyscallHook</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.hook_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.hook_syscall" title="Link to this definition">#</a></dt>
-<dd><p>Hooks a syscall in the target process.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to hook.</p></li>
-<li><p><strong>on_enter</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the syscall is entered. Defaults to None.</p></li>
-<li><p><strong>on_exit</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>int</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the syscall is exited. Defaults to None.</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the syscall after the hijack should be hooked. Defaults to True.</p></li>
+<li><p><strong>new_signal</strong> (<em>int</em><em> | </em><em>str</em>) – The signal to hijack the original signal with.</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the signal is hijacked with another one, the signal catcher</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new signal should be considered as well. Defaults to</em>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The syscall hook object.</p>
+<dd class="field-even"><p>The CaughtSignal object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>SyscallHook</p>
+<dd class="field-odd"><p>CaughtSignal</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.unhook_syscall">
-<span class="sig-name descname"><span class="pre">unhook_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hook</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SyscallHook</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.unhook_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.unhook_syscall" title="Link to this definition">#</a></dt>
-<dd><p>Unhooks a syscall in the target process.</p>
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.handle_syscall">
+<span class="sig-name descname"><span class="pre">handle_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_enter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_exit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.handle_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.handle_syscall" title="Link to this definition">#</a></dt>
+<dd><p>Handle a syscall in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>hook</strong> (<em>SyscallHook</em>) – The syscall hook to unhook.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to handle.</p></li>
+<li><p><strong>on_enter</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>HandledSyscall</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the</p></li>
+<li><p><strong>None.</strong> (<em>syscall is exited. Defaults to</em>)</p></li>
+<li><p><strong>on_exit</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a><em>, </em><em>HandledSyscall</em><em>]</em><em>, </em><em>None</em><em>]</em><em>, </em><em>optional</em>) – The callback to execute when the</p></li>
+<li><p><strong>None.</strong></p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the syscall is hijacked with another one, the syscall handler</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new syscall should be considered as well. Defaults to</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The HandledSyscall object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HandledSyscall</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.hijack_syscall">
-<span class="sig-name descname"><span class="pre">hijack_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hook_hijack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SyscallHook</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.hijack_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.hijack_syscall" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">hijack_syscall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recursive</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.hijack_syscall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.hijack_syscall" title="Link to this definition">#</a></dt>
 <dd><p>Hijacks a syscall in the target process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>original_syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to hijack.</p></li>
-<li><p><strong>new_syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to replace the original syscall with.</p></li>
-<li><p><strong>hook_hijack</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the syscall after the hijack should be hooked. Defaults to True.</p></li>
+<li><p><strong>new_syscall</strong> (<em>int</em><em> | </em><em>str</em>) – The syscall name or number to hijack the original syscall with.</p></li>
+<li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether, when the syscall is hijacked with another one, the syscall handler</p></li>
+<li><p><strong>False.</strong> (<em>associated with the new syscall should be considered as well. Defaults to</em>)</p></li>
 <li><p><strong>**kwargs</strong> – (int, optional): The arguments to pass to the new syscall.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The syscall hook object.</p>
+<dd class="field-even"><p>The HandledSyscall object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>SyscallHook</p>
+<dd class="field-odd"><p>HandledSyscall</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.migrate_to_gdb">
-<span class="sig-name descname"><span class="pre">migrate_to_gdb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_in_new_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.migrate_to_gdb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.migrate_to_gdb" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.gdb">
+<span class="sig-name descname"><span class="pre">gdb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">open_in_new_process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.gdb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.gdb" title="Link to this definition">#</a></dt>
 <dd><p>Migrates the current debugging session to GDB.</p>
 </dd></dl>
 
@@ -1223,7 +1211,7 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.step_until">
-<span class="sig-name descname"><span class="pre">step_until</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.step_until"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.step_until" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">step_until</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hybrid'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.step_until"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.step_until" title="Link to this definition">#</a></dt>
 <dd><p>Executes instructions of the process until the specified location is reached.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1231,7 +1219,7 @@ This method should only be called to free up resources when the debugger object 
 <li><p><strong>thread</strong> (<a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><em>ThreadContext</em></a>) – The thread to step. Defaults to None.</p></li>
 <li><p><strong>position</strong> (<em>int</em><em> | </em><em>bytes</em>) – The location to reach.</p></li>
 <li><p><strong>max_steps</strong> (<em>int</em><em>, </em><em>optional</em>) – The maximum number of steps to execute. Defaults to -1.</p></li>
-<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “default”</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “hybrid”</p></li>
 <li><p><strong>address</strong> (<em>(</em><em>libdebug will first try to solve the address as an absolute</em>)</p></li>
 <li><p><strong>w.r.t.</strong> (<em>then as a relative address</em>)</p></li>
 <li><p><strong>file</strong><strong>)</strong><strong>.</strong> (<em>the &quot;binary&quot; map</em>)</p></li>
@@ -1259,14 +1247,14 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.enable_pretty_print">
-<span class="sig-name descname"><span class="pre">enable_pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SyscallHook</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.enable_pretty_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.enable_pretty_print" title="Link to this definition">#</a></dt>
-<dd><p>Hooks a syscall in the target process to pretty prints its arguments and return value.</p>
+<span class="sig-name descname"><span class="pre">enable_pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler" title="libdebug.data.syscall_handler.SyscallHandler"><span class="pre">SyscallHandler</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.enable_pretty_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.enable_pretty_print" title="Link to this definition">#</a></dt>
+<dd><p>Handles a syscall in the target process to pretty prints its arguments and return value.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.disable_pretty_print">
 <span class="sig-name descname"><span class="pre">disable_pretty_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.disable_pretty_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.disable_pretty_print" title="Link to this definition">#</a></dt>
-<dd><p>Unhooks all syscalls that are pretty printed.</p>
+<dd><p>Disable the handler for all the syscalls that are pretty printed.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1530,13 +1518,11 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.print_maps"><code class="docutils literal notranslate"><span class="pre">Debugger.print_maps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.breakpoint"><code class="docutils literal notranslate"><span class="pre">Debugger.breakpoint()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.watchpoint"><code class="docutils literal notranslate"><span class="pre">Debugger.watchpoint()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.hook_signal"><code class="docutils literal notranslate"><span class="pre">Debugger.hook_signal()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.unhook_signal"><code class="docutils literal notranslate"><span class="pre">Debugger.unhook_signal()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.catch_signal"><code class="docutils literal notranslate"><span class="pre">Debugger.catch_signal()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.hijack_signal"><code class="docutils literal notranslate"><span class="pre">Debugger.hijack_signal()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.hook_syscall"><code class="docutils literal notranslate"><span class="pre">Debugger.hook_syscall()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.unhook_syscall"><code class="docutils literal notranslate"><span class="pre">Debugger.unhook_syscall()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.handle_syscall"><code class="docutils literal notranslate"><span class="pre">Debugger.handle_syscall()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.hijack_syscall"><code class="docutils literal notranslate"><span class="pre">Debugger.hijack_syscall()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.migrate_to_gdb"><code class="docutils literal notranslate"><span class="pre">Debugger.migrate_to_gdb()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.gdb"><code class="docutils literal notranslate"><span class="pre">Debugger.gdb()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.r"><code class="docutils literal notranslate"><span class="pre">Debugger.r()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.c"><code class="docutils literal notranslate"><span class="pre">Debugger.c()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.int"><code class="docutils literal notranslate"><span class="pre">Debugger.int()</span></code></a></li>
@@ -1544,11 +1530,9 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.bp"><code class="docutils literal notranslate"><span class="pre">Debugger.bp()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.wp"><code class="docutils literal notranslate"><span class="pre">Debugger.wp()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.threads"><code class="docutils literal notranslate"><span class="pre">Debugger.threads</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.memory"><code class="docutils literal notranslate"><span class="pre">Debugger.memory</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.mem"><code class="docutils literal notranslate"><span class="pre">Debugger.mem</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.breakpoints"><code class="docutils literal notranslate"><span class="pre">Debugger.breakpoints</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_hooks"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_hooks</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.signal_hooks"><code class="docutils literal notranslate"><span class="pre">Debugger.signal_hooks</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.handled_syscalls"><code class="docutils literal notranslate"><span class="pre">Debugger.handled_syscalls</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.caught_signals"><code class="docutils literal notranslate"><span class="pre">Debugger.caught_signals</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_syscalls"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_syscalls</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_syscalls_context"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_syscalls_context()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscalls_to_pprint"><code class="docutils literal notranslate"><span class="pre">Debugger.syscalls_to_pprint</span></code></a></li>
@@ -1569,8 +1553,8 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.env"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.env</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.escape_antidebug"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.escape_antidebug</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.breakpoints"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.breakpoints</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.syscall_hooks"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.syscall_hooks</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.signal_hooks"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.signal_hooks</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.handled_syscalls"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.handled_syscalls</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.caught_signals"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.caught_signals</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.syscalls_to_pprint"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.syscalls_to_pprint</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.syscalls_to_not_pprint"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.syscalls_to_not_pprint</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.signals_to_block"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.signals_to_block</span></code></a></li>
@@ -1594,13 +1578,11 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.maps"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.maps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.print_maps"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.print_maps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.breakpoint"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.breakpoint()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.hook_signal"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.hook_signal()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.unhook_signal"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.unhook_signal()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.catch_signal"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.catch_signal()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.hijack_signal"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.hijack_signal()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.hook_syscall"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.hook_syscall()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.unhook_syscall"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.unhook_syscall()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.handle_syscall"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.handle_syscall()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.hijack_syscall"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.hijack_syscall()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.migrate_to_gdb"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.migrate_to_gdb()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.gdb"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.gdb()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.step"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.step()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.step_until"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.step_until()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.finish"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.finish()</span></code></a></li>
@@ -1660,8 +1642,8 @@ This method should only be called to free up resources when the debugger object 
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1694,7 +1676,7 @@ This method should only be called to free up resources when the debugger object 
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
 </p></div>
       
     </div>
