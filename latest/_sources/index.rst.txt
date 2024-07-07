@@ -9,13 +9,6 @@
 
 ----
 
-Looking for previous versions?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Go to https://docs.libdebug.github.io/archive/VERSION to find the documentation for a specific version of libdebug.
-
-e.g, for version 0.5.0, go to https://docs.libdebug.github.io/archive/0.5.0
-
 Quick Start
 ====================================
 Welcome to libdebug! This powerful Python library can be used to debug your binary executables programmatically, providing a robust, user-friendly interface.
