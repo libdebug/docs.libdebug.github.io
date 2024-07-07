@@ -29,6 +29,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/code-tabs.css?v=1bc26e2f" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
@@ -38,6 +39,7 @@
     <script src="_static/documentation_options.js?v=8e576371"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/code-tabs.js?v=c983d12e"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -414,7 +416,29 @@ document.write(`
 <section id="dependencies">
 <h3>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">#</a></h3>
 <p>To install libdebug, you first need to have some dependencies that will not be automatically resolved. Depending on your distro, their names may change.</p>
-</section>
+<div class="tabs docutils container" data-tabgroup="">
+<ul class="tabbar">
+<li class="tabbutton selected" data-id="0" onclick="sphinx_code_tabs_onclick(this)">
+Ubuntu</li><li class="tabbutton" data-id="1" onclick="sphinx_code_tabs_onclick(this)">
+Debian</li><li class="tabbutton" data-id="2" onclick="sphinx_code_tabs_onclick(this)">
+Arch Linux</li><li class="tabbutton" data-id="3" onclick="sphinx_code_tabs_onclick(this)">
+Fedora</li></ul><div class="tab codetab selected" data-id="0">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-dev<span class="w"> </span>libdwarf-dev<span class="w"> </span>libelf-dev<span class="w"> </span>libiberty-dev<span class="w"> </span>linux-headers-generic<span class="w"> </span>libc6-dbg
+</pre></div>
+</div>
+</div><div class="tab codetab" data-id="1">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-dev<span class="w"> </span>libdwarf-dev<span class="w"> </span>libelf-dev<span class="w"> </span>libiberty-dev<span class="w"> </span>linux-headers-generic<span class="w"> </span>libc6-dbg
+</pre></div>
+</div>
+</div><div class="tab codetab" data-id="2">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>python<span class="w"> </span>libelf<span class="w"> </span>libdwarf<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>debuginfod
+</pre></div>
+</div>
+</div><div class="tab codetab" data-id="3">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-devel<span class="w"> </span>kernel-devel<span class="w"> </span>binutils-devel<span class="w"> </span>libdwarf-devel
+</pre></div>
+</div>
+</div></div></section>
 <section id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h3>
 <p>Installing libdebug once you have dependencies is as simple as running the following command:</p>
