@@ -1,0 +1,78 @@
+name:  Update Documentation
+
+on:
+  repository_dispatch:
+    types: ["update_docs"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
+          python -m pip install --upgrade Sphinx
+          python -m pip install --upgrade pydata-sphinx-theme
+          python -m pip install --upgrade sphinx_code_tabs
+
+      - name: Install libdebug dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libdwarf-dev libelf-dev libiberty-dev linux-headers-generic libc6-dbg
+
+      - name: Checkout libdebug
+        uses: actions/checkout@v4
+        with:
+          repository: 'libdebug/libdebug'
+          path: 'libdebug'
+          ref: ${{ github.event.client_payload.sha }}
+
+      - name: Install libdebug
+        run: |
+          cd libdebug
+          python -m pip install --upgrade .
+
+      - name: Build documentation
+        run: |
+          cd libdebug/docs
+          ./regenerate_docs.sh
+          rm -r build/html/_static/__pycache__
+
+      - name: Checkout docs
+        uses: actions/checkout@v4
+        with:
+          path: 'docs'
+
+      - name: Update files and commit changes
+        run: |
+          cd libdebug
+          export LIBDEBUG_VERSION=$(python -m setup --version 2>/dev/null)
+          cd ..
+          export OLD_VERSION=$(cat docs/latest/version)
+          echo "Removing docs/archive/$OLD_VERSION"
+          rm -rf "docs/archive/$OLD_VERSION"
+          mv docs/latest "docs/archive/$OLD_VERSION"
+          mv libdebug/docs/build/html docs/latest
+          echo $LIBDEBUG_VERSION > docs/latest/version
+          cd docs
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git tag -f $LIBDEBUG_VERSION
+          git add archive/$OLD_VERSION
+          git commit -a -m "Autorefresh Documentation"
+        
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          directory: 'docs'
+          force: true
+          tags: true
