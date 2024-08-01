@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Logging &#8212; libdebug 0.5.3 documentation</title>
+    <title>Logging &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
@@ -32,11 +32,11 @@
     <link rel="stylesheet" type="text/css" href="_static/code-tabs.css?v=1bc26e2f" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=2a2fe768"></script>
+    <script src="_static/documentation_options.js?v=e1a677a5"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -100,7 +100,7 @@
   
     <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -110,6 +110,8 @@
       <div class="navbar-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -118,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.3 documentation</p>
+    <p class="title logo__title">libdebug 0.5.4 documentation</p>
   
 </a></div>
     
@@ -129,71 +131,71 @@
     <div class="me-auto navbar-header-items__center">
       
         <div class="navbar-item">
-<nav class="navbar-nav">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="multithreading.html">
     Multithreading
   </a>
 </li>
 
-            <li class="nav-item dropdown pst-header-nav-item">
+            <li class="nav-item dropdown">
                 <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
                     More
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
-<li class="nav-item ">
+<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class="nav-item  current active">
+<li class=" current active">
   <a class="nav-link dropdown-item nav-internal" href="#">
     Logging
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="examples.html">
     Code Examples
   </a>
 </li>
 
 
-<li class="nav-item ">
+<li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="libdebug.html">
     libdebug package
   </a>
@@ -215,7 +217,7 @@
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -229,10 +231,10 @@
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script></div>
@@ -246,7 +248,7 @@ document.write(`
 
  <script>
  document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
     <span class="search-button__default-text">Search</span>
     <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -257,7 +259,7 @@ document.write(`
   
 
   
-    <button class="sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -283,66 +285,66 @@ document.write(`
           
           
             <div class="navbar-item">
-<nav class="navbar-nav">
+<nav>
   <ul class="bd-navbar-elements navbar-nav">
     
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="basic_features.html">
     Basic Features
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="breakpoints.html">
     Breakpoints
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="handle_syscalls.html">
     Syscalls
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="catch_signals.html">
     Signals
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="multithreading.html">
     Multithreading
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="quality_of_life.html">
     Quality of Life
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item current active">
+<li class="nav-item current active">
   <a class="nav-link nav-internal" href="#">
     Logging
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="examples.html">
     Code Examples
   </a>
 </li>
 
 
-<li class="nav-item pst-header-nav-item">
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="libdebug.html">
     libdebug package
   </a>
@@ -362,10 +364,10 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script></div>
@@ -456,14 +458,36 @@ document.write(`
 <h2>The best of both worlds<a class="headerlink" href="#the-best-of-both-worlds" title="Link to this heading">#</a></h2>
 <p>The <cite>dbg</cite> option is the combination of the <cite>pipe</cite> and <cite>debugger</cite> options. It displays all logs related to the debugging operations performed on the process by libdebug, as well as interactions with the process pipe: bytes received and bytes sent.</p>
 </section>
-<section id="temporary-logging">
-<h2>Temporary Logging<a class="headerlink" href="#temporary-logging" title="Link to this heading">#</a></h2>
+<section id="change-logger-levels-at-runtime">
+<h2>Change logger levels at runtime<a class="headerlink" href="#change-logger-levels-at-runtime" title="Link to this heading">#</a></h2>
+<p>Logger levels can be changed at runtime using the <cite>libcontext</cite> module. The following example shows how to change the logger levels at runtime.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">libcontext</span>
+<span class="n">libcontext</span><span class="o">.</span><span class="n">pipe_logger</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+<span class="n">libcontext</span><span class="o">.</span><span class="n">debugger_logger</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+<span class="n">libcontext</span><span class="o">.</span><span class="n">general_logger</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+</pre></div>
+</div>
+<p>The <cite>general_logger</cite> refers to the logger used for the general logs, different from the <cite>pipe</cite> and <cite>debugger</cite> logs.</p>
 <p>Logger levels can be temporarily enabled at runtime using a <cite>with</cite> statement, as shown in the following example.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">libcontext</span>
-<span class="k">with</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">tmp</span><span class="p">(</span><span class="n">pipe_logger</span><span class="o">=</span><span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="n">debugger_logger</span><span class="o">=</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">):</span>
+<span class="k">with</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">tmp</span><span class="p">(</span><span class="n">pipe_logger</span><span class="o">=</span><span class="s1">&#39;SILENT&#39;</span><span class="p">,</span> <span class="n">debugger_logger</span><span class="o">=</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">):</span>
     <span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;gimme the flag&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>In this example, the <cite>pipe_logger</cite> is set to <cite>SILENT</cite>, and the <cite>debugger_logger</cite> is set to <cite>DEBUG</cite>. The logger levels are restored to their previous values when the <cite>with</cite> block is exited.</p>
+<p>The supported logger levels are the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pipe_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debugger_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">general_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">WARNING</span></code>, <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
+</ul>
+<p>The default logger levels are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pipe_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debugger_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">general_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></p></li>
+</ul>
+<p>The <cite>DEBUG</cite> level is the most verbose, including all logs. The <cite>INFO</cite> level includes all logs except for the <cite>DEBUG</cite> logs. The <cite>WARNING</cite> level includes only the <cite>WARNING</cite> logs. The <cite>SILENT</cite> level disables all logs.</p>
 </section>
 </section>
 
@@ -516,7 +540,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugger-logging">Debugger Logging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-logging">Pipe Logging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-best-of-both-worlds">The best of both worlds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporary-logging">Temporary Logging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-logger-levels-at-runtime">Change logger levels at runtime</a></li>
 </ul>
   </nav></div>
 
@@ -542,8 +566,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -563,7 +587,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     <br/>
   </p>
 </div>
@@ -576,7 +600,7 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
 </p></div>
       
     </div>
