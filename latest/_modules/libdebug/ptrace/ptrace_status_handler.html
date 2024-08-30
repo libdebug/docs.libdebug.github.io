@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.ptrace.ptrace_status_handler &#8212; libdebug 0.5.3 documentation</title>
+    <title>libdebug.ptrace.ptrace_status_handler &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=2a2fe768"></script>
+    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
@@ -117,7 +117,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.3 documentation</p>
+    <p class="title logo__title">libdebug 0.5.4 documentation</p>
   
 </a></div>
     
@@ -505,37 +505,33 @@ document.write(`
 
         <span class="n">bp</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Breakpoint</span>
 
-        <span class="n">enabled_breakpoints</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">bp</span><span class="o">.</span><span class="n">_disabled_for_step</span><span class="p">:</span>
-                <span class="n">enabled_breakpoints</span><span class="p">[</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">]</span> <span class="o">=</span> <span class="n">bp</span>
-
-        <span class="n">bp</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="k">if</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">enabled_breakpoints</span><span class="p">:</span>
+        <span class="n">bp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bp</span> <span class="ow">and</span> <span class="n">bp</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">bp</span><span class="o">.</span><span class="n">_disabled_for_step</span><span class="p">:</span>
             <span class="c1"># Hardware breakpoint hit</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Hardware breakpoint hit at 0x</span><span class="si">%x</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
-            <span class="n">bp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">[</span><span class="n">ip</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># If the trap was caused by a software breakpoint, we need to restore the original instruction</span>
             <span class="c1"># and set the instruction pointer to the previous instruction.</span>
             <span class="n">ip</span> <span class="o">-=</span> <span class="n">software_breakpoint_byte_size</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">enabled_breakpoints</span><span class="p">:</span>
+            <span class="n">bp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bp</span> <span class="ow">and</span> <span class="n">bp</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">bp</span><span class="o">.</span><span class="n">_disabled_for_step</span><span class="p">:</span>
                 <span class="c1"># Software breakpoint hit</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Software breakpoint hit at 0x</span><span class="si">%x</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="p">)</span>
-                <span class="n">bp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">[</span><span class="n">ip</span><span class="p">]</span>
 
                 <span class="c1"># Set the instruction pointer to the previous instruction</span>
                 <span class="n">thread</span><span class="o">.</span><span class="n">instruction_pointer</span> <span class="o">=</span> <span class="n">ip</span>
 
                 <span class="c1"># Link the breakpoint to the thread, so that we can step over it</span>
                 <span class="n">bp</span><span class="o">.</span><span class="n">_linked_thread_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thread_id</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the breakpoint has been hit but is not enabled, we need to reset the bp variable</span>
+                <span class="n">bp</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Manage watchpoints</span>
-        <span class="k">if</span> <span class="n">bp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bp</span><span class="p">:</span>
             <span class="n">bp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ptrace_interface</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span><span class="o">.</span><span class="n">is_watchpoint_hit</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">bp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bp</span><span class="p">:</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Watchpoint hit at 0x</span><span class="si">%x</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">bp</span><span class="p">:</span>
@@ -940,7 +936,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.4.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     <br/>
   </p>
 </div>
