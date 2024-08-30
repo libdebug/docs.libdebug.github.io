@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Logging &#8212; libdebug 0.5.4 documentation</title>
+    <title>Logging &#8212; libdebug 0.5.3 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="_static/documentation_options.js?v=2a2fe768"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -120,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.5.3 documentation</p>
   
 </a></div>
     
@@ -458,36 +458,14 @@ document.write(`
 <h2>The best of both worlds<a class="headerlink" href="#the-best-of-both-worlds" title="Link to this heading">#</a></h2>
 <p>The <cite>dbg</cite> option is the combination of the <cite>pipe</cite> and <cite>debugger</cite> options. It displays all logs related to the debugging operations performed on the process by libdebug, as well as interactions with the process pipe: bytes received and bytes sent.</p>
 </section>
-<section id="change-logger-levels-at-runtime">
-<h2>Change logger levels at runtime<a class="headerlink" href="#change-logger-levels-at-runtime" title="Link to this heading">#</a></h2>
-<p>Logger levels can be changed at runtime using the <cite>libcontext</cite> module. The following example shows how to change the logger levels at runtime.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">libcontext</span>
-<span class="n">libcontext</span><span class="o">.</span><span class="n">pipe_logger</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
-<span class="n">libcontext</span><span class="o">.</span><span class="n">debugger_logger</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
-<span class="n">libcontext</span><span class="o">.</span><span class="n">general_logger</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
-</pre></div>
-</div>
-<p>The <cite>general_logger</cite> refers to the logger used for the general logs, different from the <cite>pipe</cite> and <cite>debugger</cite> logs.</p>
+<section id="temporary-logging">
+<h2>Temporary Logging<a class="headerlink" href="#temporary-logging" title="Link to this heading">#</a></h2>
 <p>Logger levels can be temporarily enabled at runtime using a <cite>with</cite> statement, as shown in the following example.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">libcontext</span>
-<span class="k">with</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">tmp</span><span class="p">(</span><span class="n">pipe_logger</span><span class="o">=</span><span class="s1">&#39;SILENT&#39;</span><span class="p">,</span> <span class="n">debugger_logger</span><span class="o">=</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">):</span>
+<span class="k">with</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">tmp</span><span class="p">(</span><span class="n">pipe_logger</span><span class="o">=</span><span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="n">debugger_logger</span><span class="o">=</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">):</span>
     <span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;gimme the flag&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In this example, the <cite>pipe_logger</cite> is set to <cite>SILENT</cite>, and the <cite>debugger_logger</cite> is set to <cite>DEBUG</cite>. The logger levels are restored to their previous values when the <cite>with</cite> block is exited.</p>
-<p>The supported logger levels are the following:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">pipe_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">debugger_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">general_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">WARNING</span></code>, <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
-</ul>
-<p>The default logger levels are:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">pipe_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">debugger_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">SILENT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">general_logger</span></code>: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></p></li>
-</ul>
-<p>The <cite>DEBUG</cite> level is the most verbose, including all logs. The <cite>INFO</cite> level includes all logs except for the <cite>DEBUG</cite> logs. The <cite>WARNING</cite> level includes only the <cite>WARNING</cite> logs. The <cite>SILENT</cite> level disables all logs.</p>
 </section>
 </section>
 
@@ -540,7 +518,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugger-logging">Debugger Logging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-logging">Pipe Logging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-best-of-both-worlds">The best of both worlds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-logger-levels-at-runtime">Change logger levels at runtime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporary-logging">Temporary Logging</a></li>
 </ul>
   </nav></div>
 
@@ -587,7 +565,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.4.
     <br/>
   </p>
 </div>
