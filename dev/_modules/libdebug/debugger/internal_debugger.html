@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.debugger.internal_debugger &#8212; libdebug 0.5.3 documentation</title>
+    <title>libdebug.debugger.internal_debugger &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=2a2fe768"></script>
+    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
@@ -117,7 +117,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.3 documentation</p>
+    <p class="title logo__title">libdebug 0.5.4 documentation</p>
   
 </a></div>
     
@@ -485,6 +485,7 @@ document.write(`
     <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
     <span class="kn">from</span> <span class="nn">libdebug.interfaces.debugging_interface</span> <span class="kn">import</span> <span class="n">DebuggingInterface</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
     <span class="kn">from</span> <span class="nn">libdebug.utils.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
@@ -644,7 +645,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_background_invalid_call</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_background_invalid_call</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="o">...</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Raises an error when an invalid call is made in background mode.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;This method is not available in a callback.&quot;</span><span class="p">)</span>
 
@@ -1382,6 +1383,26 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
 
 
+    <span class="k">def</span> <span class="nf">_background_next</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
+        <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__threaded_next</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>
+
+<div class="viewcode-block" id="InternalDebugger.next">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.next">[docs]</a>
+    <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_next</span><span class="p">)</span>
+    <span class="nd">@change_state_function_thread</span>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_next</span><span class="p">,</span> <span class="p">(</span><span class="n">thread</span><span class="p">,)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
+
+
 <div class="viewcode-block" id="InternalDebugger.enable_pretty_print">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.enable_pretty_print">[docs]</a>
     <span class="k">def</span> <span class="nf">enable_pretty_print</span><span class="p">(</span>
@@ -1505,12 +1526,18 @@ document.write(`
 
 <div class="viewcode-block" id="InternalDebugger.resolve_address">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.resolve_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">resolve_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">backing_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">resolve_address</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">backing_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">skip_absolute_address_validation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalizes and validates the specified address.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            address (int): The address to normalize and validate.</span>
 <span class="sd">            backing_file (str): The backing file to resolve the address in.</span>
+<span class="sd">            skip_absolute_address_validation (bool, optional): Whether to skip bounds checking for absolute addresses. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The normalized and validated address.</span>
@@ -1518,6 +1545,9 @@ document.write(`
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: If the substring `backing_file` is present in multiple backing files.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">skip_absolute_address_validation</span> <span class="ow">and</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="s2">&quot;absolute&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">address</span>
+
         <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">backing_file</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;hybrid&quot;</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">]:</span>
@@ -1532,15 +1562,14 @@ document.write(`
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># If the address was not found and the backing file is not &quot;absolute&quot;,</span>
                 <span class="c1"># we have to assume it is in the main map</span>
-                <span class="n">backing_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_full_path</span><span class="p">()</span>
+                <span class="n">backing_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_full_path</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;No backing file specified and no corresponding absolute address found for </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">address</span><span class="p">)</span><span class="si">}</span><span class="s2">. Assuming </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="n">backing_file</span> <span class="o">==</span> <span class="p">(</span><span class="n">full_backing_path</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_full_path</span><span class="p">())</span>
-            <span class="ow">or</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span>
-            <span class="ow">or</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_name</span><span class="p">()</span>
-        <span class="p">):</span>
+        <span class="k">elif</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="p">(</span><span class="n">full_backing_path</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_full_path</span><span class="p">)</span> <span class="ow">or</span> <span class="n">backing_file</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">&quot;binary&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_name</span><span class="p">,</span>
+        <span class="p">]:</span>
             <span class="n">backing_file</span> <span class="o">=</span> <span class="n">full_backing_path</span>
 
         <span class="n">filtered_maps</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1582,13 +1611,12 @@ document.write(`
 
         <span class="k">if</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">:</span>
             <span class="c1"># If no explicit backing file is specified, we have to assume it is in the main map</span>
-            <span class="n">backing_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_full_path</span><span class="p">()</span>
+            <span class="n">backing_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_full_path</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No backing file specified for the symbol </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2">. Assuming </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="n">backing_file</span> <span class="o">==</span> <span class="p">(</span><span class="n">full_backing_path</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_full_path</span><span class="p">())</span>
-            <span class="ow">or</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span>
-            <span class="ow">or</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_process_name</span><span class="p">()</span>
-        <span class="p">):</span>
+        <span class="k">elif</span> <span class="n">backing_file</span> <span class="o">==</span> <span class="p">(</span><span class="n">full_backing_path</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_full_path</span><span class="p">)</span> <span class="ow">or</span> <span class="n">backing_file</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">&quot;binary&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_name</span><span class="p">,</span>
+        <span class="p">]:</span>
             <span class="n">backing_file</span> <span class="o">=</span> <span class="n">full_backing_path</span>
 
         <span class="n">filtered_maps</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1668,8 +1696,8 @@ document.write(`
             <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">response</span>
 
-    <span class="nd">@functools</span><span class="o">.</span><span class="n">cache</span>
-    <span class="k">def</span> <span class="nf">_get_process_full_path</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">cached_property</span>
+    <span class="k">def</span> <span class="nf">_process_full_path</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the full path of the process.</span>
 
 <span class="sd">        Returns:</span>
@@ -1677,8 +1705,8 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/proc/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="si">}</span><span class="s2">/exe&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">readlink</span><span class="p">())</span>
 
-    <span class="nd">@functools</span><span class="o">.</span><span class="n">cache</span>
-    <span class="k">def</span> <span class="nf">_get_process_name</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">cached_property</span>
+    <span class="k">def</span> <span class="nf">_process_name</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the name of the process.</span>
 
 <span class="sd">        Returns:</span>
@@ -1793,6 +1821,11 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_stopped</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">__threaded_next</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Next on thread </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_stopped</span><span class="p">()</span>
+
     <span class="k">def</span> <span class="nf">__threaded_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">migrate_to_gdb</span><span class="p">()</span>
 
@@ -1800,16 +1833,19 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">migrate_from_gdb</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__threaded_peek_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="ne">BaseException</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">peek_memory</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
-            <span class="c1"># TODO: this is only for amd64</span>
-            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">e</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">peek_memory</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+        <span class="c1"># TODO: this is only for amd64</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__threaded_poke_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">int_data</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">poke_memory</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">int_data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__threaded_fetch_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">registers</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">fetch_fp_registers</span><span class="p">(</span><span class="n">registers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__threaded_flush_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">registers</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">flush_fp_registers</span><span class="p">(</span><span class="n">registers</span><span class="p">)</span>
 
     <span class="nd">@background_alias</span><span class="p">(</span><span class="n">__threaded_peek_memory</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_peek_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
@@ -1858,6 +1894,34 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_poke_memory</span><span class="p">,</span> <span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">data</span><span class="p">)),</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
+
+    <span class="nd">@background_alias</span><span class="p">(</span><span class="n">__threaded_fetch_fp_registers</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_fetch_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">registers</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetches the floating point registers of a thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">instanced</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Process not running, cannot step.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_fetch_fp_registers</span><span class="p">,</span> <span class="p">(</span><span class="n">registers</span><span class="p">,)),</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
+
+    <span class="nd">@background_alias</span><span class="p">(</span><span class="n">__threaded_flush_fp_registers</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_flush_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">registers</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flushes the floating point registers of a thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">instanced</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Process not running, cannot step.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_flush_fp_registers</span><span class="p">,</span> <span class="p">(</span><span class="n">registers</span><span class="p">,)),</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
@@ -1953,7 +2017,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     <br/>
   </p>
 </div>

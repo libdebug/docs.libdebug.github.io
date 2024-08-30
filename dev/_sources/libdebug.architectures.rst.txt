@@ -12,6 +12,22 @@ Subpackages
 Submodules
 ----------
 
+libdebug.architectures.call\_utilities\_manager module
+------------------------------------------------------
+
+.. automodule:: libdebug.architectures.call_utilities_manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libdebug.architectures.call\_utilities\_provider module
+-------------------------------------------------------
+
+.. automodule:: libdebug.architectures.call_utilities_provider
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libdebug.architectures.ptrace\_hardware\_breakpoint\_manager module
 -------------------------------------------------------------------
 

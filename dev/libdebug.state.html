@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug.state package &#8212; libdebug 0.5.3 documentation</title>
+    <title>libdebug.state package &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=2a2fe768"></script>
+    <script src="_static/documentation_options.js?v=e1a677a5"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -120,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.3 documentation</p>
+    <p class="title logo__title">libdebug 0.5.4 documentation</p>
   
 </a></div>
     
@@ -617,8 +617,19 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.backtrace">
-<span class="sig-name descname"><span class="pre">backtrace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.backtrace" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">backtrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.backtrace" title="Link to this definition">#</a></dt>
 <dd><p>Returns the current backtrace of the thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>as_symbols</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the backtrace as symbols</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.print_backtrace">
+<span class="sig-name descname"><span class="pre">print_backtrace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.print_backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.print_backtrace" title="Link to this definition">#</a></dt>
+<dd><p>Prints the current backtrace of the thread.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -666,6 +677,12 @@ document.write(`
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.next" title="Link to this definition">#</a></dt>
+<dd><p>Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.si">
 <span class="sig-name descname"><span class="pre">si</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.si"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.si" title="Link to this definition">#</a></dt>
 <dd><p>Alias for the <cite>step</cite> method.</p>
@@ -699,6 +716,12 @@ document.write(`
 <dd class="field-odd"><p><strong>heuristic</strong> (<em>str</em><em>, </em><em>optional</em>) – The heuristic to use. Defaults to “backtrace”.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.ni">
+<span class="sig-name descname"><span class="pre">ni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.ni"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.ni" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>next</cite> method. Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</p>
 </dd></dl>
 
 </dd></dl>
@@ -788,13 +811,16 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.exit_signal"><code class="docutils literal notranslate"><span class="pre">ThreadContext.exit_signal</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.signal"><code class="docutils literal notranslate"><span class="pre">ThreadContext.signal</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.backtrace"><code class="docutils literal notranslate"><span class="pre">ThreadContext.backtrace()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.print_backtrace"><code class="docutils literal notranslate"><span class="pre">ThreadContext.print_backtrace()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.current_return_address"><code class="docutils literal notranslate"><span class="pre">ThreadContext.current_return_address()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.step"><code class="docutils literal notranslate"><span class="pre">ThreadContext.step()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.step_until"><code class="docutils literal notranslate"><span class="pre">ThreadContext.step_until()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.finish"><code class="docutils literal notranslate"><span class="pre">ThreadContext.finish()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.next"><code class="docutils literal notranslate"><span class="pre">ThreadContext.next()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.si"><code class="docutils literal notranslate"><span class="pre">ThreadContext.si()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.su"><code class="docutils literal notranslate"><span class="pre">ThreadContext.su()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.fin"><code class="docutils literal notranslate"><span class="pre">ThreadContext.fin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.ni"><code class="docutils literal notranslate"><span class="pre">ThreadContext.ni()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -846,7 +872,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     <br/>
   </p>
 </div>

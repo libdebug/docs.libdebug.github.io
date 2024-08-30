@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quick Start &#8212; libdebug 0.5.3 documentation</title>
+    <title>Quick Start &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=2a2fe768"></script>
+    <script src="_static/documentation_options.js?v=e1a677a5"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -119,7 +119,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.3 documentation</p>
+    <p class="title logo__title">libdebug 0.5.4 documentation</p>
   
 </a></div>
     
@@ -402,6 +402,8 @@ document.write(`
                   
   <img alt="libdebug logo" class="align-center" src="_images/libdebug.png" />
 <hr class="docutils" />
+<a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.13151549"><img alt="https://zenodo.org/badge/DOI/10.5281/zenodo.13151549.svg" src="https://zenodo.org/badge/DOI/10.5281/zenodo.13151549.svg" />
+</a>
 <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h1>
 <p>Welcome to libdebug! This powerful Python library can be used to debug your binary executables programmatically, providing a robust, user-friendly interface.</p>
@@ -500,6 +502,21 @@ python<span class="w"> </span>run_suite.py
 </dl>
 </li>
 </ul>
+</section>
+<section id="cite-us">
+<h2>Cite Us<a class="headerlink" href="#cite-us" title="Link to this heading">#</a></h2>
+<p>Need to cite libdebug in your research? Use the following BibTeX entry:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@software</span><span class="p">{</span><span class="nl">libdebug_2024</span><span class="p">,</span>
+<span class="w">    </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{libdebug: {Build} {Your} {Own} {Debugger}}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">copyright</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{MIT Licence}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://libdebug.org}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">publisher</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{libdebug.org}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Digregorio, Gabriele and Bertolini, Roberto Alessandro and Panebianco, Francesco and Polino, Mario}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2024}</span><span class="p">,</span>
+<span class="w">    </span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.5281/zenodo.13151549}</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -553,7 +570,7 @@ python<span class="w"> </span>run_suite.py
 <li class="toctree-l2"><a class="reference internal" href="logging.html#debugger-logging">Debugger Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html#pipe-logging">Pipe Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logging.html#the-best-of-both-worlds">The best of both worlds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="logging.html#temporary-logging">Temporary Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html#change-logger-levels-at-runtime">Change logger levels at runtime</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Code Examples</a><ul>
@@ -635,7 +652,8 @@ python<span class="w"> </span>run_suite.py
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependencies">Dependencies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-first-script">Your first script</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conflicts-with-other-python-packages">Conflicts with other python packages</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conflicts-with-other-python-packages">Conflicts with other python packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cite-us">Cite Us</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
 </ul>
@@ -688,7 +706,7 @@ python<span class="w"> </span>run_suite.py
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     <br/>
   </p>
 </div>

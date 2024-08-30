@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug package &#8212; libdebug 0.5.3 documentation</title>
+    <title>libdebug package &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=2a2fe768"></script>
+    <script src="_static/documentation_options.js?v=e1a677a5"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -120,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.3 documentation</p>
+    <p class="title logo__title">libdebug 0.5.4 documentation</p>
   
 </a></div>
     
@@ -461,6 +461,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_call_utilities">libdebug.architectures.amd64.amd64_call_utilities module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper">libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_ptrace_register_holder">libdebug.architectures.amd64.amd64_ptrace_register_holder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_registers">libdebug.architectures.amd64.amd64_registers module</a></li>
@@ -472,6 +473,19 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.call_utilities_manager">libdebug.architectures.call_utilities_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.is_call"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager.is_call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.compute_call_skip"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager.compute_call_skip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.get_call_and_skip_amount"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager.get_call_and_skip_amount()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.call_utilities_provider">libdebug.architectures.call_utilities_provider module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.call_utilities_provider.call_utilities_provider"><code class="docutils literal notranslate"><span class="pre">call_utilities_provider()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.ptrace_hardware_breakpoint_manager">libdebug.architectures.ptrace_hardware_breakpoint_manager module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.thread"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.thread</span></code></a></li>
@@ -756,6 +770,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.step"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.step()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.step_until"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.step_until()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.finish"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.next"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.next()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.enable_pretty_print"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.enable_pretty_print()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.disable_pretty_print"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.disable_pretty_print()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.insert_new_thread"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.insert_new_thread()</span></code></a></li>
@@ -805,6 +820,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.step"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.step()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.step_until"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.step_until()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.finish"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.next"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.next()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.maps"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.maps()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.set_breakpoint"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.set_breakpoint()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.unset_breakpoint"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.unset_breakpoint()</span></code></a></li>
@@ -814,6 +830,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.unset_signal_catcher"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.unset_signal_catcher()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.peek_memory"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.peek_memory()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.poke_memory"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.poke_memory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.fetch_fp_registers"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.fetch_fp_registers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.flush_fp_registers"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.flush_fp_registers()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -905,6 +923,7 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.step"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.step()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.step_until"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.step_until()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.finish"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.next"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.next()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.wait"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.wait()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.forward_signal"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.forward_signal()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.migrate_to_gdb"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.migrate_to_gdb()</span></code></a></li>
@@ -919,6 +938,8 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.unset_signal_catcher"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.unset_signal_catcher()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.peek_memory"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.peek_memory()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.poke_memory"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.poke_memory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.fetch_fp_registers"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.fetch_fp_registers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.flush_fp_registers"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.flush_fp_registers()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.maps"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.maps()</span></code></a></li>
 </ul>
 </li>
@@ -927,6 +948,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="libdebug.ptrace.html#module-libdebug.ptrace.ptrace_register_holder">libdebug.ptrace.ptrace_register_holder module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_register_holder.PtraceRegisterHolder"><code class="docutils literal notranslate"><span class="pre">PtraceRegisterHolder</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_register_holder.PtraceRegisterHolder.register_file"><code class="docutils literal notranslate"><span class="pre">PtraceRegisterHolder.register_file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_register_holder.PtraceRegisterHolder.fp_register_file"><code class="docutils literal notranslate"><span class="pre">PtraceRegisterHolder.fp_register_file</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_register_holder.PtraceRegisterHolder.poll"><code class="docutils literal notranslate"><span class="pre">PtraceRegisterHolder.poll()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#libdebug.ptrace.ptrace_register_holder.PtraceRegisterHolder.flush"><code class="docutils literal notranslate"><span class="pre">PtraceRegisterHolder.flush()</span></code></a></li>
 </ul>
@@ -978,13 +1000,16 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.exit_signal"><code class="docutils literal notranslate"><span class="pre">ThreadContext.exit_signal</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.signal"><code class="docutils literal notranslate"><span class="pre">ThreadContext.signal</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.backtrace"><code class="docutils literal notranslate"><span class="pre">ThreadContext.backtrace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.print_backtrace"><code class="docutils literal notranslate"><span class="pre">ThreadContext.print_backtrace()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.current_return_address"><code class="docutils literal notranslate"><span class="pre">ThreadContext.current_return_address()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.step"><code class="docutils literal notranslate"><span class="pre">ThreadContext.step()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.step_until"><code class="docutils literal notranslate"><span class="pre">ThreadContext.step_until()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.finish"><code class="docutils literal notranslate"><span class="pre">ThreadContext.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.next"><code class="docutils literal notranslate"><span class="pre">ThreadContext.next()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.si"><code class="docutils literal notranslate"><span class="pre">ThreadContext.si()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.su"><code class="docutils literal notranslate"><span class="pre">ThreadContext.su()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.fin"><code class="docutils literal notranslate"><span class="pre">ThreadContext.fin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.ni"><code class="docutils literal notranslate"><span class="pre">ThreadContext.ni()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1356,7 +1381,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
     <br/>
   </p>
 </div>

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.state.resume_context &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.architectures.call_utilities_manager &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/state/resume_context';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/architectures/call_utilities_manager';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -406,7 +406,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">libdebug.sta...</li>
+    <li class="breadcrumb-item active" aria-current="page">libdebug.arc...</li>
   </ul>
 </nav>
 </div>
@@ -423,40 +423,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.state.resume_context</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.architectures.call_utilities_manager</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2023-2024 Gabriele Digregorio. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024 Francesco Panebianco. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<div class="viewcode-block" id="ResumeContext">
-<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.resume_context.ResumeContext">[docs]</a>
-<span class="k">class</span> <span class="nc">ResumeContext</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class representing the context of the resume decision.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="CallUtilitiesManager">
+<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager">[docs]</a>
+<span class="k">class</span> <span class="nc">CallUtilitiesManager</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An architecture-independent interface for call instruction utilities.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ResumeContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the ResumeContext.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resume</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">force_interrupt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_a_step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_startup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">block_on_signal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">threads_with_signals_to_forward</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="viewcode-block" id="CallUtilitiesManager.is_call">
+<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.is_call">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">is_call</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">CallUtilitiesManager</span><span class="p">,</span> <span class="n">opcode_window</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the current instruction is a call instruction.&quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="ResumeContext.clear">
-<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.resume_context.ResumeContext.clear">[docs]</a>
-    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ResumeContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clears the context.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">force_interrupt</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_a_step</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_startup</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">block_on_signal</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">threads_with_signals_to_forward</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CallUtilitiesManager.compute_call_skip">
+<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.compute_call_skip">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">compute_call_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">CallUtilitiesManager</span><span class="p">,</span> <span class="n">opcode_window</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the address where to skip after the current call instruction.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CallUtilitiesManager.get_call_and_skip_amount">
+<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.get_call_and_skip_amount">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_call_and_skip_amount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_window</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the current instruction is a call instruction and compute the instruction size.&quot;&quot;&quot;</span></div>
 </div>
 
 </pre></div>

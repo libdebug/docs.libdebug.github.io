@@ -4,6 +4,14 @@ libdebug.architectures.amd64 package
 Submodules
 ----------
 
+libdebug.architectures.amd64.amd64\_call\_utilities module
+----------------------------------------------------------
+
+.. automodule:: libdebug.architectures.amd64.amd64_call_utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libdebug.architectures.amd64.amd64\_ptrace\_hw\_bp\_helper module
 -----------------------------------------------------------------
 

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.architectures.amd64.amd64_syscall_hijacker &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.architectures.amd64.amd64_call_utilities &#8212; libdebug 0.5.4 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/architectures/amd64/amd64_syscall_hijacker';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/architectures/amd64/amd64_call_utilities';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -423,90 +423,82 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.architectures.amd64.amd64_syscall_hijacker</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.architectures.amd64.amd64_call_utilities</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2024 Gabriele Digregorio. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024 Francesco Panebianco. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">libdebug.architectures.call_utilities_manager</span> <span class="kn">import</span> <span class="n">CallUtilitiesManager</span>
 
-<span class="kn">from</span> <span class="nn">libdebug.architectures.syscall_hijacking_manager</span> <span class="kn">import</span> <span class="n">SyscallHijackingManager</span>
+<div class="viewcode-block" id="Amd64CallUtilities">
+<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities">[docs]</a>
+<span class="k">class</span> <span class="nc">Amd64CallUtilities</span><span class="p">(</span><span class="n">CallUtilitiesManager</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class that provides call utilities for the x86_64 architecture.&quot;&quot;&quot;</span>
 
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
+<div class="viewcode-block" id="Amd64CallUtilities.is_call">
+<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities.is_call">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_window</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the current instruction is a call instruction.&quot;&quot;&quot;</span>
+        <span class="c1"># Check for direct CALL (E8 xx xx xx xx)</span>
+        <span class="k">if</span> <span class="n">opcode_window</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0xE8</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
+        <span class="c1"># Check for indirect CALL using ModR/M (FF /2)</span>
+        <span class="k">if</span> <span class="n">opcode_window</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">:</span>
+            <span class="c1"># Extract ModR/M byte</span>
+            <span class="n">modRM</span> <span class="o">=</span> <span class="n">opcode_window</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">reg</span> <span class="o">=</span> <span class="p">(</span><span class="n">modRM</span> <span class="o">&gt;&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x07</span>  <span class="c1"># Middle three bits</span>
 
+            <span class="k">if</span> <span class="n">reg</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
 
-<div class="viewcode-block" id="Amd64SyscallHijacker">
-<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_syscall_hijacker.Amd64SyscallHijacker">[docs]</a>
-<span class="k">class</span> <span class="nc">Amd64SyscallHijacker</span><span class="p">(</span><span class="n">SyscallHijackingManager</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class that provides syscall hijacking for the x86_64 architecture.&quot;&quot;&quot;</span>
-
-    <span class="c1"># Allowed arguments for the hijacker</span>
-    <span class="n">allowed_args</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;syscall_number&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg0&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg1&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg2&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg3&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg4&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg5&quot;</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">)</span>
-
-<div class="viewcode-block" id="Amd64SyscallHijacker.create_hijacker">
-<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_syscall_hijacker.Amd64SyscallHijacker.create_hijacker">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_hijacker</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">:</span> <span class="n">Amd64SyscallHijacker</span><span class="p">,</span>
-        <span class="n">new_syscall</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new hijacker for the given syscall.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            new_syscall (int): The new syscall number.</span>
-<span class="sd">            **kwargs: The keyword arguments.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">hijack_on_enter_wrapper</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Wrapper for the hijack_on_enter method.&quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_hijack_on_enter</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">new_syscall</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">hijack_on_enter_wrapper</span></div>
+        <span class="k">return</span> <span class="kc">False</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_hijack_on_enter</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">:</span> <span class="n">Amd64SyscallHijacker</span><span class="p">,</span>
-        <span class="n">d</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span>
-        <span class="n">new_syscall</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hijack the syscall on enter.</span>
+<div class="viewcode-block" id="Amd64CallUtilities.compute_call_skip">
+<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities.compute_call_skip">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_call_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_window</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the instruction size of the current call instruction.&quot;&quot;&quot;</span>
+        <span class="c1"># Check for direct CALL (E8 xx xx xx xx)</span>
+        <span class="k">if</span> <span class="n">opcode_window</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0xE8</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">5</span>  <span class="c1"># Direct CALL</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            d (ThreadContext): The target ThreadContext.</span>
-<span class="sd">            new_syscall (int): The new syscall number.</span>
-<span class="sd">            **kwargs: The keyword arguments.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">d</span><span class="o">.</span><span class="n">syscall_number</span> <span class="o">=</span> <span class="n">new_syscall</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg0&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg0</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg0&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg1&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg1</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg2&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg2</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg2&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg3&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg3</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg3&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg4&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg4</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg4&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg5&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg5</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg5&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+        <span class="c1"># Check for indirect CALL using ModR/M (FF /2)</span>
+        <span class="k">if</span> <span class="n">opcode_window</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">:</span>
+            <span class="c1"># Extract ModR/M byte</span>
+            <span class="n">modRM</span> <span class="o">=</span> <span class="n">opcode_window</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="p">(</span><span class="n">modRM</span> <span class="o">&gt;&gt;</span> <span class="mi">6</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x03</span>  <span class="c1"># First two bits</span>
+            <span class="n">reg</span> <span class="o">=</span> <span class="p">(</span><span class="n">modRM</span> <span class="o">&gt;&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x07</span>  <span class="c1"># Next three bits</span>
+
+            <span class="c1"># Check if reg field is 010 (indirect CALL)</span>
+            <span class="k">if</span> <span class="n">reg</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">mod</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">modRM</span> <span class="o">&amp;</span> <span class="mh">0x07</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span> <span class="k">if</span> <span class="n">opcode_window</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x25</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># SIB byte + optional disp32</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="n">modRM</span> <span class="o">&amp;</span> <span class="mh">0x07</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="mi">6</span>  <span class="c1"># disp32</span>
+                    <span class="k">return</span> <span class="mi">2</span>  <span class="c1"># No displacement</span>
+                <span class="k">elif</span> <span class="n">mod</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="mi">3</span>  <span class="c1"># disp8</span>
+                <span class="k">elif</span> <span class="n">mod</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="mi">6</span>  <span class="c1"># disp32</span>
+                <span class="k">elif</span> <span class="n">mod</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="mi">2</span>  <span class="c1"># Register direct</span>
+
+        <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># Not a CALL</span></div>
+
+    
+<div class="viewcode-block" id="Amd64CallUtilities.get_call_and_skip_amount">
+<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities.get_call_and_skip_amount">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_call_and_skip_amount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opcode_window</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the current instruction is a call instruction and compute the instruction size.&quot;&quot;&quot;</span>
+        <span class="n">skip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_call_skip</span><span class="p">(</span><span class="n">opcode_window</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">skip</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">skip</span></div>
+</div>
 
 </pre></div>
 
