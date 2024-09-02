@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.architectures.ptrace_hardware_breakpoint_manager &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.memory.direct_memory_view &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -35,11 +35,11 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="../../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/architectures/ptrace_hardware_breakpoint_manager';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/memory/direct_memory_view';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -117,7 +117,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -406,7 +406,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">libdebug.arc...</li>
+    <li class="breadcrumb-item active" aria-current="page">libdebug.mem...</li>
   </ul>
 </nav>
 </div>
@@ -423,79 +423,88 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.architectures.ptrace_hardware_breakpoint_manager</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.memory.direct_memory_view</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2023-2024 Roberto Alessandro Bertolini. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024 Roberto Alessandro Bertolini. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">libdebug.memory.abstract_memory_view</span> <span class="kn">import</span> <span class="n">AbstractMemoryView</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 
-    <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
-    <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
 
-
-<div class="viewcode-block" id="PtraceHardwareBreakpointManager">
-<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager">[docs]</a>
-<span class="k">class</span> <span class="nc">PtraceHardwareBreakpointManager</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An architecture-independent interface for managing hardware breakpoints.</span>
+<div class="viewcode-block" id="DirectMemoryView">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.direct_memory_view.DirectMemoryView">[docs]</a>
+<span class="k">class</span> <span class="nc">DirectMemoryView</span><span class="p">(</span><span class="n">AbstractMemoryView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A memory interface for the target process, intended for direct memory access.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        thread (ThreadContext): The target thread.</span>
-<span class="sd">        peek_user (callable): A function that reads a number of bytes from the target thread registers.</span>
-<span class="sd">        poke_user (callable): A function that writes a number of bytes to the target thread registers.</span>
-<span class="sd">        breakpoint_count (int): The number of hardware breakpoints set.</span>
+<span class="sd">            getter (Callable[[int, int], bytes]): A function that reads a variable amount of data from the target&#39;s memory.</span>
+<span class="sd">            setter (Callable[[int, bytes], None]): A function that writes memory to the target process.</span>
+<span class="sd">            align_to (int, optional): The address alignment that must be used when reading and writing memory. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">:</span> <span class="n">PtraceHardwareBreakpointManager</span><span class="p">,</span>
-        <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span>
-        <span class="n">peek_user</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span>
-        <span class="n">poke_user</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">DirectMemoryView</span><span class="p">,</span>
+        <span class="n">getter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">],</span>
+        <span class="n">setter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">align_to</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the hardware breakpoint manager.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">thread</span> <span class="o">=</span> <span class="n">thread</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">peek_user</span> <span class="o">=</span> <span class="n">peek_user</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">poke_user</span> <span class="o">=</span> <span class="n">poke_user</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">breakpoint_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the MemoryView.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">getter</span> <span class="o">=</span> <span class="n">getter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setter</span> <span class="o">=</span> <span class="n">setter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span> <span class="o">=</span> <span class="n">align_to</span>
 
-<div class="viewcode-block" id="PtraceHardwareBreakpointManager.install_breakpoint">
-<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.install_breakpoint">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">install_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceHardwareBreakpointManager</span><span class="p">,</span> <span class="n">bp</span><span class="p">:</span> <span class="n">Breakpoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Installs a hardware breakpoint at the provided location.&quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="DirectMemoryView.read">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.direct_memory_view.DirectMemoryView.read">[docs]</a>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">DirectMemoryView</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads memory from the target process.</span>
 
-
-<div class="viewcode-block" id="PtraceHardwareBreakpointManager.remove_breakpoint">
-<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.remove_breakpoint">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">remove_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceHardwareBreakpointManager</span><span class="p">,</span> <span class="n">bp</span><span class="p">:</span> <span class="n">Breakpoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes a hardware breakpoint at the provided location.&quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="PtraceHardwareBreakpointManager.available_breakpoints">
-<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.available_breakpoints">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">available_breakpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceHardwareBreakpointManager</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the number of available hardware breakpoint registers.&quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="PtraceHardwareBreakpointManager.is_watchpoint_hit">
-<a class="viewcode-back" href="../../../libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.is_watchpoint_hit">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">is_watchpoint_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceHardwareBreakpointManager</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Breakpoint</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if a watchpoint has been hit.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            address (int): The address to read from.</span>
+<span class="sd">            size (int): The number of bytes to read.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Breakpoint | None: The watchpoint that has been hit, or None if no watchpoint has been hit.</span>
-<span class="sd">        &quot;&quot;&quot;</span></div>
+<span class="sd">            bytes: The read bytes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="n">address</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span>
+            <span class="n">base_address</span> <span class="o">=</span> <span class="n">address</span> <span class="o">-</span> <span class="n">prefix</span>
+            <span class="n">new_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">+</span> <span class="n">prefix</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">base_address</span><span class="p">,</span> <span class="n">new_size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="n">prefix</span> <span class="p">:</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DirectMemoryView.write">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.direct_memory_view.DirectMemoryView.write">[docs]</a>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">DirectMemoryView</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes memory to the target process.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            address (int): The address to write to.</span>
+<span class="sd">            data (bytes): The data to write.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="n">address</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span>
+            <span class="n">base_address</span> <span class="o">=</span> <span class="n">address</span> <span class="o">-</span> <span class="n">prefix</span>
+            <span class="n">new_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">+</span> <span class="n">prefix</span>
+            <span class="n">prefix_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">base_address</span><span class="p">,</span> <span class="n">new_size</span><span class="p">)</span>
+            <span class="n">new_data</span> <span class="o">=</span> <span class="n">prefix_data</span><span class="p">[:</span><span class="n">prefix</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span> <span class="o">+</span> <span class="n">prefix_data</span><span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">size</span> <span class="p">:]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">base_address</span><span class="p">,</span> <span class="n">new_data</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

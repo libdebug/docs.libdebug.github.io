@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.data.memory_view &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.memory.abstract_memory_view &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -35,11 +35,11 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="../../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/data/memory_view';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/memory/abstract_memory_view';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -117,7 +117,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -406,7 +406,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">libdebug.dat...</li>
+    <li class="breadcrumb-item active" aria-current="page">libdebug.mem...</li>
   </ul>
 </nav>
 </div>
@@ -423,7 +423,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.data.memory_view</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.memory.abstract_memory_view</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
 <span class="c1"># Copyright (c) 2023-2024 Roberto Alessandro Bertolini, Gabriele Digregorio. All rights reserved.</span>
@@ -432,52 +432,30 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">MutableSequence</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">MutableSequence</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">provide_internal_debugger</span>
 <span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
 
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
 
+<div class="viewcode-block" id="AbstractMemoryView">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView">[docs]</a>
+<span class="k">class</span> <span class="nc">AbstractMemoryView</span><span class="p">(</span><span class="n">MutableSequence</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An abstract memory interface for the target process.</span>
 
-<div class="viewcode-block" id="MemoryView">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_view.MemoryView">[docs]</a>
-<span class="k">class</span> <span class="nc">MemoryView</span><span class="p">(</span><span class="n">MutableSequence</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A memory interface for the target process.</span>
-
-<span class="sd">    This class must be used to read and write memory of the target process.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">            getter (Callable[[int], bytes]): A function that reads memory from the target process.</span>
-<span class="sd">            setter (Callable[[int, bytes], None]): A function that writes memory to the target process.</span>
-<span class="sd">            maps_provider (Callable[[], list[MemoryMap]]): A function that returns the memory maps of the target process.</span>
-<span class="sd">            unit_size (int, optional): The data size used by the getter and setter functions. Defaults to 8.</span>
-<span class="sd">            align_to (int, optional): The address alignment that must be used when reading and writing memory. Defaults to 1.</span>
+<span class="sd">    An implementation of class must be used to read and write memory of the target process.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">context</span><span class="p">:</span> <span class="n">InternalDebugger</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The debugging context of the target process.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span>
-        <span class="n">getter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">],</span>
-        <span class="n">setter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
-        <span class="n">unit_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="n">align_to</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the MemoryView.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">getter</span> <span class="o">=</span> <span class="n">getter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setter</span> <span class="o">=</span> <span class="n">setter</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span> <span class="o">=</span> <span class="n">unit_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span> <span class="o">=</span> <span class="n">align_to</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span> <span class="o">=</span> <span class="n">provide_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">maps_provider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span>
 
-<div class="viewcode-block" id="MemoryView.read">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_view.MemoryView.read">[docs]</a>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<div class="viewcode-block" id="AbstractMemoryView.read">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView.read">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads memory from the target process.</span>
 
 <span class="sd">        Args:</span>
@@ -486,77 +464,22 @@ document.write(`
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: The read bytes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
-
-            <span class="n">remainder</span> <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span>
-
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">address</span> <span class="o">+</span> <span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span><span class="p">):</span>
-                <span class="n">data</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">remainder</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">address</span> <span class="o">+</span> <span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)[:</span><span class="n">remainder</span><span class="p">]</span>
-
-            <span class="k">return</span> <span class="n">data</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">prefix</span> <span class="o">=</span> <span class="n">address</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span>
-            <span class="n">prefix_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span> <span class="o">-</span> <span class="n">prefix</span>
-
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">address</span> <span class="o">-</span> <span class="n">prefix</span><span class="p">)[</span><span class="n">prefix</span><span class="p">:]</span>
-
-            <span class="n">remainder</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="n">prefix_size</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span>
-
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
-                <span class="n">address</span> <span class="o">+</span> <span class="n">prefix_size</span><span class="p">,</span>
-                <span class="n">address</span> <span class="o">+</span> <span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span><span class="p">,</span>
-            <span class="p">):</span>
-                <span class="n">data</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">remainder</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">address</span> <span class="o">+</span> <span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)[:</span><span class="n">remainder</span><span class="p">]</span>
-
-            <span class="k">return</span> <span class="n">data</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="MemoryView.write">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_view.MemoryView.write">[docs]</a>
-    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AbstractMemoryView.write">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView.write">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes memory to the target process.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            address (int): The address to write to.</span>
 <span class="sd">            data (bytes): The data to write.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">remainder</span> <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span>
-            <span class="n">base</span> <span class="o">=</span> <span class="n">address</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">prefix</span> <span class="o">=</span> <span class="n">address</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_to</span>
-            <span class="n">prefix_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span> <span class="o">-</span> <span class="n">prefix</span>
-
-            <span class="n">prev_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">address</span> <span class="o">-</span> <span class="n">prefix</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">address</span> <span class="o">-</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">prev_data</span><span class="p">[:</span><span class="n">prefix_size</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[:</span><span class="n">prefix</span><span class="p">])</span>
-
-            <span class="n">remainder</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="n">prefix_size</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span>
-            <span class="n">base</span> <span class="o">=</span> <span class="n">address</span> <span class="o">+</span> <span class="n">prefix_size</span>
-
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">address</span> <span class="o">+</span> <span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">address</span> <span class="p">:</span> <span class="n">i</span> <span class="o">-</span> <span class="n">address</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_size</span><span class="p">])</span>
-
-        <span class="k">if</span> <span class="n">remainder</span><span class="p">:</span>
-            <span class="n">prev_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getter</span><span class="p">(</span><span class="n">address</span> <span class="o">+</span> <span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">setter</span><span class="p">(</span>
-                <span class="n">address</span> <span class="o">+</span> <span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span><span class="p">,</span>
-                <span class="n">data</span><span class="p">[</span><span class="n">size</span> <span class="o">-</span> <span class="n">remainder</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">prev_data</span><span class="p">[</span><span class="n">remainder</span><span class="p">:],</span>
-            <span class="p">)</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read from memory, either a single byte or a byte string.</span>
 
 <span class="sd">        Args:</span>
@@ -564,7 +487,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manage_memory_read_type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Write to memory, either a single byte or a byte string.</span>
 
 <span class="sd">        Args:</span>
@@ -575,7 +498,11 @@ document.write(`
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type for the value to write to memory. Expected bytes.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_manage_memory_write_type</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_manage_memory_read_type</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_manage_memory_read_type</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Manage the read from memory, according to the typing.</span>
 
 <span class="sd">        Args:</span>
@@ -617,7 +544,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid key type.&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_manage_memory_read_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_manage_memory_read_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Manage the read from memory, when the access is through a tuple.</span>
 
 <span class="sd">        Args:</span>
@@ -657,7 +584,7 @@ document.write(`
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid address.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
     <span class="k">def</span> <span class="nf">_manage_memory_write_type</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span>
         <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">,</span>
         <span class="n">value</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span>
@@ -713,7 +640,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid key type.&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_manage_memory_write_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_manage_memory_write_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Manage the write to memory, when the access is through a tuple.</span>
 
 <span class="sd">        Args:</span>
@@ -757,17 +684,17 @@ document.write(`
         <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid address.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
-    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;MemoryView doesn&#39;t support deletion.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;MemoryView doesn&#39;t support deletion&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;MemoryView doesn&#39;t support length.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;MemoryView doesn&#39;t support length&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="MemoryView.insert">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_view.MemoryView.insert">[docs]</a>
-    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryView</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="AbstractMemoryView.insert">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView.insert">[docs]</a>
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;MemoryView doesn&#39;t support insertion.&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;MemoryView doesn&#39;t support insertion&quot;</span><span class="p">)</span></div>
 </div>

@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.architectures.amd64.amd64_syscall_hijacker &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.architectures.aarch64.aarch64_registers &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -35,11 +35,11 @@
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../../_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="../../../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/architectures/amd64/amd64_syscall_hijacker';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/architectures/aarch64/aarch64_registers';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -117,7 +117,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -423,90 +423,31 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.architectures.amd64.amd64_syscall_hijacker</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.architectures.aarch64.aarch64_registers</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2024 Gabriele Digregorio. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024 Roberto Alessandro Bertolini. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
-<span class="kn">from</span> <span class="nn">libdebug.architectures.syscall_hijacking_manager</span> <span class="kn">import</span> <span class="n">SyscallHijackingManager</span>
-
-<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
-
-    <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
+<span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
+<span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">get_global_internal_debugger</span>
 
 
-<div class="viewcode-block" id="Amd64SyscallHijacker">
-<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_syscall_hijacker.Amd64SyscallHijacker">[docs]</a>
-<span class="k">class</span> <span class="nc">Amd64SyscallHijacker</span><span class="p">(</span><span class="n">SyscallHijackingManager</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class that provides syscall hijacking for the x86_64 architecture.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Aarch64Registers">
+<a class="viewcode-back" href="../../../../libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_registers.Aarch64Registers">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Aarch64Registers</span><span class="p">(</span><span class="n">Registers</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class holds the state of the architectural-dependent registers of a process.&quot;&quot;&quot;</span>
 
-    <span class="c1"># Allowed arguments for the hijacker</span>
-    <span class="n">allowed_args</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;syscall_number&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg0&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg1&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg2&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg3&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg4&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;syscall_arg5&quot;</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">)</span>
-
-<div class="viewcode-block" id="Amd64SyscallHijacker.create_hijacker">
-<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_syscall_hijacker.Amd64SyscallHijacker.create_hijacker">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_hijacker</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">:</span> <span class="n">Amd64SyscallHijacker</span><span class="p">,</span>
-        <span class="n">new_syscall</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new hijacker for the given syscall.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            new_syscall (int): The new syscall number.</span>
-<span class="sd">            **kwargs: The keyword arguments.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">hijack_on_enter_wrapper</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Wrapper for the hijack_on_enter method.&quot;&quot;&quot;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_hijack_on_enter</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">new_syscall</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">hijack_on_enter_wrapper</span></div>
-
-
-    <span class="k">def</span> <span class="nf">_hijack_on_enter</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">:</span> <span class="n">Amd64SyscallHijacker</span><span class="p">,</span>
-        <span class="n">d</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span>
-        <span class="n">new_syscall</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hijack the syscall on enter.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            d (ThreadContext): The target ThreadContext.</span>
-<span class="sd">            new_syscall (int): The new syscall number.</span>
-<span class="sd">            **kwargs: The keyword arguments.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">d</span><span class="o">.</span><span class="n">syscall_number</span> <span class="o">=</span> <span class="n">new_syscall</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg0&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg0</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg0&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg1&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg1</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg2&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg2</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg2&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg3&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg3</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg3&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg4&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg4</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg4&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;syscall_arg5&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">syscall_arg5</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;syscall_arg5&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Aarch64Registers</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the Registers object.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span> <span class="o">=</span> <span class="n">get_global_internal_debugger</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_thread_id</span> <span class="o">=</span> <span class="n">thread_id</span></div>
 
 </pre></div>
 

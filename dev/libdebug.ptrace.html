@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug.ptrace package &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.ptrace package &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -44,7 +44,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="libdebug.ptrace.jumpstart package" href="libdebug.ptrace.jumpstart.html" />
-    <link rel="prev" title="libdebug.interfaces package" href="libdebug.interfaces.html" />
+    <link rel="prev" title="libdebug.memory package" href="libdebug.memory.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -120,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -383,6 +383,7 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.architectures.html">libdebug.architectures package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html">libdebug.architectures.aarch64 package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a></li>
 </ul>
 </details></li>
@@ -391,6 +392,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="libdebug.data.html">libdebug.data package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.debugger.html">libdebug.debugger package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.interfaces.html">libdebug.interfaces package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libdebug.memory.html">libdebug.memory package</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">libdebug.ptrace package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.ptrace.jumpstart.html">libdebug.ptrace.jumpstart package</a></li>
 </ul>
@@ -711,12 +713,6 @@ document.write(`
 <dd><p>Whether the process was detached or not.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.ptrace.ptrace_interface.PtraceInterface.hardware_bp_helpers">
-<span class="sig-name descname"><span class="pre">hardware_bp_helpers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="libdebug.architectures.html#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager" title="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager"><span class="pre">PtraceHardwareBreakpointManager</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.hardware_bp_helpers" title="Link to this definition">#</a></dt>
-<dd><p>The hardware breakpoint managers (one for each thread).</p>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.ptrace.ptrace_interface.PtraceInterface.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/ptrace/ptrace_interface.html#PtraceInterface.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.reset" title="Link to this definition">#</a></dt>
@@ -966,6 +962,12 @@ document.write(`
 <dd><p>Returns the memory maps of the process.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.ptrace.ptrace_interface.PtraceInterface.get_hit_watchpoint">
+<span class="sig-name descname"><span class="pre">get_hit_watchpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></span><a class="reference internal" href="_modules/libdebug/ptrace/ptrace_interface.html#PtraceInterface.get_hit_watchpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.get_hit_watchpoint" title="Link to this definition">#</a></dt>
+<dd><p>Returns the watchpoint that has been hit.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -1042,12 +1044,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="libdebug.interfaces.html"
+       href="libdebug.memory.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">libdebug.interfaces package</p>
+        <p class="prev-next-title">libdebug.memory package</p>
       </div>
     </a>
     <a class="right-next"
@@ -1133,7 +1135,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface"><code class="docutils literal notranslate"><span class="pre">PtraceInterface</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.process_id"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.process_id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.detached"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.detached</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.hardware_bp_helpers"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.hardware_bp_helpers</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.reset"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.run"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.run()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.attach"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.attach()</span></code></a></li>
@@ -1161,6 +1162,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.fetch_fp_registers"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.fetch_fp_registers()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.flush_fp_registers"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.flush_fp_registers()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.maps"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.maps()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.ptrace.ptrace_interface.PtraceInterface.get_hit_watchpoint"><code class="docutils literal notranslate"><span class="pre">PtraceInterface.get_hit_watchpoint()</span></code></a></li>
 </ul>
 </li>
 </ul>

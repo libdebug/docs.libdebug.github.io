@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug.utils package &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.utils package &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -119,7 +119,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -382,6 +382,7 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.architectures.html">libdebug.architectures package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html">libdebug.architectures.aarch64 package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a></li>
 </ul>
 </details></li>
@@ -390,6 +391,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="libdebug.data.html">libdebug.data package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.debugger.html">libdebug.debugger package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.interfaces.html">libdebug.interfaces package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libdebug.memory.html">libdebug.memory package</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.ptrace.html">libdebug.ptrace package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.ptrace.jumpstart.html">libdebug.ptrace.jumpstart package</a></li>
 </ul>
@@ -457,6 +459,26 @@ document.write(`
 <h1>libdebug.utils package<a class="headerlink" href="#libdebug-utils-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-libdebug.utils.arch_mappings">
+<span id="libdebug-utils-arch-mappings-module"></span><h2>libdebug.utils.arch_mappings module<a class="headerlink" href="#module-libdebug.utils.arch_mappings" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="libdebug.utils.arch_mappings.map_arch">
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.arch_mappings.</span></span><span class="sig-name descname"><span class="pre">map_arch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/libdebug/utils/arch_mappings.html#map_arch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.arch_mappings.map_arch" title="Link to this definition">#</a></dt>
+<dd><p>Map the architecture to the correct format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arch</strong> (<em>str</em>) – the architecture to map.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the mapped architecture.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-libdebug.utils.debugger_wrappers">
 <span id="libdebug-utils-debugger-wrappers-module"></span><h2>libdebug.utils.debugger_wrappers module<a class="headerlink" href="#module-libdebug.utils.debugger_wrappers" title="Link to this heading">#</a></h2>
@@ -605,6 +627,23 @@ document.write(`
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="libdebug.utils.elf_utils.parse_elf_characteristics">
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.elf_utils.</span></span><span class="sig-name descname"><span class="pre">parse_elf_characteristics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/utils/elf_utils.html#parse_elf_characteristics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.elf_utils.parse_elf_characteristics" title="Link to this definition">#</a></dt>
+<dd><p>Returns a tuple containing the PIE flag, the entry point and the architecture of the specified ELF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the ELF file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the PIE flag, the entry point and the architecture of the specified ELF file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="libdebug.utils.elf_utils.is_pie">
 <span class="sig-prename descclassname"><span class="pre">libdebug.utils.elf_utils.</span></span><span class="sig-name descname"><span class="pre">is_pie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/libdebug/utils/elf_utils.html#is_pie"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.elf_utils.is_pie" title="Link to this definition">#</a></dt>
 <dd><p>Returns True if the specified ELF file is position independent, False otherwise.</p>
@@ -634,6 +673,23 @@ document.write(`
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libdebug.utils.elf_utils.elf_architecture">
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.elf_utils.</span></span><span class="sig-name descname"><span class="pre">elf_architecture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/libdebug/utils/elf_utils.html#elf_architecture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.elf_utils.elf_architecture" title="Link to this definition">#</a></dt>
+<dd><p>Returns the architecture of the specified ELF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the ELF file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The architecture of the specified ELF file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -706,17 +762,9 @@ document.write(`
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="libdebug.utils.libcontext.LibContext.arch">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#libdebug.utils.libcontext.LibContext.arch" title="Link to this definition">#</a></dt>
-<dd><p>Property getter for architecture.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the current architecture.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>_arch (str)</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="libdebug.utils.libcontext.LibContext.platform">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">platform</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#libdebug.utils.libcontext.LibContext.platform" title="Link to this definition">#</a></dt>
+<dd><p>Return the current platform.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -980,6 +1028,26 @@ int: number of bytes sent.</p>
 </dd></dl>
 
 </section>
+<section id="module-libdebug.utils.platform_utils">
+<span id="libdebug-utils-platform-utils-module"></span><h2>libdebug.utils.platform_utils module<a class="headerlink" href="#module-libdebug.utils.platform_utils" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="libdebug.utils.platform_utils.get_platform_register_size">
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.platform_utils.</span></span><span class="sig-name descname"><span class="pre">get_platform_register_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/utils/platform_utils.html#get_platform_register_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.platform_utils.get_platform_register_size" title="Link to this definition">#</a></dt>
+<dd><p>Get the register size of the platform.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arch</strong> (<em>str</em>) – The architecture of the platform.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The register size in bytes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-libdebug.utils.posix_spawn">
 <span id="libdebug-utils-posix-spawn-module"></span><h2>libdebug.utils.posix_spawn module<a class="headerlink" href="#module-libdebug.utils.posix_spawn" title="Link to this heading">#</a></h2>
 <dl class="py function">
@@ -1187,25 +1255,25 @@ int: number of bytes sent.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="libdebug.utils.syscall_utils.resolve_syscall_number">
-<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">resolve_syscall_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#resolve_syscall_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.resolve_syscall_number" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">resolve_syscall_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#resolve_syscall_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.resolve_syscall_number" title="Link to this definition">#</a></dt>
 <dd><p>Resolve a syscall name to its number.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="libdebug.utils.syscall_utils.resolve_syscall_name">
-<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">resolve_syscall_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#resolve_syscall_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.resolve_syscall_name" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">resolve_syscall_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#resolve_syscall_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.resolve_syscall_name" title="Link to this definition">#</a></dt>
 <dd><p>Resolve a syscall number to its name.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="libdebug.utils.syscall_utils.resolve_syscall_arguments">
-<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">resolve_syscall_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#resolve_syscall_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.resolve_syscall_arguments" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">resolve_syscall_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#resolve_syscall_arguments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.resolve_syscall_arguments" title="Link to this definition">#</a></dt>
 <dd><p>Resolve a syscall number to its argument definition.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="libdebug.utils.syscall_utils.get_all_syscall_numbers">
-<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">get_all_syscall_numbers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#get_all_syscall_numbers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.get_all_syscall_numbers" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">libdebug.utils.syscall_utils.</span></span><span class="sig-name descname"><span class="pre">get_all_syscall_numbers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/utils/syscall_utils.html#get_all_syscall_numbers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.syscall_utils.get_all_syscall_numbers" title="Link to this definition">#</a></dt>
 <dd><p>Retrieves all the syscall numbers.</p>
 </dd></dl>
 
@@ -1253,6 +1321,10 @@ int: number of bytes sent.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.arch_mappings">libdebug.utils.arch_mappings module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.arch_mappings.map_arch"><code class="docutils literal notranslate"><span class="pre">map_arch()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.debugger_wrappers">libdebug.utils.debugger_wrappers module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.debugger_wrappers.change_state_function_process"><code class="docutils literal notranslate"><span class="pre">change_state_function_process()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.debugger_wrappers.change_state_function_thread"><code class="docutils literal notranslate"><span class="pre">change_state_function_thread()</span></code></a></li>
@@ -1269,8 +1341,10 @@ int: number of bytes sent.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.elf_utils">libdebug.utils.elf_utils module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.elf_utils.resolve_symbol"><code class="docutils literal notranslate"><span class="pre">resolve_symbol()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.elf_utils.resolve_address"><code class="docutils literal notranslate"><span class="pre">resolve_address()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.elf_utils.parse_elf_characteristics"><code class="docutils literal notranslate"><span class="pre">parse_elf_characteristics()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.elf_utils.is_pie"><code class="docutils literal notranslate"><span class="pre">is_pie()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.elf_utils.get_entry_point"><code class="docutils literal notranslate"><span class="pre">get_entry_point()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.elf_utils.elf_architecture"><code class="docutils literal notranslate"><span class="pre">elf_architecture()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug-utils-gdb-module">libdebug.utils.gdb module</a></li>
@@ -1280,7 +1354,7 @@ int: number of bytes sent.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.debugger_logger"><code class="docutils literal notranslate"><span class="pre">LibContext.debugger_logger</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.pipe_logger"><code class="docutils literal notranslate"><span class="pre">LibContext.pipe_logger</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.general_logger"><code class="docutils literal notranslate"><span class="pre">LibContext.general_logger</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.arch"><code class="docutils literal notranslate"><span class="pre">LibContext.arch</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.platform"><code class="docutils literal notranslate"><span class="pre">LibContext.platform</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.terminal"><code class="docutils literal notranslate"><span class="pre">LibContext.terminal</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.update"><code class="docutils literal notranslate"><span class="pre">LibContext.update()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.libcontext.LibContext.tmp"><code class="docutils literal notranslate"><span class="pre">LibContext.tmp()</span></code></a></li>
@@ -1304,6 +1378,10 @@ int: number of bytes sent.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.sendlineafter"><code class="docutils literal notranslate"><span class="pre">PipeManager.sendlineafter()</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.platform_utils">libdebug.utils.platform_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.platform_utils.get_platform_register_size"><code class="docutils literal notranslate"><span class="pre">get_platform_register_size()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.posix_spawn">libdebug.utils.posix_spawn module</a><ul class="nav section-nav flex-column">

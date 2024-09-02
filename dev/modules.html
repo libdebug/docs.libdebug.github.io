@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -118,7 +118,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -434,16 +434,14 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.html">libdebug.architectures package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.breakpoint_validator">libdebug.architectures.breakpoint_validator module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.call_utilities_manager">libdebug.architectures.call_utilities_manager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.call_utilities_provider">libdebug.architectures.call_utilities_provider module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.ptrace_hardware_breakpoint_manager">libdebug.architectures.ptrace_hardware_breakpoint_manager module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.ptrace_hardware_breakpoint_provider">libdebug.architectures.ptrace_hardware_breakpoint_provider module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.ptrace_software_breakpoint_patcher">libdebug.architectures.ptrace_software_breakpoint_patcher module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.register_helper">libdebug.architectures.register_helper module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.stack_unwinding_manager">libdebug.architectures.stack_unwinding_manager module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.stack_unwinding_provider">libdebug.architectures.stack_unwinding_provider module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.syscall_hijacking_manager">libdebug.architectures.syscall_hijacking_manager module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.syscall_hijacking_provider">libdebug.architectures.syscall_hijacking_provider module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures.syscall_hijacker">libdebug.architectures.syscall_hijacker module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.html#module-libdebug.architectures">Module contents</a></li>
 </ul>
 </li>
@@ -467,7 +465,6 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.data.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.data.html#module-libdebug.data.breakpoint">libdebug.data.breakpoint module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.data.html#module-libdebug.data.memory_map">libdebug.data.memory_map module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.data.html#module-libdebug.data.memory_view">libdebug.data.memory_view module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.data.html#module-libdebug.data.register_holder">libdebug.data.register_holder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.data.html#module-libdebug.data.registers">libdebug.data.registers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.data.html#module-libdebug.data.signal_catcher">libdebug.data.signal_catcher module</a></li>
@@ -492,6 +489,15 @@ document.write(`
 <li class="toctree-l4"><a class="reference internal" href="libdebug.interfaces.html#module-libdebug.interfaces">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.memory.html">libdebug.memory package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.memory.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.memory.html#module-libdebug.memory.abstract_memory_view">libdebug.memory.abstract_memory_view module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.memory.html#module-libdebug.memory.chunked_memory_view">libdebug.memory.chunked_memory_view module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.memory.html#module-libdebug.memory.direct_memory_view">libdebug.memory.direct_memory_view module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.memory.html#module-libdebug.memory.process_memory_manager">libdebug.memory.process_memory_manager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.memory.html#module-libdebug.memory">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="libdebug.ptrace.html">libdebug.ptrace package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.ptrace.html#submodules">Submodules</a></li>
@@ -511,12 +517,14 @@ document.write(`
 </li>
 <li class="toctree-l3"><a class="reference internal" href="libdebug.utils.html">libdebug.utils package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.arch_mappings">libdebug.utils.arch_mappings module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.debugger_wrappers">libdebug.utils.debugger_wrappers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.debugging_utils">libdebug.utils.debugging_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.elf_utils">libdebug.utils.elf_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#libdebug-utils-gdb-module">libdebug.utils.gdb module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.libcontext">libdebug.utils.libcontext module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.pipe_manager">libdebug.utils.pipe_manager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.platform_utils">libdebug.utils.platform_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.posix_spawn">libdebug.utils.posix_spawn module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.print_style">libdebug.utils.print_style module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libdebug.utils.html#module-libdebug.utils.process_utils">libdebug.utils.process_utils module</a></li>
