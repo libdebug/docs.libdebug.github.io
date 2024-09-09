@@ -498,7 +498,7 @@ document.write(`
     <span class="kn">from</span> <span class="nn">libdebug.utils.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
 
 <span class="n">THREAD_TERMINATE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-<span class="n">GDB_GOBACK_LOCATION</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;utils&quot;</span> <span class="o">/</span> <span class="s2">&quot;gdb.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+<span class="n">GDB_GOBACK_LOCATION</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;utils&quot;</span> <span class="o">/</span> <span class="s2">&quot;gdb.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="InternalDebugger">
