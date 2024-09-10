@@ -704,11 +704,11 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_run</span><span class="p">,</span> <span class="p">()))</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">escape_antidebug</span><span class="p">:</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Enabling anti-debugging escape mechanism.&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_enable_antidebug_escaping</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe_manager</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Something went wrong during pipe initialization.&quot;</span><span class="p">)</span>
@@ -1995,6 +1995,8 @@ document.write(`
         <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_handle_syscall</span><span class="p">,</span> <span class="p">(</span><span class="n">handler</span><span class="p">,)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
         <span class="c1"># Seutp hidden state for the handler</span>
         <span class="n">handler</span><span class="o">.</span><span class="n">_traceme_called</span> <span class="o">=</span> <span class="kc">False</span>
