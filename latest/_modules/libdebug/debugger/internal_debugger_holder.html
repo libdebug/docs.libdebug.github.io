@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.debugger.internal_debugger_holder &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.debugger.internal_debugger_holder &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="../../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
@@ -117,7 +117,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -426,13 +426,22 @@ document.write(`
   <h1>Source code for libdebug.debugger.internal_debugger_holder</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2024 Gabriele Digregorio. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024 Gabriele Digregorio, Roberto Alessandro Bertolini. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">atexit</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakKeyDictionary</span>
+
+<span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
 
 
 <div class="viewcode-block" id="InternalDebuggerHolder">
@@ -440,6 +449,7 @@ document.write(`
 <span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">InternalDebuggerHolder</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A holder for internal debuggers.&quot;&quot;&quot;</span>
+
     <span class="n">internal_debuggers</span><span class="p">:</span> <span class="n">WeakKeyDictionary</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">WeakKeyDictionary</span><span class="p">)</span>
     <span class="n">global_internal_debugger</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">internal_debugger_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span></div>
@@ -447,6 +457,26 @@ document.write(`
 
 
 <span class="n">internal_debugger_holder</span> <span class="o">=</span> <span class="n">InternalDebuggerHolder</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_cleanup_internal_debugger</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cleanup the internal debugger.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">debugger</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">internal_debugger_holder</span><span class="o">.</span><span class="n">internal_debuggers</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">debugger</span><span class="p">:</span> <span class="n">InternalDebugger</span>
+
+        <span class="k">if</span> <span class="n">debugger</span><span class="o">.</span><span class="n">instanced</span> <span class="ow">and</span> <span class="n">debugger</span><span class="o">.</span><span class="n">kill_on_exit</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">debugger</span><span class="o">.</span><span class="n">interrupt</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while interrupting debuggee: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">debugger</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while terminating the debugger: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_cleanup_internal_debugger</span><span class="p">)</span>
 </pre></div>
 
                 </article>

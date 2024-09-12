@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Breakpoints &#8212; libdebug 0.5.4 documentation</title>
+    <title>Breakpoints &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -36,7 +36,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
@@ -120,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -442,7 +442,7 @@ document.write(`
 <section id="id1">
 <h2>Breakpoints<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>libdebug provides a simple API to set breakpoints in your debugged program. The <cite>breakpoint()</cite> function sets a breakpoint at a specific address.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">Debugger</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">debugger</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;./test_program&quot;</span><span class="p">)</span>
 
@@ -510,20 +510,26 @@ The second parameter is the breakpoint object that triggered the callback.</p>
 </pre></div>
 </div>
 <p>Again, the position can be specified both as a relative address or as a symbol.
-The condition parameter specifies the type of access that triggers the watchpoint. The following values are supported:</p>
+The condition parameter specifies the type of access that triggers the watchpoint. The following values are supported in all architectures:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;w&quot;</span></code>: write access</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;rw&quot;</span></code>: read/write access</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;x&quot;</span></code>: execute access</p></li>
 </ul>
+<p>AArch64 additionally supports:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;r&quot;</span></code>: read access</p></li>
+</ul>
 <p>By default, the watchpoint is triggered only on write access.</p>
-<p>The length parameter specifies the size of the word being watched. The following values are supported:</p>
+<p>The length parameter specifies the size of the word being watched.
+In x86_64 (amd64) the following values are supported:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: byte</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: word</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">4</span></code>: dword</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">8</span></code>: qword</p></li>
 </ul>
+<p>AArch64 supports any length from 1 to 8 bytes.</p>
 <p>By default, the watchpoint is set to watch a byte.</p>
 </section>
 </section>

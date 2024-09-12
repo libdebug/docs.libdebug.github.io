@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug.architectures package &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.architectures package &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -36,14 +36,14 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'libdebug.architectures';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="libdebug.architectures.amd64 package" href="libdebug.architectures.amd64.html" />
+    <link rel="next" title="libdebug.architectures.aarch64 package" href="libdebug.architectures.aarch64.html" />
     <link rel="prev" title="libdebug package" href="libdebug.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -120,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -383,6 +383,7 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">libdebug.architectures package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html">libdebug.architectures.aarch64 package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a></li>
 </ul>
 </details></li>
@@ -391,6 +392,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="libdebug.data.html">libdebug.data package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.debugger.html">libdebug.debugger package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.interfaces.html">libdebug.interfaces package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libdebug.memory.html">libdebug.memory package</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.ptrace.html">libdebug.ptrace package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.ptrace.jumpstart.html">libdebug.ptrace.jumpstart package</a></li>
 </ul>
@@ -460,18 +462,56 @@ document.write(`
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="libdebug.architectures.aarch64.html">libdebug.architectures.aarch64 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html#module-libdebug.architectures.aarch64.aarch64_breakpoint_validator">libdebug.architectures.aarch64.aarch64_breakpoint_validator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_breakpoint_validator.validate_breakpoint_aarch64"><code class="docutils literal notranslate"><span class="pre">validate_breakpoint_aarch64()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html#module-libdebug.architectures.aarch64.aarch64_call_utilities">libdebug.architectures.aarch64.aarch64_call_utilities module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_call_utilities.Aarch64CallUtilities"><code class="docutils literal notranslate"><span class="pre">Aarch64CallUtilities</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_call_utilities.Aarch64CallUtilities.is_call"><code class="docutils literal notranslate"><span class="pre">Aarch64CallUtilities.is_call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_call_utilities.Aarch64CallUtilities.compute_call_skip"><code class="docutils literal notranslate"><span class="pre">Aarch64CallUtilities.compute_call_skip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_call_utilities.Aarch64CallUtilities.get_call_and_skip_amount"><code class="docutils literal notranslate"><span class="pre">Aarch64CallUtilities.get_call_and_skip_amount()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html#module-libdebug.architectures.aarch64.aarch64_ptrace_register_holder">libdebug.architectures.aarch64.aarch64_ptrace_register_holder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder"><code class="docutils literal notranslate"><span class="pre">Aarch64PtraceRegisterHolder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.provide_regs_class"><code class="docutils literal notranslate"><span class="pre">Aarch64PtraceRegisterHolder.provide_regs_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.apply_on_regs"><code class="docutils literal notranslate"><span class="pre">Aarch64PtraceRegisterHolder.apply_on_regs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.apply_on_thread"><code class="docutils literal notranslate"><span class="pre">Aarch64PtraceRegisterHolder.apply_on_thread()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html#module-libdebug.architectures.aarch64.aarch64_registers">libdebug.architectures.aarch64.aarch64_registers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_registers.Aarch64Registers"><code class="docutils literal notranslate"><span class="pre">Aarch64Registers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html#module-libdebug.architectures.aarch64.aarch64_stack_unwinder">libdebug.architectures.aarch64.aarch64_stack_unwinder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_stack_unwinder.Aarch64StackUnwinder"><code class="docutils literal notranslate"><span class="pre">Aarch64StackUnwinder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_stack_unwinder.Aarch64StackUnwinder.unwind"><code class="docutils literal notranslate"><span class="pre">Aarch64StackUnwinder.unwind()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_stack_unwinder.Aarch64StackUnwinder.get_return_address"><code class="docutils literal notranslate"><span class="pre">Aarch64StackUnwinder.get_return_address()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html#module-libdebug.architectures.aarch64">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper">libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.thread"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.thread</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.peek_user"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.peek_user</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.poke_user"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.poke_user</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.breakpoint_count"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.breakpoint_count</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.install_breakpoint"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.install_breakpoint()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.remove_breakpoint"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.remove_breakpoint()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.available_breakpoints"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.available_breakpoints()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_hw_bp_helper.Amd64PtraceHardwareBreakpointManager.is_watchpoint_hit"><code class="docutils literal notranslate"><span class="pre">Amd64PtraceHardwareBreakpointManager.is_watchpoint_hit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_breakpoint_validator">libdebug.architectures.amd64.amd64_breakpoint_validator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_breakpoint_validator.validate_breakpoint_amd64"><code class="docutils literal notranslate"><span class="pre">validate_breakpoint_amd64()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_call_utilities">libdebug.architectures.amd64.amd64_call_utilities module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities"><code class="docutils literal notranslate"><span class="pre">Amd64CallUtilities</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities.is_call"><code class="docutils literal notranslate"><span class="pre">Amd64CallUtilities.is_call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities.compute_call_skip"><code class="docutils literal notranslate"><span class="pre">Amd64CallUtilities.compute_call_skip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_call_utilities.Amd64CallUtilities.get_call_and_skip_amount"><code class="docutils literal notranslate"><span class="pre">Amd64CallUtilities.get_call_and_skip_amount()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -497,14 +537,6 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64.amd64_syscall_hijacker">libdebug.architectures.amd64.amd64_syscall_hijacker module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_syscall_hijacker.Amd64SyscallHijacker"><code class="docutils literal notranslate"><span class="pre">Amd64SyscallHijacker</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_syscall_hijacker.Amd64SyscallHijacker.allowed_args"><code class="docutils literal notranslate"><span class="pre">Amd64SyscallHijacker.allowed_args</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_syscall_hijacker.Amd64SyscallHijacker.create_hijacker"><code class="docutils literal notranslate"><span class="pre">Amd64SyscallHijacker.create_hijacker()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html#module-libdebug.architectures.amd64">Module contents</a></li>
 </ul>
 </li>
@@ -514,98 +546,49 @@ document.write(`
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-libdebug.architectures.ptrace_hardware_breakpoint_manager">
-<span id="libdebug-architectures-ptrace-hardware-breakpoint-manager-module"></span><h2>libdebug.architectures.ptrace_hardware_breakpoint_manager module<a class="headerlink" href="#module-libdebug.architectures.ptrace_hardware_breakpoint_manager" title="Link to this heading">#</a></h2>
+<section id="module-libdebug.architectures.breakpoint_validator">
+<span id="libdebug-architectures-breakpoint-validator-module"></span><h2>libdebug.architectures.breakpoint_validator module<a class="headerlink" href="#module-libdebug.architectures.breakpoint_validator" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="libdebug.architectures.breakpoint_validator.validate_hardware_breakpoint">
+<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.breakpoint_validator.</span></span><span class="sig-name descname"><span class="pre">validate_hardware_breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/breakpoint_validator.html#validate_hardware_breakpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.breakpoint_validator.validate_hardware_breakpoint" title="Link to this definition">#</a></dt>
+<dd><p>Validate a hardware breakpoint for the specified architecture.</p>
+</dd></dl>
+
+</section>
+<section id="module-libdebug.architectures.call_utilities_manager">
+<span id="libdebug-architectures-call-utilities-manager-module"></span><h2>libdebug.architectures.call_utilities_manager module<a class="headerlink" href="#module-libdebug.architectures.call_utilities_manager" title="Link to this heading">#</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.architectures.ptrace_hardware_breakpoint_manager.</span></span><span class="sig-name descname"><span class="pre">PtraceHardwareBreakpointManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">peek_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poke_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_hardware_breakpoint_manager.html#PtraceHardwareBreakpointManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="libdebug.architectures.call_utilities_manager.CallUtilitiesManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.architectures.call_utilities_manager.</span></span><span class="sig-name descname"><span class="pre">CallUtilitiesManager</span></span><a class="reference internal" href="_modules/libdebug/architectures/call_utilities_manager.html#CallUtilitiesManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>An architecture-independent interface for managing hardware breakpoints.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.thread">
-<span class="sig-name descname"><span class="pre">thread</span></span><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.thread" title="Link to this definition">#</a></dt>
-<dd><p>The target thread.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext">ThreadContext</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.peek_user">
-<span class="sig-name descname"><span class="pre">peek_user</span></span><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.peek_user" title="Link to this definition">#</a></dt>
-<dd><p>A function that reads a number of bytes from the target thread registers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>callable</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.poke_user">
-<span class="sig-name descname"><span class="pre">poke_user</span></span><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.poke_user" title="Link to this definition">#</a></dt>
-<dd><p>A function that writes a number of bytes to the target thread registers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>callable</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.breakpoint_count">
-<span class="sig-name descname"><span class="pre">breakpoint_count</span></span><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.breakpoint_count" title="Link to this definition">#</a></dt>
-<dd><p>The number of hardware breakpoints set.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
+<p>An architecture-independent interface for call instruction utilities.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.architectures.call_utilities_manager.CallUtilitiesManager.is_call">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opcode_window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/call_utilities_manager.html#CallUtilitiesManager.is_call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.is_call" title="Link to this definition">#</a></dt>
+<dd><p>Check if the current instruction is a call instruction.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.install_breakpoint">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">install_breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_hardware_breakpoint_manager.html#PtraceHardwareBreakpointManager.install_breakpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.install_breakpoint" title="Link to this definition">#</a></dt>
-<dd><p>Installs a hardware breakpoint at the provided location.</p>
+<dt class="sig sig-object py" id="libdebug.architectures.call_utilities_manager.CallUtilitiesManager.compute_call_skip">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_call_skip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opcode_window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/call_utilities_manager.html#CallUtilitiesManager.compute_call_skip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.compute_call_skip" title="Link to this definition">#</a></dt>
+<dd><p>Compute the address where to skip after the current call instruction.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.remove_breakpoint">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_breakpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_hardware_breakpoint_manager.html#PtraceHardwareBreakpointManager.remove_breakpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.remove_breakpoint" title="Link to this definition">#</a></dt>
-<dd><p>Removes a hardware breakpoint at the provided location.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.available_breakpoints">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">available_breakpoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_hardware_breakpoint_manager.html#PtraceHardwareBreakpointManager.available_breakpoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.available_breakpoints" title="Link to this definition">#</a></dt>
-<dd><p>Returns the number of available hardware breakpoint registers.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.is_watchpoint_hit">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_watchpoint_hit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint"><span class="pre">Breakpoint</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_hardware_breakpoint_manager.html#PtraceHardwareBreakpointManager.is_watchpoint_hit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.is_watchpoint_hit" title="Link to this definition">#</a></dt>
-<dd><p>Checks if a watchpoint has been hit.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The watchpoint that has been hit, or None if no watchpoint has been hit.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint" title="libdebug.data.breakpoint.Breakpoint">Breakpoint</a> | None</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="libdebug.architectures.call_utilities_manager.CallUtilitiesManager.get_call_and_skip_amount">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_call_and_skip_amount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opcode_window</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/architectures/call_utilities_manager.html#CallUtilitiesManager.get_call_and_skip_amount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.get_call_and_skip_amount" title="Link to this definition">#</a></dt>
+<dd><p>Check if the current instruction is a call instruction and compute the instruction size.</p>
 </dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="module-libdebug.architectures.ptrace_hardware_breakpoint_provider">
-<span id="libdebug-architectures-ptrace-hardware-breakpoint-provider-module"></span><h2>libdebug.architectures.ptrace_hardware_breakpoint_provider module<a class="headerlink" href="#module-libdebug.architectures.ptrace_hardware_breakpoint_provider" title="Link to this heading">#</a></h2>
+<section id="module-libdebug.architectures.call_utilities_provider">
+<span id="libdebug-architectures-call-utilities-provider-module"></span><h2>libdebug.architectures.call_utilities_provider module<a class="headerlink" href="#module-libdebug.architectures.call_utilities_provider" title="Link to this heading">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="libdebug.architectures.ptrace_hardware_breakpoint_provider.ptrace_hardware_breakpoint_manager_provider">
-<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.ptrace_hardware_breakpoint_provider.</span></span><span class="sig-name descname"><span class="pre">ptrace_hardware_breakpoint_manager_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">peek_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poke_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager" title="libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager"><span class="pre">PtraceHardwareBreakpointManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_hardware_breakpoint_provider.html#ptrace_hardware_breakpoint_manager_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_hardware_breakpoint_provider.ptrace_hardware_breakpoint_manager_provider" title="Link to this definition">#</a></dt>
-<dd><p>Returns an instance of the hardware breakpoint manager to be used by the <cite>_InternalDebugger</cite> class.</p>
+<dt class="sig sig-object py" id="libdebug.architectures.call_utilities_provider.call_utilities_provider">
+<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.call_utilities_provider.</span></span><span class="sig-name descname"><span class="pre">call_utilities_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager" title="libdebug.architectures.call_utilities_manager.CallUtilitiesManager"><span class="pre">CallUtilitiesManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/architectures/call_utilities_provider.html#call_utilities_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.call_utilities_provider.call_utilities_provider" title="Link to this definition">#</a></dt>
+<dd><p>Returns an instance of the call utilities provider to be used by the <cite>_InternalDebugger</cite> class.</p>
 </dd></dl>
 
 </section>
@@ -613,7 +596,7 @@ document.write(`
 <span id="libdebug-architectures-ptrace-software-breakpoint-patcher-module"></span><h2>libdebug.architectures.ptrace_software_breakpoint_patcher module<a class="headerlink" href="#module-libdebug.architectures.ptrace_software_breakpoint_patcher" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="libdebug.architectures.ptrace_software_breakpoint_patcher.software_breakpoint_byte_size">
-<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.ptrace_software_breakpoint_patcher.</span></span><span class="sig-name descname"><span class="pre">software_breakpoint_byte_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_software_breakpoint_patcher.html#software_breakpoint_byte_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_software_breakpoint_patcher.software_breakpoint_byte_size" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.ptrace_software_breakpoint_patcher.</span></span><span class="sig-name descname"><span class="pre">software_breakpoint_byte_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/ptrace_software_breakpoint_patcher.html#software_breakpoint_byte_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.ptrace_software_breakpoint_patcher.software_breakpoint_byte_size" title="Link to this definition">#</a></dt>
 <dd><p>Return the size of a software breakpoint instruction.</p>
 </dd></dl>
 
@@ -622,7 +605,7 @@ document.write(`
 <span id="libdebug-architectures-register-helper-module"></span><h2>libdebug.architectures.register_helper module<a class="headerlink" href="#module-libdebug.architectures.register_helper" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="libdebug.architectures.register_helper.register_holder_provider">
-<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.register_helper.</span></span><span class="sig-name descname"><span class="pre">register_holder_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">__</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.register_holder.RegisterHolder" title="libdebug.data.register_holder.RegisterHolder"><span class="pre">RegisterHolder</span></a></span></span><a class="reference internal" href="_modules/libdebug/architectures/register_helper.html#register_holder_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.register_helper.register_holder_provider" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.register_helper.</span></span><span class="sig-name descname"><span class="pre">register_holder_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">register_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp_register_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.data.html#libdebug.data.register_holder.RegisterHolder" title="libdebug.data.register_holder.RegisterHolder"><span class="pre">RegisterHolder</span></a></span></span><a class="reference internal" href="_modules/libdebug/architectures/register_helper.html#register_holder_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.register_helper.register_holder_provider" title="Link to this definition">#</a></dt>
 <dd><p>Returns an instance of the register holder to be used by the <cite>_InternalDebugger</cite> class.</p>
 </dd></dl>
 
@@ -642,7 +625,7 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.architectures.stack_unwinding_manager.StackUnwindingManager.get_return_address">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_return_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/stack_unwinding_manager.html#StackUnwindingManager.get_return_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.stack_unwinding_manager.StackUnwindingManager.get_return_address" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_return_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmaps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/stack_unwinding_manager.html#StackUnwindingManager.get_return_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.stack_unwinding_manager.StackUnwindingManager.get_return_address" title="Link to this definition">#</a></dt>
 <dd><p>Get the return address of the current function.</p>
 </dd></dl>
 
@@ -653,33 +636,37 @@ document.write(`
 <span id="libdebug-architectures-stack-unwinding-provider-module"></span><h2>libdebug.architectures.stack_unwinding_provider module<a class="headerlink" href="#module-libdebug.architectures.stack_unwinding_provider" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="libdebug.architectures.stack_unwinding_provider.stack_unwinding_provider">
-<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.stack_unwinding_provider.</span></span><span class="sig-name descname"><span class="pre">stack_unwinding_provider</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.architectures.stack_unwinding_manager.StackUnwindingManager" title="libdebug.architectures.stack_unwinding_manager.StackUnwindingManager"><span class="pre">StackUnwindingManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/architectures/stack_unwinding_provider.html#stack_unwinding_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.stack_unwinding_provider.stack_unwinding_provider" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.stack_unwinding_provider.</span></span><span class="sig-name descname"><span class="pre">stack_unwinding_provider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.architectures.stack_unwinding_manager.StackUnwindingManager" title="libdebug.architectures.stack_unwinding_manager.StackUnwindingManager"><span class="pre">StackUnwindingManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/architectures/stack_unwinding_provider.html#stack_unwinding_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.stack_unwinding_provider.stack_unwinding_provider" title="Link to this definition">#</a></dt>
 <dd><p>Returns an instance of the stack unwinding provider to be used by the <cite>_InternalDebugger</cite> class.</p>
 </dd></dl>
 
 </section>
-<section id="module-libdebug.architectures.syscall_hijacking_manager">
-<span id="libdebug-architectures-syscall-hijacking-manager-module"></span><h2>libdebug.architectures.syscall_hijacking_manager module<a class="headerlink" href="#module-libdebug.architectures.syscall_hijacking_manager" title="Link to this heading">#</a></h2>
+<section id="module-libdebug.architectures.syscall_hijacker">
+<span id="libdebug-architectures-syscall-hijacker-module"></span><h2>libdebug.architectures.syscall_hijacker module<a class="headerlink" href="#module-libdebug.architectures.syscall_hijacker" title="Link to this heading">#</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.architectures.syscall_hijacking_manager.</span></span><span class="sig-name descname"><span class="pre">SyscallHijackingManager</span></span><a class="reference internal" href="_modules/libdebug/architectures/syscall_hijacking_manager.html#SyscallHijackingManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>An architecture-independent interface for syscall hijacking.</p>
+<dt class="sig sig-object py" id="libdebug.architectures.syscall_hijacker.SyscallHijacker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.architectures.syscall_hijacker.</span></span><span class="sig-name descname"><span class="pre">SyscallHijacker</span></span><a class="reference internal" href="_modules/libdebug/architectures/syscall_hijacker.html#SyscallHijacker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.syscall_hijacker.SyscallHijacker" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that provides syscall hijacking for the x86_64 architecture.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.architectures.syscall_hijacker.SyscallHijacker.allowed_args">
+<span class="sig-name descname"><span class="pre">allowed_args</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'syscall_arg0',</span> <span class="pre">'syscall_arg1',</span> <span class="pre">'syscall_arg2',</span> <span class="pre">'syscall_arg3',</span> <span class="pre">'syscall_arg4',</span> <span class="pre">'syscall_arg5',</span> <span class="pre">'syscall_number'})</span></em><a class="headerlink" href="#libdebug.architectures.syscall_hijacker.SyscallHijacker.allowed_args" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager.create_hijacker">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_hijacker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/architectures/syscall_hijacking_manager.html#SyscallHijackingManager.create_hijacker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager.create_hijacker" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="libdebug.architectures.syscall_hijacker.SyscallHijacker.create_hijacker">
+<span class="sig-name descname"><span class="pre">create_hijacker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_syscall</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/architectures/syscall_hijacker.html#SyscallHijacker.create_hijacker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.syscall_hijacker.SyscallHijacker.create_hijacker" title="Link to this definition">#</a></dt>
 <dd><p>Create a new hijacker for the given syscall.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_syscall</strong> (<em>int</em>) – The new syscall number.</p></li>
+<li><p><strong>**kwargs</strong> – The keyword arguments.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
-</dd></dl>
-
-</section>
-<section id="module-libdebug.architectures.syscall_hijacking_provider">
-<span id="libdebug-architectures-syscall-hijacking-provider-module"></span><h2>libdebug.architectures.syscall_hijacking_provider module<a class="headerlink" href="#module-libdebug.architectures.syscall_hijacking_provider" title="Link to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="libdebug.architectures.syscall_hijacking_provider.syscall_hijacking_provider">
-<span class="sig-prename descclassname"><span class="pre">libdebug.architectures.syscall_hijacking_provider.</span></span><span class="sig-name descname"><span class="pre">syscall_hijacking_provider</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager" title="libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager"><span class="pre">SyscallHijackingManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/architectures/syscall_hijacking_provider.html#syscall_hijacking_provider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.syscall_hijacking_provider.syscall_hijacking_provider" title="Link to this definition">#</a></dt>
-<dd><p>Returns an instance of the syscall hijacking provider to be used by the <cite>_InternalDebugger</cite> class.</p>
 </dd></dl>
 
 </section>
@@ -708,11 +695,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="libdebug.architectures.amd64.html"
+       href="libdebug.architectures.aarch64.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">libdebug.architectures.amd64 package</p>
+        <p class="prev-next-title">libdebug.architectures.aarch64 package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -736,22 +723,21 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.ptrace_hardware_breakpoint_manager">libdebug.architectures.ptrace_hardware_breakpoint_manager module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.thread"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.thread</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.peek_user"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.peek_user</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.poke_user"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.poke_user</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.breakpoint_count"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.breakpoint_count</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.install_breakpoint"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.install_breakpoint()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.remove_breakpoint"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.remove_breakpoint()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.available_breakpoints"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.available_breakpoints()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_manager.PtraceHardwareBreakpointManager.is_watchpoint_hit"><code class="docutils literal notranslate"><span class="pre">PtraceHardwareBreakpointManager.is_watchpoint_hit()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.breakpoint_validator">libdebug.architectures.breakpoint_validator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.breakpoint_validator.validate_hardware_breakpoint"><code class="docutils literal notranslate"><span class="pre">validate_hardware_breakpoint()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.call_utilities_manager">libdebug.architectures.call_utilities_manager module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.is_call"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager.is_call()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.compute_call_skip"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager.compute_call_skip()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.call_utilities_manager.CallUtilitiesManager.get_call_and_skip_amount"><code class="docutils literal notranslate"><span class="pre">CallUtilitiesManager.get_call_and_skip_amount()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.ptrace_hardware_breakpoint_provider">libdebug.architectures.ptrace_hardware_breakpoint_provider module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.ptrace_hardware_breakpoint_provider.ptrace_hardware_breakpoint_manager_provider"><code class="docutils literal notranslate"><span class="pre">ptrace_hardware_breakpoint_manager_provider()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.call_utilities_provider">libdebug.architectures.call_utilities_provider module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.call_utilities_provider.call_utilities_provider"><code class="docutils literal notranslate"><span class="pre">call_utilities_provider()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.ptrace_software_breakpoint_patcher">libdebug.architectures.ptrace_software_breakpoint_patcher module</a><ul class="nav section-nav flex-column">
@@ -774,15 +760,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.stack_unwinding_provider.stack_unwinding_provider"><code class="docutils literal notranslate"><span class="pre">stack_unwinding_provider()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.syscall_hijacking_manager">libdebug.architectures.syscall_hijacking_manager module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager"><code class="docutils literal notranslate"><span class="pre">SyscallHijackingManager</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.syscall_hijacking_manager.SyscallHijackingManager.create_hijacker"><code class="docutils literal notranslate"><span class="pre">SyscallHijackingManager.create_hijacker()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.syscall_hijacker">libdebug.architectures.syscall_hijacker module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.syscall_hijacker.SyscallHijacker"><code class="docutils literal notranslate"><span class="pre">SyscallHijacker</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.syscall_hijacker.SyscallHijacker.allowed_args"><code class="docutils literal notranslate"><span class="pre">SyscallHijacker.allowed_args</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.syscall_hijacker.SyscallHijacker.create_hijacker"><code class="docutils literal notranslate"><span class="pre">SyscallHijacker.create_hijacker()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.syscall_hijacking_provider">libdebug.architectures.syscall_hijacking_provider module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.syscall_hijacking_provider.syscall_hijacking_provider"><code class="docutils literal notranslate"><span class="pre">syscall_hijacking_provider()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures">Module contents</a></li>

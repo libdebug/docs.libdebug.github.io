@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug.interfaces package &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.interfaces package &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -36,14 +36,14 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'libdebug.interfaces';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="libdebug.ptrace package" href="libdebug.ptrace.html" />
+    <link rel="next" title="libdebug.memory package" href="libdebug.memory.html" />
     <link rel="prev" title="libdebug.debugger package" href="libdebug.debugger.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -120,7 +120,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -383,6 +383,7 @@ document.write(`
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.architectures.html">libdebug.architectures package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html">libdebug.architectures.aarch64 package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a></li>
 </ul>
 </details></li>
@@ -391,6 +392,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="libdebug.data.html">libdebug.data package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.debugger.html">libdebug.debugger package</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">libdebug.interfaces package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libdebug.memory.html">libdebug.memory package</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.ptrace.html">libdebug.ptrace package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.ptrace.jumpstart.html">libdebug.ptrace.jumpstart package</a></li>
 </ul>
@@ -569,6 +571,12 @@ document.write(`
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="libdebug.interfaces.debugging_interface.DebuggingInterface.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/interfaces/debugging_interface.html#DebuggingInterface.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.next" title="Link to this definition">#</a></dt>
+<dd><p>Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="libdebug.interfaces.debugging_interface.DebuggingInterface.maps">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/interfaces/debugging_interface.html#DebuggingInterface.maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.maps" title="Link to this definition">#</a></dt>
 <dd><p>Returns the memory maps of the process.</p>
@@ -671,6 +679,28 @@ document.write(`
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.interfaces.debugging_interface.DebuggingInterface.fetch_fp_registers">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch_fp_registers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.data.html#libdebug.data.registers.Registers" title="libdebug.data.registers.Registers"><span class="pre">Registers</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/interfaces/debugging_interface.html#DebuggingInterface.fetch_fp_registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.fetch_fp_registers" title="Link to this definition">#</a></dt>
+<dd><p>Fetches the floating-point registers of the specified thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registers</strong> (<a class="reference internal" href="libdebug.data.html#libdebug.data.registers.Registers" title="libdebug.data.registers.Registers"><em>Registers</em></a>) – The registers instance to update.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.interfaces.debugging_interface.DebuggingInterface.flush_fp_registers">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flush_fp_registers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.data.html#libdebug.data.registers.Registers" title="libdebug.data.registers.Registers"><span class="pre">Registers</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/interfaces/debugging_interface.html#DebuggingInterface.flush_fp_registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.flush_fp_registers" title="Link to this definition">#</a></dt>
+<dd><p>Flushes the floating-point registers of the specified thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registers</strong> (<a class="reference internal" href="libdebug.data.html#libdebug.data.registers.Registers" title="libdebug.data.registers.Registers"><em>Registers</em></a>) – The registers instance to flush.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -723,11 +753,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="libdebug.ptrace.html"
+       href="libdebug.memory.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">libdebug.ptrace package</p>
+        <p class="prev-next-title">libdebug.memory package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -764,6 +794,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.step"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.step()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.step_until"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.step_until()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.finish"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.finish()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.next"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.next()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.maps"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.maps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.set_breakpoint"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.set_breakpoint()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.unset_breakpoint"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.unset_breakpoint()</span></code></a></li>
@@ -773,6 +804,8 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.unset_signal_catcher"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.unset_signal_catcher()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.peek_memory"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.peek_memory()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.poke_memory"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.poke_memory()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.fetch_fp_registers"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.fetch_fp_registers()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.flush_fp_registers"><code class="docutils literal notranslate"><span class="pre">DebuggingInterface.flush_fp_registers()</span></code></a></li>
 </ul>
 </li>
 </ul>

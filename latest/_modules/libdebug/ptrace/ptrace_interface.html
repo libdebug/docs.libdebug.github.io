@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.ptrace.ptrace_interface &#8212; libdebug 0.5.4 documentation</title>
+    <title>libdebug.ptrace.ptrace_interface &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -35,7 +35,7 @@
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../../_static/documentation_options.js?v=e1a677a5"></script>
+    <script src="../../../_static/documentation_options.js?v=8fa8b3e9"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
@@ -117,7 +117,7 @@
   
   
   
-    <p class="title logo__title">libdebug 0.5.4 documentation</p>
+    <p class="title logo__title">libdebug 0.6.0 documentation</p>
   
 </a></div>
     
@@ -439,10 +439,8 @@ document.write(`
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">libdebug.architectures.ptrace_hardware_breakpoint_provider</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ptrace_hardware_breakpoint_manager_provider</span><span class="p">,</span>
-<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">libdebug.architectures.register_helper</span> <span class="kn">import</span> <span class="n">register_holder_provider</span>
+<span class="kn">from</span> <span class="nn">libdebug.architectures.call_utilities_provider</span> <span class="kn">import</span> <span class="n">call_utilities_provider</span>
 <span class="kn">from</span> <span class="nn">libdebug.cffi</span> <span class="kn">import</span> <span class="n">_ptrace_cffi</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="p">(</span>
@@ -476,10 +474,8 @@ document.write(`
     <span class="p">)</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">libdebug.architectures.ptrace_hardware_breakpoint_manager</span> <span class="kn">import</span> <span class="p">(</span>
-        <span class="n">PtraceHardwareBreakpointManager</span><span class="p">,</span>
-    <span class="p">)</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
     <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
@@ -489,9 +485,6 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface">[docs]</a>
 <span class="k">class</span> <span class="nc">PtraceInterface</span><span class="p">(</span><span class="n">DebuggingInterface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The interface used by `_InternalDebugger` to communicate with the `ptrace` debugging backend.&quot;&quot;&quot;</span>
-
-    <span class="n">hardware_bp_helpers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">PtraceHardwareBreakpointManager</span><span class="p">]</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The hardware breakpoint managers (one for each thread).&quot;&quot;&quot;</span>
 
     <span class="n">process_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The process ID of the debugged process.&quot;&quot;&quot;</span>
@@ -513,12 +506,11 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;struct global_state*&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="o">.</span><span class="n">t_HEAD</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">NULL</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="o">.</span><span class="n">dead_t_HEAD</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">NULL</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="o">.</span><span class="n">b_HEAD</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">NULL</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="o">.</span><span class="n">sw_b_HEAD</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">NULL</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="o">.</span><span class="n">hw_b_HEAD</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">NULL</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">process_id</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">detached</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_disabled_aslr</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -528,7 +520,6 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.reset">[docs]</a>
     <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets the state of the interface.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">free_thread_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">free_breakpoints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">)</span></div>
 
@@ -666,7 +657,6 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.cont">[docs]</a>
     <span class="k">def</span> <span class="nf">cont</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Continues the execution of the process.&quot;&quot;&quot;</span>
-
         <span class="c1"># Forward signals to the threads</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">threads_with_signals_to_forward</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">forward_signal</span><span class="p">()</span>
@@ -697,6 +687,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">,</span>
         <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">result</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">errno_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">errno</span>
             <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">errno_val</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">errorcode</span><span class="p">[</span><span class="n">errno_val</span><span class="p">])</span></div>
@@ -773,7 +764,7 @@ document.write(`
             <span class="n">invalidate_process_cache</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">heuristic</span> <span class="o">==</span> <span class="s2">&quot;backtrace&quot;</span><span class="p">:</span>
             <span class="c1"># Breakpoint to return address</span>
-            <span class="n">last_saved_instruction_pointer</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">current_return_address</span><span class="p">()</span>
+            <span class="n">last_saved_instruction_pointer</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">saved_ip</span>
 
             <span class="c1"># If a breakpoint already exists at the return address, we don&#39;t need to set a new one</span>
             <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
@@ -785,15 +776,22 @@ document.write(`
                     <span class="n">ip_breakpoint</span> <span class="o">=</span> <span class="n">bp</span>
                     <span class="k">break</span>
 
+            <span class="c1"># If we find an existing breakpoint that is disabled, we enable it</span>
+            <span class="c1"># but we need to disable it back after the command</span>
+            <span class="n">should_disable</span> <span class="o">=</span> <span class="kc">False</span>
+
             <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
                 <span class="c1"># Check if we have enough hardware breakpoints available</span>
                 <span class="c1"># Otherwise we use a software breakpoint</span>
-                <span class="n">install_hw_bp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="p">[</span><span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">]</span><span class="o">.</span><span class="n">available_breakpoints</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="n">install_hw_bp</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">get_remaining_hw_breakpoint_count</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="p">)</span>
 
                 <span class="n">ip_breakpoint</span> <span class="o">=</span> <span class="n">Breakpoint</span><span class="p">(</span><span class="n">last_saved_instruction_pointer</span><span class="p">,</span> <span class="n">hardware</span><span class="o">=</span><span class="n">install_hw_bp</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
             <span class="k">elif</span> <span class="ow">not</span> <span class="n">ip_breakpoint</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_enable_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
+                <span class="n">should_disable</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">cont</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
@@ -801,8 +799,62 @@ document.write(`
             <span class="c1"># Remove the breakpoint if it was set by us</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">unset_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
+            <span class="c1"># Disable the breakpoint if it was just enabled by us</span>
+            <span class="k">elif</span> <span class="n">should_disable</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_disable_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unimplemented heuristic </span><span class="si">{</span><span class="n">heuristic</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PtraceInterface.next">
+<a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.next">[docs]</a>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
+
+        <span class="n">opcode_window</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">thread</span><span class="o">.</span><span class="n">instruction_pointer</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+        <span class="c1"># Check if the current instruction is a call and its skip amount</span>
+        <span class="n">is_call</span><span class="p">,</span> <span class="n">skip</span> <span class="o">=</span> <span class="n">call_utilities_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span><span class="o">.</span><span class="n">get_call_and_skip_amount</span><span class="p">(</span><span class="n">opcode_window</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_call</span><span class="p">:</span>
+            <span class="n">skip_address</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">instruction_pointer</span> <span class="o">+</span> <span class="n">skip</span>
+
+            <span class="c1"># If a breakpoint already exists at the return address, we don&#39;t need to set a new one</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">ip_breakpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">skip_address</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">ip_breakpoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># If we find an existing breakpoint that is disabled, we enable it</span>
+            <span class="c1"># but we need to disable it back after the command</span>
+            <span class="n">should_disable</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="c1"># Check if we have enough hardware breakpoints available</span>
+                <span class="c1"># Otherwise we use a software breakpoint</span>
+                <span class="n">install_hw_bp</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">get_remaining_hw_breakpoint_count</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="p">)</span>
+                <span class="n">ip_breakpoint</span> <span class="o">=</span> <span class="n">Breakpoint</span><span class="p">(</span><span class="n">skip_address</span><span class="p">,</span> <span class="n">hardware</span><span class="o">=</span><span class="n">install_hw_bp</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">ip_breakpoint</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_enable_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
+                <span class="n">should_disable</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">cont</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+            <span class="c1"># Remove the breakpoint if it was set by us</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">unset_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
+            <span class="c1"># Disable the breakpoint if it was just enabled by us</span>
+            <span class="k">elif</span> <span class="n">should_disable</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_disable_breakpoint</span><span class="p">(</span><span class="n">ip_breakpoint</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Step forward</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
 
     <span class="k">def</span> <span class="nf">_setup_pipe</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -855,6 +907,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">,</span>
         <span class="p">)</span>
+
         <span class="n">cursor</span> <span class="o">=</span> <span class="n">result</span>
 
         <span class="n">invalidate_process_cache</span><span class="p">()</span>
@@ -903,6 +956,16 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.migrate_to_gdb">[docs]</a>
     <span class="k">def</span> <span class="nf">migrate_to_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Migrates the current process to GDB.&quot;&quot;&quot;</span>
+        <span class="c1"># Delete any hardware breakpoint</span>
+        <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">unregister_hw_breakpoint</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
+                        <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">,</span>
+                        <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                    <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">ptrace_detach_for_migration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span></div>
 
 
@@ -917,10 +980,15 @@ document.write(`
 
         <span class="c1"># We have to reinstall any hardware breakpoint</span>
         <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span> <span class="ow">and</span> <span class="n">bp</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">helper</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                    <span class="n">helper</span><span class="o">.</span><span class="n">remove_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
-                    <span class="n">helper</span><span class="o">.</span><span class="n">install_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">register_hw_breakpoint</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
+                        <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">,</span>
+                        <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                        <span class="n">bp</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">),</span>
+                        <span class="nb">chr</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">length</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
+                    <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PtraceInterface.register_new_thread">
@@ -937,23 +1005,25 @@ document.write(`
             <span class="n">new_thread_id</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">register_holder</span> <span class="o">=</span> <span class="n">register_holder_provider</span><span class="p">(</span><span class="n">register_file</span><span class="p">)</span>
+        <span class="n">fp_register_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">get_thread_fp_regs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">new_thread_id</span><span class="p">)</span>
+
+        <span class="n">register_holder</span> <span class="o">=</span> <span class="n">register_holder_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">,</span> <span class="n">register_file</span><span class="p">,</span> <span class="n">fp_register_file</span><span class="p">)</span>
 
         <span class="k">with</span> <span class="n">extend_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="p">):</span>
             <span class="n">thread</span> <span class="o">=</span> <span class="n">ThreadContext</span><span class="p">(</span><span class="n">new_thread_id</span><span class="p">,</span> <span class="n">register_holder</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">insert_new_thread</span><span class="p">(</span><span class="n">thread</span><span class="p">)</span>
-        <span class="n">thread_hw_bp_helper</span> <span class="o">=</span> <span class="n">ptrace_hardware_breakpoint_manager_provider</span><span class="p">(</span>
-            <span class="n">thread</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_peek_user</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_poke_user</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="p">[</span><span class="n">new_thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">thread_hw_bp_helper</span>
 
         <span class="c1"># For any hardware breakpoints, we need to reapply them to the new thread</span>
         <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
-                <span class="n">thread_hw_bp_helper</span><span class="o">.</span><span class="n">install_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">register_hw_breakpoint</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
+                    <span class="n">new_thread_id</span><span class="p">,</span>
+                    <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                    <span class="n">bp</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">),</span>
+                    <span class="nb">chr</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">length</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
+                <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PtraceInterface.unregister_thread">
@@ -973,10 +1043,7 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">unregister_thread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">set_thread_as_dead</span><span class="p">(</span><span class="n">thread_id</span><span class="p">,</span> <span class="n">exit_code</span><span class="o">=</span><span class="n">exit_code</span><span class="p">,</span> <span class="n">exit_signal</span><span class="o">=</span><span class="n">exit_signal</span><span class="p">)</span>
-
-        <span class="c1"># Remove the hardware breakpoint manager for the thread</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">thread_id</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">set_thread_as_dead</span><span class="p">(</span><span class="n">thread_id</span><span class="p">,</span> <span class="n">exit_code</span><span class="o">=</span><span class="n">exit_code</span><span class="p">,</span> <span class="n">exit_signal</span><span class="o">=</span><span class="n">exit_signal</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="nf">_set_sw_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">bp</span><span class="p">:</span> <span class="n">Breakpoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1025,8 +1092,22 @@ document.write(`
 <span class="sd">            insert (bool): Whether the breakpoint has to be inserted or just enabled.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">helper</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">helper</span><span class="o">.</span><span class="n">install_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+                    <span class="n">remaining</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">get_remaining_hw_breakpoint_count</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">remaining</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">get_remaining_hw_watchpoint_count</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">remaining</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No more hardware breakpoints of this type available&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">register_hw_breakpoint</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
+                    <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">,</span>
+                    <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                    <span class="n">bp</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">),</span>
+                    <span class="nb">chr</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">length</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
+                <span class="p">)</span>
         <span class="k">elif</span> <span class="n">insert</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_sw_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1046,8 +1127,12 @@ document.write(`
 <span class="sd">            delete (bool): Whether the breakpoint has to be deleted or just disabled.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">helper</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hardware_bp_helpers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">helper</span><span class="o">.</span><span class="n">remove_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">unregister_hw_breakpoint</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
+                    <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">,</span>
+                    <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                <span class="p">)</span>
         <span class="k">elif</span> <span class="n">delete</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_unset_sw_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1135,33 +1220,28 @@ document.write(`
             <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">errorcode</span><span class="p">[</span><span class="n">error</span><span class="p">])</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_peek_user</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads the memory at the specified address.&quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">ptrace_peekuser</span><span class="p">(</span><span class="n">thread_id</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
-        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span>
-            <span class="s2">&quot;PEEKUSER at address </span><span class="si">%d</span><span class="s2"> returned with result </span><span class="si">%x</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">address</span><span class="p">,</span>
-            <span class="n">result</span><span class="p">,</span>
-        <span class="p">)</span>
+<div class="viewcode-block" id="PtraceInterface.fetch_fp_registers">
+<a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.fetch_fp_registers">[docs]</a>
+    <span class="k">def</span> <span class="nf">fetch_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">registers</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetches the floating-point registers of the specified thread.</span>
 
-        <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">errno</span>
-        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">errorcode</span><span class="p">[</span><span class="n">error</span><span class="p">])</span>
+<span class="sd">        Args:</span>
+<span class="sd">            registers (Registers): The registers instance to update.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Fetching floating-point registers for thread </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">registers</span><span class="o">.</span><span class="n">_thread_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">get_fp_regs</span><span class="p">(</span><span class="n">registers</span><span class="o">.</span><span class="n">_thread_id</span><span class="p">,</span> <span class="n">registers</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="p">)</span></div>
 
-        <span class="k">return</span> <span class="n">result</span>
 
-    <span class="k">def</span> <span class="nf">_poke_user</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes the memory at the specified address.&quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">ptrace_pokeuser</span><span class="p">(</span><span class="n">thread_id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span>
-            <span class="s2">&quot;POKEUSER at address </span><span class="si">%d</span><span class="s2"> returned with result </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">address</span><span class="p">,</span>
-            <span class="n">result</span><span class="p">,</span>
-        <span class="p">)</span>
+<div class="viewcode-block" id="PtraceInterface.flush_fp_registers">
+<a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.flush_fp_registers">[docs]</a>
+    <span class="k">def</span> <span class="nf">flush_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flushes the floating-point registers of the specified thread.</span>
 
-        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">errno</span>
-            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">errorcode</span><span class="p">[</span><span class="n">error</span><span class="p">])</span>
+<span class="sd">        Args:</span>
+<span class="sd">            registers (Registers): The registers instance to update.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Flushing floating-point registers is automatically handled by the native code.&quot;</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="nf">_get_event_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the event message.&quot;&quot;&quot;</span>
@@ -1172,6 +1252,23 @@ document.write(`
     <span class="k">def</span> <span class="nf">maps</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the memory maps of the process.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">get_process_maps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PtraceInterface.get_hit_watchpoint">
+<a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.get_hit_watchpoint">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_hit_watchpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Breakpoint</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the watchpoint that has been hit.&quot;&quot;&quot;</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">get_hit_hw_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">address</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">bp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="p">[</span><span class="n">address</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">condition</span> <span class="o">!=</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bp</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
 </div>
 
 </pre></div>
