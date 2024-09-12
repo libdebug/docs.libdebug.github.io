@@ -435,8 +435,10 @@ document.write(`
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.architectures.stack_unwinding_manager</span> <span class="kn">import</span> <span class="n">StackUnwindingManager</span>
+<span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
 
 
@@ -459,10 +461,18 @@ document.write(`
         <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="s2">&quot;pc&quot;</span><span class="p">)</span>
 
         <span class="n">frame_pointer</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">x29</span>
-        <span class="n">initial_link_register</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">x30</span>
-        <span class="n">stack_trace</span> <span class="o">=</span> <span class="p">[</span><span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">pc</span><span class="p">,</span> <span class="n">initial_link_register</span><span class="p">]</span>
 
         <span class="n">vmaps</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">()</span>
+        <span class="n">initial_link_register</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">initial_link_register</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">vmaps</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to get the return address. Check stack frame registers (e.g., base pointer). The stack trace may be incomplete.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">stack_trace</span> <span class="o">=</span> <span class="p">[</span><span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">pc</span><span class="p">,</span> <span class="n">initial_link_register</span><span class="p">]</span> <span class="k">if</span> <span class="n">initial_link_register</span> <span class="k">else</span> <span class="p">[</span><span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">pc</span><span class="p">]</span>
 
         <span class="c1"># Follow the frame chain</span>
         <span class="k">while</span> <span class="n">frame_pointer</span><span class="p">:</span>
@@ -489,16 +499,22 @@ document.write(`
 
 <div class="viewcode-block" id="Aarch64StackUnwinder.get_return_address">
 <a class="viewcode-back" href="../../../../libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_stack_unwinder.Aarch64StackUnwinder.get_return_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Aarch64StackUnwinder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Aarch64StackUnwinder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">vmaps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the return address of the current function.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            target (ThreadContext): The target ThreadContext.</span>
+<span class="sd">            vmaps (list[MemoryMap]): The memory maps of the process.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The return address.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">x30</span></div>
+        <span class="n">return_address</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">x30</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">return_address</span> <span class="o">&lt;</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span> <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="n">vmaps</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Return address not in any valid memory map&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">return_address</span></div>
 </div>
 
 </pre></div>

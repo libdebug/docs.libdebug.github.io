@@ -638,22 +638,20 @@ document.write(`
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">return_address</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2"> &lt;</span><span class="si">{</span><span class="n">return_address_symbol</span><span class="si">}</span><span class="s2">&gt; </span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ThreadContext.current_return_address">
-<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.current_return_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">current_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the return address of the current function.&quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">saved_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The return address of the current function.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
         <span class="n">stack_unwinder</span> <span class="o">=</span> <span class="n">stack_unwinding_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">return_address</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">return_address</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">())</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Failed to get the return address. Check stack frame registers (e.g., base pointer).&quot;</span><span class="p">,</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
-        <span class="k">return</span> <span class="n">return_address</span></div>
-
+        <span class="k">return</span> <span class="n">return_address</span>
 
 <div class="viewcode-block" id="ThreadContext.step">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.step">[docs]</a>
@@ -700,8 +698,7 @@ document.write(`
 <div class="viewcode-block" id="ThreadContext.next">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.next">[docs]</a>
     <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
@@ -751,8 +748,7 @@ document.write(`
 <div class="viewcode-block" id="ThreadContext.ni">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.ni">[docs]</a>
     <span class="k">def</span> <span class="nf">ni</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `next` method. Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `next` method. Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 </div>
 

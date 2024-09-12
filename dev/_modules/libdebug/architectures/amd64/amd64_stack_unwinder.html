@@ -435,11 +435,11 @@ document.write(`
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.architectures.stack_unwinding_manager</span> <span class="kn">import</span> <span class="n">StackUnwindingManager</span>
-<span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">logging</span>
+<span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
-
 
 
 <div class="viewcode-block" id="Amd64StackUnwinder">
@@ -484,13 +484,16 @@ document.write(`
         <span class="c1"># If we are in the prolouge of a function, we need to get the return address from the stack</span>
         <span class="c1"># using a slightly more complex method</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">first_return_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+            <span class="n">first_return_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">vmaps</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">first_return_address</span> <span class="o">!=</span> <span class="n">stack_trace</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="n">stack_trace</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">first_return_address</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack_trace</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">first_return_address</span> <span class="o">!=</span> <span class="n">stack_trace</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">stack_trace</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">first_return_address</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">stack_trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">first_return_address</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">(</span>
-                <span class="s2">&quot;Failed to get the return address from the stack. Check stack frame registers (e.g., base pointer). The stack trace may be incomplete.&quot;</span><span class="p">,</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to get the return address. Check stack frame registers (e.g., base pointer). The stack trace may be incomplete.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">stack_trace</span></div>
@@ -498,11 +501,12 @@ document.write(`
 
 <div class="viewcode-block" id="Amd64StackUnwinder.get_return_address">
 <a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_stack_unwinder.Amd64StackUnwinder.get_return_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64StackUnwinder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64StackUnwinder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">vmaps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the return address of the current function.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            target (ThreadContext): The target ThreadContext.</span>
+<span class="sd">            vmaps (list[MemoryMap]): The memory maps of the process.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The return address.</span>
@@ -519,7 +523,12 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">return_address</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rsp</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">return_address</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span></div>
+        <span class="n">return_address</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">return_address</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">return_address</span> <span class="o">&lt;</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span> <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="n">vmaps</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Return address not in any valid memory map&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">return_address</span></div>
 
 
     <span class="k">def</span> <span class="nf">_preamble_state</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64StackUnwinder</span><span class="p">,</span> <span class="n">instruction_window</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
