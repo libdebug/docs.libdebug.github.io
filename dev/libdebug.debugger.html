@@ -501,8 +501,8 @@ document.write(`
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.terminate">
 <span class="sig-name descname"><span class="pre">terminate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.terminate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.terminate" title="Link to this definition">#</a></dt>
-<dd><p>Terminates the background thread.</p>
-<p>The debugger object cannot be used after this method is called.
+<dd><p>Interrupts the process, kills it and then terminates the background thread.</p>
+<p>The debugger object will not be usable after this method is called.
 This method should only be called to free up resources when the debugger object is no longer needed.</p>
 </dd></dl>
 
@@ -758,6 +758,12 @@ This method should only be called to free up resources when the debugger object 
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.arch">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.arch" title="Link to this definition">#</a></dt>
 <dd><p>Get the architecture of the process.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.kill_on_exit">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kill_on_exit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.kill_on_exit" title="Link to this definition">#</a></dt>
+<dd><p>Get whether the process will be killed when the debugger exits.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -1019,6 +1025,12 @@ Key: the signal number.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.kill_on_exit">
+<span class="sig-name descname"><span class="pre">kill_on_exit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.kill_on_exit" title="Link to this definition">#</a></dt>
+<dd><p>A flag that indicates if the debugger should kill the debugged process when it exits.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.fast_memory">
 <span class="sig-name descname"><span class="pre">fast_memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.fast_memory" title="Link to this definition">#</a></dt>
 <dd><p>A flag that indicates if the debugger should use a faster memory access method.</p>
@@ -1069,8 +1081,8 @@ Key: the signal number.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.terminate">
 <span class="sig-name descname"><span class="pre">terminate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.terminate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.terminate" title="Link to this definition">#</a></dt>
-<dd><p>Terminates the background thread.</p>
-<p>The debugger object cannot be used after this method is called.
+<dd><p>Interrupts the process, kills it and then terminates the background thread.</p>
+<p>The debugger object will not be usable after this method is called.
 This method should only be called to free up resources when the debugger object is no longer needed.</p>
 </dd></dl>
 
@@ -1576,6 +1588,7 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.bp"><code class="docutils literal notranslate"><span class="pre">Debugger.bp()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.wp"><code class="docutils literal notranslate"><span class="pre">Debugger.wp()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.arch"><code class="docutils literal notranslate"><span class="pre">Debugger.arch</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.kill_on_exit"><code class="docutils literal notranslate"><span class="pre">Debugger.kill_on_exit</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.threads"><code class="docutils literal notranslate"><span class="pre">Debugger.threads</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.breakpoints"><code class="docutils literal notranslate"><span class="pre">Debugger.breakpoints</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.handled_syscalls"><code class="docutils literal notranslate"><span class="pre">Debugger.handled_syscalls</span></code></a></li>
@@ -1612,6 +1625,7 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.instanced"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.instanced</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.resume_context"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.resume_context</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.arch"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.arch</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.kill_on_exit"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.kill_on_exit</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.fast_memory"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.fast_memory</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.clear"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.clear()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.start_up"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.start_up()</span></code></a></li>

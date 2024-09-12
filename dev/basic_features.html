@@ -456,6 +456,7 @@ document.write(`
 </pre></div>
 </div>
 <p>The <cite>run()</cite> command returns a <cite>PipeManager</cite> object, which you can use to interact with the program’s standard input, output, and error. To read more about the PipeManager interface, please refer to the PipeManager documentation <a class="reference internal" href="libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager" title="libdebug.utils.pipe_manager.PipeManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">libdebug.utils.pipe_manager.PipeManager</span></code></a>. Please note that breakpoints are not kept between different runs of the program. If you want to set a breakpoint again, you should do so after the program has restarted.</p>
+<p>Any process will be automatically killed when the debugging script exits. If you want to prevent this behavior, you can set the <cite>kill_on_exit</cite> parameter to False when creating the debugger object, or set the companion attribute <cite>kill_on_exit</cite> to False at runtime.</p>
 </section>
 <section id="the-command-queue">
 <h2>The command queue<a class="headerlink" href="#the-command-queue" title="Link to this heading">#</a></h2>
@@ -643,6 +644,8 @@ The final behavior is identical, but the speed is significantly improved.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Do note that libdebug automatically kills any running process when the debugging script exits, even if the debugger has detached from it.
+If you want to prevent this behavior, you can set the <cite>kill_on_exit</cite> parameter to False when creating the debugger object, or set the companion attribute <cite>kill_on_exit</cite> to False at runtime.</p>
 </section>
 <section id="graceful-termination">
 <h1>Graceful Termination<a class="headerlink" href="#graceful-termination" title="Link to this heading">#</a></h1>

@@ -446,6 +446,7 @@ document.write(`
     <span class="n">continue_to_binary_entrypoint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">auto_interrupt_on_command</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">fast_memory</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">kill_on_exit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Debugger</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This function is used to create a new `Debugger` object. It returns a `Debugger` object.</span>
 
@@ -457,6 +458,7 @@ document.write(`
 <span class="sd">        continue_to_binary_entrypoint (bool, optional): Whether to automatically continue to the binary entrypoint. Defaults to True.</span>
 <span class="sd">        auto_interrupt_on_command (bool, optional): Whether to automatically interrupt the process when a command is issued. Defaults to False.</span>
 <span class="sd">        fast_memory (bool, optional): Whether to use a faster memory reading method. Defaults to False.</span>
+<span class="sd">        kill_on_exit (bool, optional): Whether to kill the debugged process when the debugger exits. Defaults to True.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Debugger: The `Debugger` object.</span>
@@ -472,6 +474,7 @@ document.write(`
     <span class="n">internal_debugger</span><span class="o">.</span><span class="n">auto_interrupt_on_command</span> <span class="o">=</span> <span class="n">auto_interrupt_on_command</span>
     <span class="n">internal_debugger</span><span class="o">.</span><span class="n">escape_antidebug</span> <span class="o">=</span> <span class="n">escape_antidebug</span>
     <span class="n">internal_debugger</span><span class="o">.</span><span class="n">fast_memory</span> <span class="o">=</span> <span class="n">fast_memory</span>
+    <span class="n">internal_debugger</span><span class="o">.</span><span class="n">kill_on_exit</span> <span class="o">=</span> <span class="n">kill_on_exit</span>
 
     <span class="n">debugger</span> <span class="o">=</span> <span class="n">Debugger</span><span class="p">()</span>
     <span class="n">debugger</span><span class="o">.</span><span class="n">post_init_</span><span class="p">(</span><span class="n">internal_debugger</span><span class="p">)</span>
