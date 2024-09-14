@@ -628,7 +628,14 @@ The final behavior is identical, but the speed is significantly improved.</p>
 </section>
 <section id="detach-and-gdb-migration">
 <h1>Detach and GDB Migration<a class="headerlink" href="#detach-and-gdb-migration" title="Link to this heading">#</a></h1>
-<p>If at any time during your script you want to take a more interactive approach to debugging, you can use the <cite>gdb()</cite> method. This will temporarily detach libdebug from the program and give you control over the program using GDB. Quitting GDB will return control to libdebug. The syntax is as follows:</p>
+<p>If at any time during your script you want to take a more interactive approach to debugging, you can use the <code class="docutils literal notranslate"><span class="pre">gdb()</span></code> method. This will temporarily detach libdebug from the program and give you control over the program using GDB. Quitting GDB will return control to libdebug.</p>
+<p>By default, the behavior of this command is to open GDB in a new terminal window. For this to work, it is necessary to specify your terminal emulator in the libcontext parameters. The following example shows how to set the terminal to tmux:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libdebug</span> <span class="kn">import</span> <span class="n">libcontext</span>
+
+<span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tmux&#39;</span><span class="p">,</span> <span class="s1">&#39;splitw&#39;</span><span class="p">,</span> <span class="s1">&#39;-h&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Once the terminal is set, you can use the <code class="docutils literal notranslate"><span class="pre">gdb()</span></code> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">gdb</span><span class="p">()</span>
 </pre></div>
 </div>
