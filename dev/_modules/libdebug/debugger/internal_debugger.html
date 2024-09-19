@@ -740,9 +740,9 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_attach</span><span class="p">,</span> <span class="p">(</span><span class="n">pid</span><span class="p">,)))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_process_memory_manager</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_memory_manager</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InternalDebugger.detach">
