@@ -454,6 +454,7 @@ document.write(`
     <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
     <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
+    <span class="kn">from</span> <span class="nn">libdebug.utils.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
 
 
 <div class="viewcode-block" id="Debugger">
@@ -480,7 +481,7 @@ document.write(`
 
 <div class="viewcode-block" id="Debugger.run">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PipeManager</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Starts the process and waits for it to stop.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
 
@@ -717,12 +718,12 @@ document.write(`
 
 <div class="viewcode-block" id="Debugger.r">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.r">[docs]</a>
-    <span class="k">def</span> <span class="nf">r</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">r</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PipeManager</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `run` method.</span>
 
 <span class="sd">        Starts the process and waits for it to stop.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Debugger.c">

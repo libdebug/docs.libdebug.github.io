@@ -681,7 +681,7 @@ document.write(`
 
 <div class="viewcode-block" id="InternalDebugger.run">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PipeManager</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Starts the process and waits for it to stop.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No binary file specified.&quot;</span><span class="p">)</span>
