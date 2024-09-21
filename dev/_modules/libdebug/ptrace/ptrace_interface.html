@@ -683,6 +683,12 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="o">.</span><span class="n">handle_syscall_enabled</span> <span class="o">=</span> <span class="kc">False</span>
 
+        <span class="c1"># Reset the event type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Reset the breakpoint hit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">cont_all_and_set_bps</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">,</span>
@@ -705,6 +711,12 @@ document.write(`
         <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">bp</span><span class="o">.</span><span class="n">_disabled_for_step</span> <span class="o">=</span> <span class="kc">True</span>
 
+        <span class="c1"># Reset the event type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Reset the breakpoint hit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">singlestep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="n">errno_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">errno</span>
@@ -726,6 +738,12 @@ document.write(`
         <span class="c1"># Disable all breakpoints for the single step</span>
         <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">bp</span><span class="o">.</span><span class="n">_disabled_for_step</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Reset the event type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Reset the breakpoint hit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">step_until</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
@@ -750,6 +768,12 @@ document.write(`
 <span class="sd">            thread (ThreadContext): The thread to step.</span>
 <span class="sd">            heuristic (str): The heuristic to use.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Reset the event type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Reset the breakpoint hit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="n">heuristic</span> <span class="o">==</span> <span class="s2">&quot;step-mode&quot;</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">stepping_finish</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
@@ -810,6 +834,11 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.next">[docs]</a>
     <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
+        <span class="c1"># Reset the event type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Reset the breakpoint hit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">opcode_window</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">thread</span><span class="o">.</span><span class="n">instruction_pointer</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 

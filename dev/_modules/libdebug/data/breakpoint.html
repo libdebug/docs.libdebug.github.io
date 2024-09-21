@@ -497,12 +497,21 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.breakpoint.Breakpoint.hit_on">[docs]</a>
     <span class="k">def</span> <span class="nf">hit_on</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Breakpoint</span><span class="p">,</span> <span class="n">thread_context</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns whether the breakpoint has been hit on the given thread context.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">instruction_pointer</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">address</span></div>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">internal_debugger</span> <span class="o">=</span> <span class="n">provide_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">internal_debugger</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">thread_context</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span></div>
 
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Breakpoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Hash the breakpoint by its address, so that it can be used in sets and maps correctly.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Breakpoint</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if two breakpoints are equal.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
 
 </pre></div>
 

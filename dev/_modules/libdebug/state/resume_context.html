@@ -432,6 +432,11 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
+
 
 <div class="viewcode-block" id="ResumeContext">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.resume_context.ResumeContext">[docs]</a>
@@ -446,6 +451,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">is_startup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">block_on_signal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">threads_with_signals_to_forward</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="p">:</span> <span class="n">EventType</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Breakpoint</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="ResumeContext.clear">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.resume_context.ResumeContext.clear">[docs]</a>
@@ -456,8 +463,25 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">is_a_step</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_startup</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">block_on_signal</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">threads_with_signals_to_forward</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads_with_signals_to_forward</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 </div>
+
+
+
+<div class="viewcode-block" id="EventType">
+<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.resume_context.EventType">[docs]</a>
+<span class="k">class</span> <span class="nc">EventType</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class representing the type of event that caused the resume decision.&quot;&quot;&quot;</span>
+
+    <span class="n">UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;unknown event&quot;</span>
+    <span class="n">BREAKPOINT</span> <span class="o">=</span> <span class="s2">&quot;breakpoint&quot;</span>
+    <span class="n">SYSCALL</span> <span class="o">=</span> <span class="s2">&quot;syscall&quot;</span>
+    <span class="n">SIGNAL</span> <span class="o">=</span> <span class="s2">&quot;signal&quot;</span>
+    <span class="n">USER_INTERRUPT</span> <span class="o">=</span> <span class="s2">&quot;user interrupt&quot;</span>
+    <span class="n">STEP</span> <span class="o">=</span> <span class="s2">&quot;step&quot;</span>
+    <span class="n">STARTUP</span> <span class="o">=</span> <span class="s2">&quot;process startup&quot;</span></div>
 
 </pre></div>
 
