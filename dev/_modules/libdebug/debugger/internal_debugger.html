@@ -793,10 +793,18 @@ document.write(`
 <span class="sd">        This method should only be called to free up resources when the debugger object is no longer needed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instanced</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">interrupt</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">interrupt</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">ProcessLookupError</span><span class="p">:</span>
+                <span class="c1"># The process has already been killed by someone or something else</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Interrupting process failed: already terminated&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instanced</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">ProcessLookupError</span><span class="p">:</span>
+                <span class="c1"># The process has already been killed by someone or something else</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Killing process failed: already terminated&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">instanced</span> <span class="o">=</span> <span class="kc">False</span>
 
