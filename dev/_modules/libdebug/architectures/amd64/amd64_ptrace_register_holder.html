@@ -432,6 +432,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">ctypes</span> <span class="kn">import</span> <span class="n">c_longdouble</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
@@ -654,6 +655,36 @@ document.write(`
 
     <span class="k">return</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
+<span class="k">def</span> <span class="nf">_get_property_fp_mmx</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">property</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">getter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">fresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_fetch_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">mmx</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">64</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">fresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_fetch_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">mmx</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">64</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;little&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_get_property_fp_st</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">property</span><span class="p">:</span>
+    <span class="c1"># We should be able to expose the long double member from CFFI directly</span>
+    <span class="c1"># But their support for long double does not actually allow for value comparison or manipulation</span>
+    <span class="c1"># So, ctypes it is</span>
+    <span class="k">def</span> <span class="nf">getter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">fresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_fetch_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">c_longdouble</span><span class="o">.</span><span class="n">from_buffer_copy</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">mmx</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">setter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">fresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_fetch_fp_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">mmx</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">c_longdouble</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Amd64PtraceRegisterHolder">
 <a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder">[docs]</a>
@@ -720,6 +751,8 @@ document.write(`
 
         <span class="c1"># setup floating-point registers</span>
         <span class="c1"># see libdebug/cffi/ptrace_cffi_build.py for the possible values of fp_register_file.type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handle_fp_legacy</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
+
         <span class="k">match</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp_register_file</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
             <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_handle_fp_512</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
@@ -756,6 +789,16 @@ document.write(`
         <span class="n">target_class</span><span class="o">.</span><span class="n">syscall_arg4</span> <span class="o">=</span> <span class="n">_get_property_64</span><span class="p">(</span><span class="s2">&quot;r8&quot;</span><span class="p">)</span>
         <span class="n">target_class</span><span class="o">.</span><span class="n">syscall_arg5</span> <span class="o">=</span> <span class="n">_get_property_64</span><span class="p">(</span><span class="s2">&quot;r9&quot;</span><span class="p">)</span></div>
 
+
+    <span class="k">def</span> <span class="nf">_handle_fp_legacy</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle legacy mmx and st registers.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;mm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_mmx</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;st</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_st</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_handle_fp_512</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the case where the xsave area is 512 bytes long, which means we just have the xmm registers.&quot;&quot;&quot;</span>
