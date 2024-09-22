@@ -439,8 +439,8 @@ document.write(`
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">libdebug.architectures.register_helper</span> <span class="kn">import</span> <span class="n">register_holder_provider</span>
 <span class="kn">from</span> <span class="nn">libdebug.architectures.call_utilities_provider</span> <span class="kn">import</span> <span class="n">call_utilities_provider</span>
+<span class="kn">from</span> <span class="nn">libdebug.architectures.register_helper</span> <span class="kn">import</span> <span class="n">register_holder_provider</span>
 <span class="kn">from</span> <span class="nn">libdebug.cffi</span> <span class="kn">import</span> <span class="n">_ptrace_cffi</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="p">(</span>
@@ -457,6 +457,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.utils.process_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">disable_self_aslr</span><span class="p">,</span>
     <span class="n">get_process_maps</span><span class="p">,</span>
+    <span class="n">get_process_tasks</span><span class="p">,</span>
     <span class="n">invalidate_process_cache</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -612,19 +613,26 @@ document.write(`
         <span class="k">with</span> <span class="n">extend_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status_handler</span> <span class="o">=</span> <span class="n">PtraceStatusHandler</span><span class="p">()</span>
 
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">ptrace_attach</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">errno_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">errno</span>
-            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">errno_val</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">errorcode</span><span class="p">[</span><span class="n">errno_val</span><span class="p">])</span>
+        <span class="c1"># Attach to all the tasks of the process</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attach_to_all_tasks</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">process_id</span> <span class="o">=</span> <span class="n">pid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">detached</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">process_id</span> <span class="o">=</span> <span class="n">pid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_new_thread</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
         <span class="c1"># If we are attaching to a process, we don&#39;t want to continue to the entry point</span>
         <span class="c1"># which we have probably already passed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_parent</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
+
+    <span class="k">def</span> <span class="nf">_attach_to_all_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceStatusHandler</span><span class="p">,</span> <span class="n">pid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach to all the tasks of the process.&quot;&quot;&quot;</span>
+        <span class="n">tids</span> <span class="o">=</span> <span class="n">get_process_tasks</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">tid</span> <span class="ow">in</span> <span class="n">tids</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">ptrace_attach</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">errno_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffi</span><span class="o">.</span><span class="n">errno</span>
+                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">errno_val</span><span class="p">,</span> <span class="n">errno</span><span class="o">.</span><span class="n">errorcode</span><span class="p">[</span><span class="n">errno_val</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_new_thread</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PtraceInterface.detach">
 <a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.detach">[docs]</a>

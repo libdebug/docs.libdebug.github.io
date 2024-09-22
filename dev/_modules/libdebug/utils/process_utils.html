@@ -473,6 +473,24 @@ document.write(`
 
 
 
+<div class="viewcode-block" id="get_process_tasks">
+<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.process_utils.get_process_tasks">[docs]</a>
+<span class="k">def</span> <span class="nf">get_process_tasks</span><span class="p">(</span><span class="n">process_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the tasks of the specified process.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        process_id (int): The PID of the process whose tasks should be returned.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: A list of integers, each representing a task of the specified process.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/proc/</span><span class="si">{</span><span class="n">process_id</span><span class="si">}</span><span class="s2">/task&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">tids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">task</span><span class="p">)</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/proc/</span><span class="si">{</span><span class="n">process_id</span><span class="si">}</span><span class="s2">/task&quot;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">tids</span></div>
+
+
+
 <div class="viewcode-block" id="invalidate_process_cache">
 <a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.process_utils.invalidate_process_cache">[docs]</a>
 <span class="k">def</span> <span class="nf">invalidate_process_cache</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
