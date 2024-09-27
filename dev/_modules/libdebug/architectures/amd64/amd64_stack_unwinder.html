@@ -432,6 +432,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.architectures.stack_unwinding_manager</span> <span class="kn">import</span> <span class="n">StackUnwindingManager</span>
@@ -439,6 +440,7 @@ document.write(`
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.memory_map_list</span> <span class="kn">import</span> <span class="n">MemoryMapList</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
 
 
@@ -464,18 +466,18 @@ document.write(`
         <span class="n">current_rbp</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rbp</span>
         <span class="n">stack_trace</span> <span class="o">=</span> <span class="p">[</span><span class="n">target</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rip</span><span class="p">]</span>
 
-        <span class="n">vmaps</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">()</span>
+        <span class="n">vmaps</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">get_maps</span><span class="p">()</span>
 
         <span class="k">while</span> <span class="n">current_rbp</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># Read the return address</span>
-                <span class="n">return_address</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">current_rbp</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+                <span class="n">return_address</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">current_rbp</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">byteorder</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">return_address</span> <span class="o">&lt;</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span> <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="n">vmaps</span><span class="p">):</span>
                     <span class="k">break</span>
 
                 <span class="c1"># Read the previous rbp and set it as the current one</span>
-                <span class="n">current_rbp</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">current_rbp</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">],</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+                <span class="n">current_rbp</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="n">current_rbp</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;absolute&quot;</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">byteorder</span><span class="p">)</span>
 
                 <span class="n">stack_trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">return_address</span><span class="p">)</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
@@ -501,12 +503,12 @@ document.write(`
 
 <div class="viewcode-block" id="Amd64StackUnwinder.get_return_address">
 <a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_stack_unwinder.Amd64StackUnwinder.get_return_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64StackUnwinder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">vmaps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64StackUnwinder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">vmaps</span><span class="p">:</span> <span class="n">MemoryMapList</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the return address of the current function.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            target (ThreadContext): The target ThreadContext.</span>
-<span class="sd">            vmaps (list[MemoryMap]): The memory maps of the process.</span>
+<span class="sd">            vmaps (MemoryMapList[MemoryMap]): The memory maps of the process.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The return address.</span>
@@ -525,8 +527,8 @@ document.write(`
 
         <span class="n">return_address</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">return_address</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">return_address</span> <span class="o">&lt;</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span> <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="n">vmaps</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Return address not in any valid memory map&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">vmaps</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">return_address</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Return address not in memory maps.&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">return_address</span></div>
 

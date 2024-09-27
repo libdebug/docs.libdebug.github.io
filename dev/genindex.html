@@ -506,17 +506,23 @@ document.write(`
       <li><a href="libdebug.utils.html#libdebug.utils.debugger_wrappers.background_alias">background_alias() (in module libdebug.utils.debugger_wrappers)</a>
 </li>
       <li><a href="libdebug.data.html#id13">backing_file (libdebug.data.memory_map.MemoryMap attribute)</a>, <a href="libdebug.data.html#libdebug.data.memory_map.MemoryMap.backing_file">[1]</a>
+
+      <ul>
+        <li><a href="libdebug.data.html#libdebug.data.symbol.Symbol.backing_file">(libdebug.data.symbol.Symbol attribute)</a>
 </li>
+      </ul></li>
       <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.backtrace">backtrace() (libdebug.state.thread_context.ThreadContext method)</a>
+</li>
+      <li><a href="libdebug.data.html#libdebug.data.memory_map.MemoryMap.base">base (libdebug.data.memory_map.MemoryMap property)</a>
 </li>
       <li><a href="libdebug.utils.html#libdebug.utils.print_style.PrintStyle.BLUE">BLUE (libdebug.utils.print_style.PrintStyle attribute)</a>
 </li>
       <li><a href="libdebug.utils.html#libdebug.utils.print_style.PrintStyle.BOLD">BOLD (libdebug.utils.print_style.PrintStyle attribute)</a>
 </li>
-      <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.bp">bp() (libdebug.debugger.debugger.Debugger method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.bp">bp() (libdebug.debugger.debugger.Debugger method)</a>
+</li>
       <li><a href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint">Breakpoint (class in libdebug.data.breakpoint)</a>
 </li>
       <li><a href="libdebug.state.html#libdebug.state.resume_context.EventType.BREAKPOINT">BREAKPOINT (libdebug.state.resume_context.EventType attribute)</a>
@@ -568,8 +574,6 @@ document.write(`
       <li><a href="libdebug.utils.html#libdebug.utils.debugger_wrappers.change_state_function_process">change_state_function_process() (in module libdebug.utils.debugger_wrappers)</a>
 </li>
       <li><a href="libdebug.utils.html#libdebug.utils.debugger_wrappers.change_state_function_thread">change_state_function_thread() (in module libdebug.utils.debugger_wrappers)</a>
-</li>
-      <li><a href="libdebug.utils.html#libdebug.utils.debugging_utils.check_absolute_address">check_absolute_address() (in module libdebug.utils.debugging_utils)</a>
 </li>
       <li><a href="libdebug.ptrace.html#libdebug.ptrace.ptrace_status_handler.PtraceStatusHandler.check_for_new_threads">check_for_new_threads() (libdebug.ptrace.ptrace_status_handler.PtraceStatusHandler method)</a>
 </li>
@@ -700,7 +704,11 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="libdebug.data.html#id9">end (libdebug.data.memory_map.MemoryMap attribute)</a>, <a href="libdebug.data.html#libdebug.data.memory_map.MemoryMap.end">[1]</a>
+
+      <ul>
+        <li><a href="libdebug.data.html#libdebug.data.symbol.Symbol.end">(libdebug.data.symbol.Symbol attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.env">env (libdebug.debugger.internal_debugger.InternalDebugger attribute)</a>
@@ -741,8 +749,22 @@ document.write(`
       </ul></li>
       <li><a href="libdebug.utils.html#libdebug.utils.syscall_utils.fetch_remote_syscall_definition">fetch_remote_syscall_definition() (in module libdebug.utils.syscall_utils)</a>
 </li>
+      <li><a href="libdebug.data.html#libdebug.data.memory_map_list.MemoryMapList.filter">filter() (libdebug.data.memory_map_list.MemoryMapList method)</a>
+
+      <ul>
+        <li><a href="libdebug.data.html#libdebug.data.registers.Registers.filter">(libdebug.data.registers.Registers method)</a>
+</li>
+        <li><a href="libdebug.data.html#libdebug.data.symbol_dict.SymbolDict.filter">(libdebug.data.symbol_dict.SymbolDict method)</a>
+</li>
+      </ul></li>
       <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.fin">fin() (libdebug.state.thread_context.ThreadContext method)</a>
 </li>
+      <li><a href="libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView.find">find() (libdebug.memory.abstract_memory_view.AbstractMemoryView method)</a>
+</li>
+      <li><a href="libdebug.utils.html#libdebug.utils.search_utils.find_all_overlapping_occurrences">find_all_overlapping_occurrences() (in module libdebug.utils.search_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.finish">finish() (libdebug.debugger.internal_debugger.InternalDebugger method)</a>
 
       <ul>
@@ -753,8 +775,6 @@ document.write(`
         <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.finish">(libdebug.state.thread_context.ThreadContext method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="libdebug.data.html#libdebug.data.register_holder.RegisterHolder.flush">flush() (libdebug.data.register_holder.RegisterHolder method)</a>
 
       <ul>
@@ -789,6 +809,8 @@ document.write(`
 </li>
       <li><a href="libdebug.utils.html#libdebug.utils.signal_utils.get_all_signal_numbers">get_all_signal_numbers() (in module libdebug.utils.signal_utils)</a>
 </li>
+      <li><a href="libdebug.utils.html#libdebug.utils.elf_utils.get_all_symbols">get_all_symbols() (in module libdebug.utils.elf_utils)</a>
+</li>
       <li><a href="libdebug.utils.html#libdebug.utils.syscall_utils.get_all_syscall_numbers">get_all_syscall_numbers() (in module libdebug.utils.syscall_utils)</a>
 </li>
       <li><a href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_call_utilities.Aarch64CallUtilities.get_call_and_skip_amount">get_call_and_skip_amount() (libdebug.architectures.aarch64.aarch64_call_utilities.Aarch64CallUtilities method)</a>
@@ -805,10 +827,16 @@ document.write(`
 </li>
       <li><a href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.get_hit_watchpoint">get_hit_watchpoint() (libdebug.ptrace.ptrace_interface.PtraceInterface method)</a>
 </li>
-      <li><a href="libdebug.utils.html#libdebug.utils.process_utils.get_open_fds">get_open_fds() (in module libdebug.utils.process_utils)</a>
+      <li><a href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.get_maps">get_maps() (libdebug.interfaces.debugging_interface.DebuggingInterface method)</a>
+
+      <ul>
+        <li><a href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.get_maps">(libdebug.ptrace.ptrace_interface.PtraceInterface method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="libdebug.utils.html#libdebug.utils.process_utils.get_open_fds">get_open_fds() (in module libdebug.utils.process_utils)</a>
+</li>
       <li><a href="libdebug.utils.html#libdebug.utils.platform_utils.get_platform_register_size">get_platform_register_size() (in module libdebug.utils.platform_utils)</a>
 </li>
       <li><a href="libdebug.utils.html#libdebug.utils.process_utils.get_process_maps">get_process_maps() (in module libdebug.utils.process_utils)</a>
@@ -1182,6 +1210,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    libdebug.data.memory_map_list
+
+      <ul>
+        <li><a href="libdebug.data.html#module-libdebug.data.memory_map_list">module</a>
+</li>
+      </ul></li>
+      <li>
     libdebug.data.register_holder
 
       <ul>
@@ -1203,6 +1238,20 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    libdebug.data.symbol
+
+      <ul>
+        <li><a href="libdebug.data.html#module-libdebug.data.symbol">module</a>
+</li>
+      </ul></li>
+      <li>
+    libdebug.data.symbol_dict
+
+      <ul>
+        <li><a href="libdebug.data.html#module-libdebug.data.symbol_dict">module</a>
+</li>
+      </ul></li>
+      <li>
     libdebug.data.syscall_handler
 
       <ul>
@@ -1216,6 +1265,8 @@ document.write(`
         <li><a href="libdebug.debugger.html#module-libdebug.debugger">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     libdebug.debugger.debugger
 
@@ -1223,8 +1274,6 @@ document.write(`
         <li><a href="libdebug.debugger.html#module-libdebug.debugger.debugger">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     libdebug.debugger.internal_debugger
 
@@ -1464,6 +1513,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    libdebug.utils.search_utils
+
+      <ul>
+        <li><a href="libdebug.utils.html#module-libdebug.utils.search_utils">module</a>
+</li>
+      </ul></li>
+      <li>
     libdebug.utils.signal_utils
 
       <ul>
@@ -1491,14 +1547,10 @@ document.write(`
 </li>
       <li><a href="libdebug.utils.html#libdebug.utils.arch_mappings.map_arch">map_arch() (in module libdebug.utils.arch_mappings)</a>
 </li>
-      <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.maps">maps() (libdebug.debugger.debugger.Debugger method)</a>
+      <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.maps">maps (libdebug.debugger.debugger.Debugger property)</a>
 
       <ul>
-        <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.maps">(libdebug.debugger.internal_debugger.InternalDebugger method)</a>
-</li>
-        <li><a href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.maps">(libdebug.interfaces.debugging_interface.DebuggingInterface method)</a>
-</li>
-        <li><a href="libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.maps">(libdebug.ptrace.ptrace_interface.PtraceInterface method)</a>
+        <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.maps">(libdebug.debugger.internal_debugger.InternalDebugger property)</a>
 </li>
       </ul></li>
       <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.mem">mem (libdebug.state.thread_context.ThreadContext property)</a>
@@ -1510,6 +1562,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="libdebug.data.html#libdebug.data.memory_map.MemoryMap">MemoryMap (class in libdebug.data.memory_map)</a>
+</li>
+      <li><a href="libdebug.data.html#libdebug.data.memory_map_list.MemoryMapList">MemoryMapList (class in libdebug.data.memory_map_list)</a>
 </li>
       <li><a href="libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.migrate_from_gdb">migrate_from_gdb() (libdebug.interfaces.debugging_interface.DebuggingInterface method)</a>
 
@@ -1587,11 +1641,17 @@ document.write(`
 </li>
         <li><a href="libdebug.data.html#module-libdebug.data.memory_map">libdebug.data.memory_map</a>
 </li>
+        <li><a href="libdebug.data.html#module-libdebug.data.memory_map_list">libdebug.data.memory_map_list</a>
+</li>
         <li><a href="libdebug.data.html#module-libdebug.data.register_holder">libdebug.data.register_holder</a>
 </li>
         <li><a href="libdebug.data.html#module-libdebug.data.registers">libdebug.data.registers</a>
 </li>
         <li><a href="libdebug.data.html#module-libdebug.data.signal_catcher">libdebug.data.signal_catcher</a>
+</li>
+        <li><a href="libdebug.data.html#module-libdebug.data.symbol">libdebug.data.symbol</a>
+</li>
+        <li><a href="libdebug.data.html#module-libdebug.data.symbol_dict">libdebug.data.symbol_dict</a>
 </li>
         <li><a href="libdebug.data.html#module-libdebug.data.syscall_handler">libdebug.data.syscall_handler</a>
 </li>
@@ -1667,6 +1727,8 @@ document.write(`
 </li>
         <li><a href="libdebug.utils.html#module-libdebug.utils.process_utils">libdebug.utils.process_utils</a>
 </li>
+        <li><a href="libdebug.utils.html#module-libdebug.utils.search_utils">libdebug.utils.search_utils</a>
+</li>
         <li><a href="libdebug.utils.html#module-libdebug.utils.signal_utils">libdebug.utils.signal_utils</a>
 </li>
         <li><a href="libdebug.utils.html#module-libdebug.utils.syscall_utils">libdebug.utils.syscall_utils</a>
@@ -1678,6 +1740,8 @@ document.write(`
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="libdebug.data.html#libdebug.data.symbol.Symbol.name">name (libdebug.data.symbol.Symbol attribute)</a>
+</li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.next">next() (libdebug.debugger.internal_debugger.InternalDebugger method)</a>
 
       <ul>
@@ -1766,9 +1830,23 @@ document.write(`
 </li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.post_init_">post_init_() (libdebug.debugger.debugger.Debugger method)</a>
 </li>
+      <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_maps">pprint_maps() (libdebug.debugger.debugger.Debugger method)</a>
+
+      <ul>
+        <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.pprint_maps">(libdebug.debugger.internal_debugger.InternalDebugger method)</a>
+</li>
+      </ul></li>
       <li><a href="libdebug.builtin.html#libdebug.builtin.pretty_print_syscall_handler.pprint_on_enter">pprint_on_enter() (in module libdebug.builtin.pretty_print_syscall_handler)</a>
 </li>
       <li><a href="libdebug.builtin.html#libdebug.builtin.pretty_print_syscall_handler.pprint_on_exit">pprint_on_exit() (in module libdebug.builtin.pretty_print_syscall_handler)</a>
+</li>
+      <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_registers">pprint_registers() (libdebug.state.thread_context.ThreadContext method)</a>
+</li>
+      <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_registers_all">pprint_registers_all() (libdebug.state.thread_context.ThreadContext method)</a>
+</li>
+      <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_regs">pprint_regs() (libdebug.state.thread_context.ThreadContext method)</a>
+</li>
+      <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_regs_all">pprint_regs_all() (libdebug.state.thread_context.ThreadContext method)</a>
 </li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_syscalls">pprint_syscalls (libdebug.debugger.debugger.Debugger property)</a>
 
@@ -1781,11 +1859,7 @@ document.write(`
       <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.print_backtrace">print_backtrace() (libdebug.state.thread_context.ThreadContext method)</a>
 </li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.print_maps">print_maps() (libdebug.debugger.debugger.Debugger method)</a>
-
-      <ul>
-        <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.print_maps">(libdebug.debugger.internal_debugger.InternalDebugger method)</a>
 </li>
-      </ul></li>
       <li><a href="libdebug.utils.html#libdebug.utils.print_style.PrintStyle">PrintStyle (class in libdebug.utils.print_style)</a>
 </li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.process_id">process_id (libdebug.debugger.internal_debugger.InternalDebugger attribute)</a>
@@ -1802,16 +1876,32 @@ document.write(`
 </li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger_instance_manager.provide_internal_debugger">provide_internal_debugger() (in module libdebug.debugger.internal_debugger_instance_manager)</a>
 </li>
+      <li><a href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.provide_regs">provide_regs() (libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder method)</a>
+
+      <ul>
+        <li><a href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.provide_regs">(libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder method)</a>
+</li>
+        <li><a href="libdebug.data.html#libdebug.data.register_holder.RegisterHolder.provide_regs">(libdebug.data.register_holder.RegisterHolder method)</a>
+</li>
+      </ul></li>
       <li><a href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.provide_regs_class">provide_regs_class() (libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder method)</a>
 
       <ul>
         <li><a href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.provide_regs_class">(libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder method)</a>
 </li>
       </ul></li>
-      <li><a href="libdebug.interfaces.html#libdebug.interfaces.interfaces.AvailableInterfaces.PTRACE">PTRACE (libdebug.interfaces.interfaces.AvailableInterfaces attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.provide_vector_fp_regs">provide_vector_fp_regs() (libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder method)</a>
+
+      <ul>
+        <li><a href="libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.provide_vector_fp_regs">(libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder method)</a>
+</li>
+        <li><a href="libdebug.data.html#libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs">(libdebug.data.register_holder.RegisterHolder method)</a>
+</li>
+      </ul></li>
+      <li><a href="libdebug.interfaces.html#libdebug.interfaces.interfaces.AvailableInterfaces.PTRACE">PTRACE (libdebug.interfaces.interfaces.AvailableInterfaces attribute)</a>
+</li>
       <li><a href="libdebug.ptrace.html#libdebug.ptrace.ptrace_constants.Commands.PTRACE_ATTACH">PTRACE_ATTACH (libdebug.ptrace.ptrace_constants.Commands attribute)</a>
 </li>
       <li><a href="libdebug.ptrace.html#libdebug.ptrace.ptrace_constants.Commands.PTRACE_CONT">PTRACE_CONT (libdebug.ptrace.ptrace_constants.Commands attribute)</a>
@@ -1961,6 +2051,8 @@ document.write(`
       <li><a href="libdebug.utils.html#libdebug.utils.elf_utils.resolve_symbol">resolve_symbol() (in module libdebug.utils.elf_utils)</a>
 
       <ul>
+        <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.resolve_symbol">(libdebug.debugger.debugger.Debugger method)</a>
+</li>
         <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.resolve_symbol">(libdebug.debugger.internal_debugger.InternalDebugger method)</a>
 </li>
       </ul></li>
@@ -2067,15 +2159,19 @@ document.write(`
       <li><a href="libdebug.architectures.html#libdebug.architectures.stack_unwinding_manager.StackUnwindingManager">StackUnwindingManager (class in libdebug.architectures.stack_unwinding_manager)</a>
 </li>
       <li><a href="libdebug.data.html#id8">start (libdebug.data.memory_map.MemoryMap attribute)</a>, <a href="libdebug.data.html#libdebug.data.memory_map.MemoryMap.start">[1]</a>
+
+      <ul>
+        <li><a href="libdebug.data.html#libdebug.data.symbol.Symbol.start">(libdebug.data.symbol.Symbol attribute)</a>
 </li>
+      </ul></li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.start_processing_thread">start_processing_thread() (libdebug.debugger.internal_debugger.InternalDebugger method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.start_up">start_up() (libdebug.debugger.internal_debugger.InternalDebugger method)</a>
 </li>
       <li><a href="libdebug.state.html#libdebug.state.resume_context.EventType.STARTUP">STARTUP (libdebug.state.resume_context.EventType attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="libdebug.state.html#libdebug.state.resume_context.EventType.STEP">STEP (libdebug.state.resume_context.EventType attribute)</a>
 </li>
       <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.step">step() (libdebug.debugger.internal_debugger.InternalDebugger method)</a>
@@ -2106,8 +2202,18 @@ document.write(`
 </li>
       <li><a href="libdebug.utils.html#libdebug.utils.libcontext.LibContext.sym_lvl">sym_lvl (libdebug.utils.libcontext.LibContext property)</a>
 </li>
+      <li><a href="libdebug.data.html#libdebug.data.symbol.Symbol">Symbol (class in libdebug.data.symbol)</a>
+</li>
       <li><a href="libdebug.data.html#id1">symbol (libdebug.data.breakpoint.Breakpoint attribute)</a>, <a href="libdebug.data.html#libdebug.data.breakpoint.Breakpoint.symbol">[1]</a>
 </li>
+      <li><a href="libdebug.data.html#libdebug.data.symbol_dict.SymbolDict">SymbolDict (class in libdebug.data.symbol_dict)</a>
+</li>
+      <li><a href="libdebug.debugger.html#libdebug.debugger.debugger.Debugger.symbols">symbols (libdebug.debugger.debugger.Debugger property)</a>
+
+      <ul>
+        <li><a href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.symbols">(libdebug.debugger.internal_debugger.InternalDebugger property)</a>
+</li>
+      </ul></li>
       <li><a href="libdebug.state.html#libdebug.state.resume_context.EventType.SYSCALL">SYSCALL (libdebug.state.resume_context.EventType attribute)</a>
 </li>
       <li><a href="libdebug.state.html#libdebug.state.thread_context.ThreadContext.syscall_arg0">syscall_arg0 (libdebug.state.thread_context.ThreadContext attribute)</a>

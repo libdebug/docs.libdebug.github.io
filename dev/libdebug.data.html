@@ -739,6 +739,41 @@ document.write(`
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.data.memory_map.MemoryMap.base">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.data.memory_map.MemoryMap.base" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the start address of the memory map.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libdebug.data.memory_map_list">
+<span id="libdebug-data-memory-map-list-module"></span><h2>libdebug.data.memory_map_list module<a class="headerlink" href="#module-libdebug.data.memory_map_list" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.data.memory_map_list.MemoryMapList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.memory_map_list.</span></span><span class="sig-name descname"><span class="pre">MemoryMapList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memory_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/data/memory_map_list.html#MemoryMapList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.memory_map_list.MemoryMapList" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>A list of memory maps of the target process.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.memory_map_list.MemoryMapList.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.data.memory_map_list.MemoryMapList" title="libdebug.data.memory_map_list.MemoryMapList"><span class="pre">MemoryMapList</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/memory_map_list.html#MemoryMapList.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.memory_map_list.MemoryMapList.filter" title="Link to this definition">#</a></dt>
+<dd><p>Filters the memory maps according to the specified value.</p>
+<p>If the value is an integer, it is treated as an address.
+If the value is a string, it is treated as a backing file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em><em> | </em><em>str</em>) – The value to search for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The memory maps matching the specified value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#libdebug.data.memory_map_list.MemoryMapList" title="libdebug.data.memory_map_list.MemoryMapList">MemoryMapList</a>[<a class="reference internal" href="#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap">MemoryMap</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -799,6 +834,18 @@ document.write(`
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.register_holder.RegisterHolder.provide_regs">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provide_regs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/register_holder.html#RegisterHolder.provide_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.register_holder.RegisterHolder.provide_regs" title="Link to this definition">#</a></dt>
+<dd><p>Provide the list of registers, excluding the vector and fp registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provide_vector_fp_regs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/register_holder.html#RegisterHolder.provide_vector_fp_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs" title="Link to this definition">#</a></dt>
+<dd><p>Provide the list of vector and floating point registers.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -809,6 +856,23 @@ document.write(`
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.registers.</span></span><span class="sig-name descname"><span class="pre">Registers</span></span><a class="reference internal" href="_modules/libdebug/data/registers.html#Registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.registers.Registers" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Abtract class that holds the state of the architectural-dependent registers of a process.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.registers.Registers.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/registers.html#Registers.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.registers.Registers.filter" title="Link to this definition">#</a></dt>
+<dd><p>Filters the registers by value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>float</em>) – The value to search for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of names of the registers containing the value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -925,6 +989,69 @@ document.write(`
 <dt class="sig sig-object py" id="libdebug.data.signal_catcher.SignalCatcher.hit_on">
 <span class="sig-name descname"><span class="pre">hit_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/libdebug/data/signal_catcher.html#SignalCatcher.hit_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.signal_catcher.SignalCatcher.hit_on" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether the signal catcher has been hit on the given thread context.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libdebug.data.symbol">
+<span id="libdebug-data-symbol-module"></span><h2>libdebug.data.symbol module<a class="headerlink" href="#module-libdebug.data.symbol" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.data.symbol.Symbol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.symbol.</span></span><span class="sig-name descname"><span class="pre">Symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backing_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/data/symbol.html#Symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.symbol.Symbol" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A symbol in the target process.</p>
+<p>start (int): The start address of the symbol in the target process.
+end (int): The end address of the symbol in the target process.
+name (str): The name of the symbol in the target process.
+backing_file (str): The backing file of the symbol in the target process.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.data.symbol.Symbol.start">
+<span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.data.symbol.Symbol.start" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.data.symbol.Symbol.end">
+<span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.data.symbol.Symbol.end" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.data.symbol.Symbol.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#libdebug.data.symbol.Symbol.name" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.data.symbol.Symbol.backing_file">
+<span class="sig-name descname"><span class="pre">backing_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#libdebug.data.symbol.Symbol.backing_file" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libdebug.data.symbol_dict">
+<span id="libdebug-data-symbol-dict-module"></span><h2>libdebug.data.symbol_dict module<a class="headerlink" href="#module-libdebug.data.symbol_dict" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.data.symbol_dict.SymbolDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.symbol_dict.</span></span><span class="sig-name descname"><span class="pre">SymbolDict</span></span><a class="reference internal" href="_modules/libdebug/data/symbol_dict.html#SymbolDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.symbol_dict.SymbolDict" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">defaultdict</span></code></p>
+<p>A dictionary of symbols in the target process.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.symbol_dict.SymbolDict.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict"><span class="pre">SymbolDict</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/symbol_dict.html#SymbolDict.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.symbol_dict.SymbolDict.filter" title="Link to this definition">#</a></dt>
+<dd><p>Filters the symbols according to the specified value.</p>
+<p>If the value is an integer, it is treated as an address.
+If the value is a string, it is treated as a symbol name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>int</em><em> | </em><em>str</em>) – The address or name of the symbol to find.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dictionary of symbols that match the specified value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict">SymbolDict</a>[str, set[<a class="reference internal" href="#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol">Symbol</a>]]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1209,6 +1336,14 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12"><code class="docutils literal notranslate"><span class="pre">MemoryMap.offset</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13"><code class="docutils literal notranslate"><span class="pre">MemoryMap.backing_file</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.memory_map.MemoryMap.parse"><code class="docutils literal notranslate"><span class="pre">MemoryMap.parse()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.memory_map.MemoryMap.base"><code class="docutils literal notranslate"><span class="pre">MemoryMap.base</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.memory_map_list">libdebug.data.memory_map_list module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.memory_map_list.MemoryMapList"><code class="docutils literal notranslate"><span class="pre">MemoryMapList</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.memory_map_list.MemoryMapList.filter"><code class="docutils literal notranslate"><span class="pre">MemoryMapList.filter()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1219,12 +1354,17 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.apply_on_regs"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.apply_on_regs()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.poll"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.poll()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.flush"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.flush()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.provide_regs"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.provide_regs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.provide_vector_fp_regs()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.registers">libdebug.data.registers module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.registers.Registers"><code class="docutils literal notranslate"><span class="pre">Registers</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.registers.Registers"><code class="docutils literal notranslate"><span class="pre">Registers</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.registers.Registers.filter"><code class="docutils literal notranslate"><span class="pre">Registers.filter()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.signal_catcher">libdebug.data.signal_catcher module</a><ul class="nav section-nav flex-column">
@@ -1242,6 +1382,23 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.signal_catcher.SignalCatcher.enable"><code class="docutils literal notranslate"><span class="pre">SignalCatcher.enable()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.signal_catcher.SignalCatcher.disable"><code class="docutils literal notranslate"><span class="pre">SignalCatcher.disable()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.signal_catcher.SignalCatcher.hit_on"><code class="docutils literal notranslate"><span class="pre">SignalCatcher.hit_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.symbol">libdebug.data.symbol module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol.Symbol"><code class="docutils literal notranslate"><span class="pre">Symbol</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol.Symbol.start"><code class="docutils literal notranslate"><span class="pre">Symbol.start</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol.Symbol.end"><code class="docutils literal notranslate"><span class="pre">Symbol.end</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol.Symbol.name"><code class="docutils literal notranslate"><span class="pre">Symbol.name</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol.Symbol.backing_file"><code class="docutils literal notranslate"><span class="pre">Symbol.backing_file</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.symbol_dict">libdebug.data.symbol_dict module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol_dict.SymbolDict"><code class="docutils literal notranslate"><span class="pre">SymbolDict</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol_dict.SymbolDict.filter"><code class="docutils literal notranslate"><span class="pre">SymbolDict.filter()</span></code></a></li>
 </ul>
 </li>
 </ul>

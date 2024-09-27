@@ -614,13 +614,14 @@ document.write(`
 <dl class="py property">
 <dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.process_id">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.process_id" title="Link to this definition">#</a></dt>
-<dd><p>The process ID of the thread.</p>
+<dd><p>The process ID.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.pid">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.pid" title="Link to this definition">#</a></dt>
-<dd><p>The process ID of the thread.</p>
+<dd><p>Alias for <cite>process_id</cite> property.</p>
+<p>The process ID.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -674,6 +675,30 @@ document.write(`
 <dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.print_backtrace">
 <span class="sig-name descname"><span class="pre">print_backtrace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.print_backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.print_backtrace" title="Link to this definition">#</a></dt>
 <dd><p>Prints the current backtrace of the thread.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.pprint_registers">
+<span class="sig-name descname"><span class="pre">pprint_registers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.pprint_registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.pprint_registers" title="Link to this definition">#</a></dt>
+<dd><p>Pretty prints the thread’s registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.pprint_regs">
+<span class="sig-name descname"><span class="pre">pprint_regs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.pprint_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.pprint_regs" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>pprint_registers</cite> method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.pprint_registers_all">
+<span class="sig-name descname"><span class="pre">pprint_registers_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.pprint_registers_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.pprint_registers_all" title="Link to this definition">#</a></dt>
+<dd><p>Pretty prints all the thread’s registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.thread_context.ThreadContext.pprint_regs_all">
+<span class="sig-name descname"><span class="pre">pprint_regs_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/state/thread_context.html#ThreadContext.pprint_regs_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.thread_context.ThreadContext.pprint_regs_all" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>pprint_registers_all</cite> method.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -866,6 +891,10 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.signal"><code class="docutils literal notranslate"><span class="pre">ThreadContext.signal</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.backtrace"><code class="docutils literal notranslate"><span class="pre">ThreadContext.backtrace()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.print_backtrace"><code class="docutils literal notranslate"><span class="pre">ThreadContext.print_backtrace()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.pprint_registers"><code class="docutils literal notranslate"><span class="pre">ThreadContext.pprint_registers()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.pprint_regs"><code class="docutils literal notranslate"><span class="pre">ThreadContext.pprint_regs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.pprint_registers_all"><code class="docutils literal notranslate"><span class="pre">ThreadContext.pprint_registers_all()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.pprint_regs_all"><code class="docutils literal notranslate"><span class="pre">ThreadContext.pprint_regs_all()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.saved_ip"><code class="docutils literal notranslate"><span class="pre">ThreadContext.saved_ip</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.step"><code class="docutils literal notranslate"><span class="pre">ThreadContext.step()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.thread_context.ThreadContext.step_until"><code class="docutils literal notranslate"><span class="pre">ThreadContext.step_until()</span></code></a></li>

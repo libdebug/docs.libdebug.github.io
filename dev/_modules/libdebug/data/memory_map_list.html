@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.data.registers &#8212; libdebug 0.6.0 documentation</title>
+    <title>libdebug.data.memory_map_list &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/data/registers';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/data/memory_map_list';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -423,54 +423,91 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.data.registers</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.data.memory_map_list</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2024 Gabriele Digregorio. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024  Gabriele Digregorio. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">extend_internal_debugger</span><span class="p">,</span> <span class="n">provide_internal_debugger</span>
+<span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
 
 
-<div class="viewcode-block" id="Registers">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.registers.Registers">[docs]</a>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Registers</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abtract class that holds the state of the architectural-dependent registers of a process.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="MemoryMapList">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_map_list.MemoryMapList">[docs]</a>
+<span class="k">class</span> <span class="nc">MemoryMapList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A list of memory maps of the target process.&quot;&quot;&quot;</span>
 
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the Registers object.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMapList</span><span class="p">,</span> <span class="n">memory_maps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the MemoryMapList.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">memory_maps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span> <span class="o">=</span> <span class="n">provide_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the object.&quot;&quot;&quot;</span>
-        <span class="n">repr_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Registers(thread_id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_thread_id</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">def</span> <span class="nf">_search_by_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMapList</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MemoryMap</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vmap</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">vmap</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[]</span>
 
-        <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generic_regs</span>
-        <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">_search_by_backing_file</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMapList</span><span class="p">,</span> <span class="n">backing_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">backing_file</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_process_name</span><span class="p">]:</span>
+            <span class="n">backing_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_process_full_path</span>
 
-        <span class="n">repr_str</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">attr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">max_len</span><span class="si">}}</span><span class="s2"> </span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">attr</span><span class="p">)</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">)</span>
+        <span class="n">filtered_maps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">unique_files</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">repr_str</span>
+        <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">backing_file</span> <span class="ow">in</span> <span class="n">vmap</span><span class="o">.</span><span class="n">backing_file</span><span class="p">:</span>
+                <span class="n">filtered_maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vmap</span><span class="p">)</span>
+                <span class="n">unique_files</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">backing_file</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Registers.filter">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.registers.Registers.filter">[docs]</a>
-    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Registers</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Filters the registers by value.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The substring </span><span class="si">{</span><span class="n">backing_file</span><span class="si">}</span><span class="s2"> is present in multiple, different backing files. The address resolution cannot be accurate. The matching backing files are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_files</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">filtered_maps</span>
+
+<div class="viewcode-block" id="MemoryMapList.filter">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_map_list.MemoryMapList.filter">[docs]</a>
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMapList</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MemoryMapList</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Filters the memory maps according to the specified value.</span>
+
+<span class="sd">        If the value is an integer, it is treated as an address.</span>
+<span class="sd">        If the value is a string, it is treated as a backing file.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            value (float): The value to search for.</span>
+<span class="sd">            value (int | str): The value to search for.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list[str]: A list of names of the registers containing the value.</span>
+<span class="sd">            MemoryMapList[MemoryMap]: The memory maps matching the specified value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__dict__</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attributes</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="o">==</span> <span class="n">value</span><span class="p">]</span></div>
-</div>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">filtered_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_by_address</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filtered_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_by_backing_file</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The value must be an integer or a string.&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">extend_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">MemoryMapList</span><span class="p">(</span><span class="n">filtered_maps</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the hash of the memory map list.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the memory map list is equal to another object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
 
 </pre></div>
 

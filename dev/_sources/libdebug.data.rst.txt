@@ -20,6 +20,14 @@ libdebug.data.memory\_map module
    :undoc-members:
    :show-inheritance:
 
+libdebug.data.memory\_map\_list module
+--------------------------------------
+
+.. automodule:: libdebug.data.memory_map_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libdebug.data.register\_holder module
 -------------------------------------
 
@@ -40,6 +48,22 @@ libdebug.data.signal\_catcher module
 ------------------------------------
 
 .. automodule:: libdebug.data.signal_catcher
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libdebug.data.symbol module
+---------------------------
+
+.. automodule:: libdebug.data.symbol
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libdebug.data.symbol\_dict module
+---------------------------------
+
+.. automodule:: libdebug.data.symbol_dict
    :members:
    :undoc-members:
    :show-inheritance:

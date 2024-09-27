@@ -432,11 +432,13 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">MutableSequence</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">provide_internal_debugger</span>
 <span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
+<span class="kn">from</span> <span class="nn">libdebug.utils.search_utils</span> <span class="kn">import</span> <span class="n">find_all_overlapping_occurrences</span>
 
 
 <div class="viewcode-block" id="AbstractMemoryView">
@@ -450,7 +452,6 @@ document.write(`
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the MemoryView.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span> <span class="o">=</span> <span class="n">provide_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maps_provider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span>
 
 <div class="viewcode-block" id="AbstractMemoryView.read">
 <a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView.read">[docs]</a>
@@ -477,6 +478,86 @@ document.write(`
 <span class="sd">            address (int): The address to write to.</span>
 <span class="sd">            data (bytes): The data to write.</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="AbstractMemoryView.find">
+<a class="viewcode-back" href="../../../libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView.find">[docs]</a>
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span>
+        <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Searches for the given value in the specified memory maps of the process.</span>
+
+<span class="sd">        The start and end addresses can be used to limit the search to a specific range.</span>
+<span class="sd">        If not specified, the search will be performed on the whole memory map.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (bytes | str | int): The value to search for.</span>
+<span class="sd">            file (str): The backing file to search the value in. Defaults to &quot;all&quot;, which means all memory.</span>
+<span class="sd">            start (int | None): The start address of the search. Defaults to None.</span>
+<span class="sd">            end (int | None): The end address of the search. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[int]: A list of offset where the value was found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">byteorder</span><span class="p">)</span>
+
+        <span class="n">occurrences</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="p">:</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching in </span><span class="si">{</span><span class="n">vmap</span><span class="o">.</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">memory_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="n">vmap</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+                    <span class="c1"># There are some memory regions that cannot be read, such as [vvar], [vdso], etc.</span>
+                    <span class="k">continue</span>
+                <span class="n">occurrences</span> <span class="o">+=</span> <span class="n">find_all_overlapping_occurrences</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">memory_content</span><span class="p">,</span> <span class="n">vmap</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">:</span>
+                    <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching in </span><span class="si">{</span><span class="n">vmap</span><span class="o">.</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+                    <span class="n">read_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">memory_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">read_start</span><span class="p">,</span> <span class="n">vmap</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="n">read_start</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+                        <span class="c1"># There are some memory regions that cannot be read, such as [vvar], [vdso], etc.</span>
+                        <span class="k">continue</span>
+                    <span class="n">occurrences</span> <span class="o">+=</span> <span class="n">find_all_overlapping_occurrences</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">memory_content</span><span class="p">,</span> <span class="n">read_start</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">vmap</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">vmap</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">:</span>
+                    <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching in </span><span class="si">{</span><span class="n">vmap</span><span class="o">.</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+                    <span class="n">read_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">memory_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">vmap</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">read_end</span> <span class="o">-</span> <span class="n">vmap</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+                        <span class="c1"># There are some memory regions that cannot be read, such as [vvar], [vdso], etc.</span>
+                        <span class="k">continue</span>
+                    <span class="n">occurrences</span> <span class="o">+=</span> <span class="n">find_all_overlapping_occurrences</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">memory_content</span><span class="p">,</span> <span class="n">vmap</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">file</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span> <span class="ow">and</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Search in the specified range, hybrid mode</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resolve_address</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resolve_address</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching in the range </span><span class="si">{</span><span class="n">start</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">end</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            <span class="n">memory_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+            <span class="n">occurrences</span> <span class="o">=</span> <span class="n">find_all_overlapping_occurrences</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">memory_content</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resolve_address</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">maps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resolve_address</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">maps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="mi">1</span>
+
+            <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Searching in the range </span><span class="si">{</span><span class="n">start</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">end</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            <span class="n">memory_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+
+            <span class="n">occurrences</span> <span class="o">=</span> <span class="n">find_all_overlapping_occurrences</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">memory_content</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">occurrences</span></div>
 
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">AbstractMemoryView</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">slice</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>

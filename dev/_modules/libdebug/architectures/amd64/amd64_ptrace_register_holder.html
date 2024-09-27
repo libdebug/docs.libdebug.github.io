@@ -449,33 +449,23 @@ document.write(`
 <span class="n">AMD64_EXT_REGS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r8&quot;</span><span class="p">,</span> <span class="s2">&quot;r9&quot;</span><span class="p">,</span> <span class="s2">&quot;r10&quot;</span><span class="p">,</span> <span class="s2">&quot;r11&quot;</span><span class="p">,</span> <span class="s2">&quot;r12&quot;</span><span class="p">,</span> <span class="s2">&quot;r13&quot;</span><span class="p">,</span> <span class="s2">&quot;r14&quot;</span><span class="p">,</span> <span class="s2">&quot;r15&quot;</span><span class="p">]</span>
 
 <span class="n">AMD64_REGS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;r15&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r14&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r13&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r12&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;rbp&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;rbx&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r11&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r10&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r9&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;r8&quot;</span><span class="p">,</span>
     <span class="s2">&quot;rax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rbx&quot;</span><span class="p">,</span>
     <span class="s2">&quot;rcx&quot;</span><span class="p">,</span>
     <span class="s2">&quot;rdx&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;rsi&quot;</span><span class="p">,</span>
     <span class="s2">&quot;rdi&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;orig_rax&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;rip&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;cs&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;eflags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rsi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r9&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r10&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r11&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r12&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r13&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r14&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;r15&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rbp&quot;</span><span class="p">,</span>
     <span class="s2">&quot;rsp&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ss&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;fs_base&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;gs_base&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ds&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;es&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;fs&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;gs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;rip&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 
@@ -655,6 +645,7 @@ document.write(`
 
     <span class="k">return</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">_get_property_fp_mmx</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">property</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">getter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">fresh</span><span class="p">:</span>
@@ -668,6 +659,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_fp_register_file</span><span class="o">.</span><span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">return</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">_get_property_fp_st</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">property</span><span class="p">:</span>
     <span class="c1"># We should be able to expose the long double member from CFFI directly</span>
@@ -686,6 +678,7 @@ document.write(`
 
     <span class="k">return</span> <span class="nb">property</span><span class="p">(</span><span class="n">getter</span><span class="p">,</span> <span class="n">setter</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="Amd64PtraceRegisterHolder">
 <a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder">[docs]</a>
 <span class="nd">@dataclass</span>
@@ -699,6 +692,20 @@ document.write(`
         <span class="k">return</span> <span class="n">Amd64Registers</span></div>
 
 
+<div class="viewcode-block" id="Amd64PtraceRegisterHolder.provide_regs">
+<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.provide_regs">[docs]</a>
+    <span class="k">def</span> <span class="nf">provide_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide the list of registers, excluding the vector and fp registers.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AMD64_REGS</span></div>
+
+
+<div class="viewcode-block" id="Amd64PtraceRegisterHolder.provide_vector_fp_regs">
+<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.provide_vector_fp_regs">[docs]</a>
+    <span class="k">def</span> <span class="nf">provide_vector_fp_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide the list of vector and floating point registers.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span></div>
+
+
 <div class="viewcode-block" id="Amd64PtraceRegisterHolder.apply_on_regs">
 <a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.apply_on_regs">[docs]</a>
     <span class="k">def</span> <span class="nf">apply_on_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -709,6 +716,8 @@ document.write(`
         <span class="c1"># If the accessors are already defined, we don&#39;t need to redefine them</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="s2">&quot;rip&quot;</span><span class="p">):</span>
             <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># setup accessors</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">AMD64_GP_REGS</span><span class="p">:</span>
@@ -763,7 +772,9 @@ document.write(`
             <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Floating-point register file type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fp_register_file</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> not available.&quot;</span><span class="p">,</span>
-                <span class="p">)</span></div>
+                <span class="p">)</span>
+
+        <span class="n">Amd64PtraceRegisterHolder</span><span class="o">.</span><span class="n">_vector_fp_registers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span></div>
 
 
 <div class="viewcode-block" id="Amd64PtraceRegisterHolder.apply_on_thread">
@@ -793,54 +804,57 @@ document.write(`
     <span class="k">def</span> <span class="nf">_handle_fp_legacy</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle legacy mmx and st registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;mm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_mmx</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_mm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;mm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_mm</span><span class="p">,</span> <span class="n">_get_property_fp_mmx</span><span class="p">(</span><span class="n">name_mm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;st</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_st</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_st</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;st</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_st</span><span class="p">,</span> <span class="n">_get_property_fp_st</span><span class="p">(</span><span class="n">name_st</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_mm</span><span class="p">,</span> <span class="n">name_st</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_handle_fp_512</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the case where the xsave area is 512 bytes long, which means we just have the xmm registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_xmm0</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_xmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_xmm</span><span class="p">,</span> <span class="n">_get_property_fp_xmm0</span><span class="p">(</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_xmm</span><span class="p">,))</span>
 
     <span class="k">def</span> <span class="nf">_handle_fp_896</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the case where the xsave area is 896 bytes long, which means we have the xmm and ymm registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_xmm0</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_xmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_xmm</span><span class="p">,</span> <span class="n">_get_property_fp_xmm0</span><span class="p">(</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ymm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_ymm0</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_ymm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ymm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_ymm</span><span class="p">,</span> <span class="n">_get_property_fp_ymm0</span><span class="p">(</span><span class="n">name_ymm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">name_ymm</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_handle_fp_2696</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the case where the xsave area is 2696 bytes long, which means we have 32 zmm registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_xmm0</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_xmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_xmm</span><span class="p">,</span> <span class="n">_get_property_fp_xmm0</span><span class="p">(</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+
+            <span class="n">name_ymm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ymm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_ymm</span><span class="p">,</span> <span class="n">_get_property_fp_ymm0</span><span class="p">(</span><span class="n">name_ymm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+
+            <span class="n">name_zmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;zmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_zmm</span><span class="p">,</span> <span class="n">_get_property_fp_zmm0</span><span class="p">(</span><span class="n">name_zmm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">name_ymm</span><span class="p">,</span> <span class="n">name_zmm</span><span class="p">))</span>
 
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ymm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_ymm0</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_xmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_xmm</span><span class="p">,</span> <span class="n">_get_property_fp_xmm1</span><span class="p">(</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;zmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_zmm0</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_ymm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ymm</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_ymm</span><span class="p">,</span> <span class="n">_get_property_fp_ymm1</span><span class="p">(</span><span class="n">name_ymm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_xmm1</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
+            <span class="n">name_zmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;zmm</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_zmm</span><span class="p">,</span> <span class="n">_get_property_fp_zmm1</span><span class="p">(</span><span class="n">name_zmm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ymm</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_ymm1</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
-
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;zmm</span><span class="si">{</span><span class="n">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">16</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_fp_zmm1</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">name_ymm</span><span class="p">,</span> <span class="n">name_zmm</span><span class="p">))</span></div>
 
 </pre></div>
 

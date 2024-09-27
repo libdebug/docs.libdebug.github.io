@@ -504,6 +504,30 @@ document.write(`
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="libdebug.memory.abstract_memory_view.AbstractMemoryView.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/memory/abstract_memory_view.html#AbstractMemoryView.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.memory.abstract_memory_view.AbstractMemoryView.find" title="Link to this definition">#</a></dt>
+<dd><p>Searches for the given value in the specified memory maps of the process.</p>
+<p>The start and end addresses can be used to limit the search to a specific range.
+If not specified, the search will be performed on the whole memory map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>bytes</em><em> | </em><em>str</em><em> | </em><em>int</em>) – The value to search for.</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – The backing file to search the value in. Defaults to “all”, which means all memory.</p></li>
+<li><p><strong>start</strong> (<em>int</em><em> | </em><em>None</em>) – The start address of the search. Defaults to None.</p></li>
+<li><p><strong>end</strong> (<em>int</em><em> | </em><em>None</em>) – The end address of the search. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of offset where the value was found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="libdebug.memory.abstract_memory_view.AbstractMemoryView.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/memory/abstract_memory_view.html#AbstractMemoryView.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.memory.abstract_memory_view.AbstractMemoryView.insert" title="Link to this definition">#</a></dt>
 <dd><p>MemoryView doesn’t support insertion.</p>
@@ -789,6 +813,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.memory.abstract_memory_view.AbstractMemoryView"><code class="docutils literal notranslate"><span class="pre">AbstractMemoryView</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.memory.abstract_memory_view.AbstractMemoryView.read"><code class="docutils literal notranslate"><span class="pre">AbstractMemoryView.read()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.memory.abstract_memory_view.AbstractMemoryView.write"><code class="docutils literal notranslate"><span class="pre">AbstractMemoryView.write()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.memory.abstract_memory_view.AbstractMemoryView.find"><code class="docutils literal notranslate"><span class="pre">AbstractMemoryView.find()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.memory.abstract_memory_view.AbstractMemoryView.insert"><code class="docutils literal notranslate"><span class="pre">AbstractMemoryView.insert()</span></code></a></li>
 </ul>
 </li>

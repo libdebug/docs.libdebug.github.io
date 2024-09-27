@@ -525,15 +525,41 @@ This method should only be called to free up resources when the debugger object 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.maps">
-<span class="sig-name descname"><span class="pre">maps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.maps" title="Link to this definition">#</a></dt>
-<dd><p>Returns the memory maps of the process.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.print_maps">
 <span class="sig-name descname"><span class="pre">print_maps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.print_maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.print_maps" title="Link to this definition">#</a></dt>
 <dd><p>Prints the memory maps of the process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.pprint_maps">
+<span class="sig-name descname"><span class="pre">pprint_maps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.pprint_maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.pprint_maps" title="Link to this definition">#</a></dt>
+<dd><p>Prints the memory maps of the process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.resolve_symbol">
+<span class="sig-name descname"><span class="pre">resolve_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'binary'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.resolve_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.resolve_symbol" title="Link to this definition">#</a></dt>
+<dd><p>Resolves the address of the specified symbol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>str</em>) – The symbol to resolve.</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – The backing file to resolve the symbol in. Defaults to “binary”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The address of the symbol.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.symbols">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict"><span class="pre">SymbolDict</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.symbols" title="Link to this definition">#</a></dt>
+<dd><p>Get the symbols of the process.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -804,6 +830,12 @@ This method should only be called to free up resources when the debugger object 
 <dd class="field-even"><p>dict[int, CaughtSignal]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.maps">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map_list.MemoryMapList" title="libdebug.data.memory_map_list.MemoryMapList"><span class="pre">MemoryMapList</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.maps" title="Link to this definition">#</a></dt>
+<dd><p>Get the memory maps of the process.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -1109,9 +1141,9 @@ This method should only be called to free up resources when the debugger object 
 <dd><p>Waits for the process to stop.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="py property">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.maps">
-<span class="sig-name descname"><span class="pre">maps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.maps" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map_list.MemoryMapList" title="libdebug.data.memory_map_list.MemoryMapList"><span class="pre">MemoryMapList</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.memory_map.MemoryMap" title="libdebug.data.memory_map.MemoryMap"><span class="pre">MemoryMap</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.maps" title="Link to this definition">#</a></dt>
 <dd><p>Returns the memory maps of the process.</p>
 </dd></dl>
 
@@ -1122,8 +1154,8 @@ This method should only be called to free up resources when the debugger object 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.print_maps">
-<span class="sig-name descname"><span class="pre">print_maps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.print_maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.print_maps" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.pprint_maps">
+<span class="sig-name descname"><span class="pre">pprint_maps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.pprint_maps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.pprint_maps" title="Link to this definition">#</a></dt>
 <dd><p>Prints the memory maps of the process.</p>
 </dd></dl>
 
@@ -1402,6 +1434,12 @@ This method should only be called to free up resources when the debugger object 
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.symbols">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict"><span class="pre">SymbolDict</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.symbols" title="Link to this definition">#</a></dt>
+<dd><p>Get the symbols of the process.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.running">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">running</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.running" title="Link to this definition">#</a></dt>
 <dd><p>Get the state of the process.</p>
@@ -1572,8 +1610,10 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.cont"><code class="docutils literal notranslate"><span class="pre">Debugger.cont()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.interrupt"><code class="docutils literal notranslate"><span class="pre">Debugger.interrupt()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.wait"><code class="docutils literal notranslate"><span class="pre">Debugger.wait()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.maps"><code class="docutils literal notranslate"><span class="pre">Debugger.maps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.print_maps"><code class="docutils literal notranslate"><span class="pre">Debugger.print_maps()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_maps"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_maps()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.resolve_symbol"><code class="docutils literal notranslate"><span class="pre">Debugger.resolve_symbol()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.symbols"><code class="docutils literal notranslate"><span class="pre">Debugger.symbols</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.breakpoint"><code class="docutils literal notranslate"><span class="pre">Debugger.breakpoint()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.watchpoint"><code class="docutils literal notranslate"><span class="pre">Debugger.watchpoint()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.catch_signal"><code class="docutils literal notranslate"><span class="pre">Debugger.catch_signal()</span></code></a></li>
@@ -1593,6 +1633,7 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.breakpoints"><code class="docutils literal notranslate"><span class="pre">Debugger.breakpoints</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.handled_syscalls"><code class="docutils literal notranslate"><span class="pre">Debugger.handled_syscalls</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.caught_signals"><code class="docutils literal notranslate"><span class="pre">Debugger.caught_signals</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.maps"><code class="docutils literal notranslate"><span class="pre">Debugger.maps</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_syscalls"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_syscalls</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_syscalls_context"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_syscalls_context()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscalls_to_pprint"><code class="docutils literal notranslate"><span class="pre">Debugger.syscalls_to_pprint</span></code></a></li>
@@ -1638,9 +1679,9 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.cont"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.cont()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.interrupt"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.interrupt()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.wait"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.wait()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.maps"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.maps()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.maps"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.maps</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.memory"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.memory</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.print_maps"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.print_maps()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.pprint_maps"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.pprint_maps()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.breakpoint"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.breakpoint()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.catch_signal"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.catch_signal()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.hijack_signal"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.hijack_signal()</span></code></a></li>
@@ -1658,6 +1699,7 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.get_thread_by_id"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.get_thread_by_id()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.resolve_address"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.resolve_address()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.resolve_symbol"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.resolve_symbol()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.symbols"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.symbols</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.running"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.running</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.set_running"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.set_running()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.set_stopped"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.set_stopped()</span></code></a></li>

@@ -425,6 +425,7 @@ document.write(`
                   
   <h1>Source code for libdebug.debugger.debugger</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
+<span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
 <span class="c1"># Copyright (c) 2023-2024  Gabriele Digregorio, Roberto Alessandro Bertolini, Francesco Panebianco. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
@@ -434,6 +435,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
+<span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.arch_mappings</span> <span class="kn">import</span> <span class="n">map_arch</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.signal_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_all_signal_numbers</span><span class="p">,</span>
@@ -450,7 +452,10 @@ document.write(`
 
     <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.memory_map_list</span> <span class="kn">import</span> <span class="n">MemoryMapList</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.symbol</span> <span class="kn">import</span> <span class="n">Symbol</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.symbol_dict</span> <span class="kn">import</span> <span class="n">SymbolDict</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
     <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
@@ -539,19 +544,40 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Debugger.maps">
-<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.maps">[docs]</a>
-    <span class="k">def</span> <span class="nf">maps</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the memory maps of the process.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="p">()</span></div>
-
-
 <div class="viewcode-block" id="Debugger.print_maps">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.print_maps">[docs]</a>
     <span class="k">def</span> <span class="nf">print_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Prints the memory maps of the process.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">print_maps</span><span class="p">()</span></div>
+        <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The `print_maps` method is deprecated. Use `d.pprint_maps` instead.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">pprint_maps</span><span class="p">()</span></div>
 
+
+<div class="viewcode-block" id="Debugger.pprint_maps">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_maps">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prints the memory maps of the process.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">pprint_maps</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Debugger.resolve_symbol">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.resolve_symbol">[docs]</a>
+    <span class="k">def</span> <span class="nf">resolve_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;binary&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolves the address of the specified symbol.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            symbol (str): The symbol to resolve.</span>
+<span class="sd">            file (str): The backing file to resolve the symbol in. Defaults to &quot;binary&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The address of the symbol.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resolve_symbol</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymbolDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the symbols of the process.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">symbols</span>
 
 <div class="viewcode-block" id="Debugger.breakpoint">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.breakpoint">[docs]</a>
@@ -870,6 +896,11 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">caught_signals</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">maps</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MemoryMapList</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the memory maps of the process.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">pprint_syscalls</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the state of the pprint_syscalls flag.</span>
 
@@ -1058,7 +1089,25 @@ document.write(`
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">thread_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">thread_context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">thread_context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the string representation of the `Debugger` object.&quot;&quot;&quot;</span>
+        <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;Debugger(&quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;argv = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">argv</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;aslr = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">aslr_enabled</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;env = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">env</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;escape_antidebug = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">escape_antidebug</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;continue_to_binary_entrypoint = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">autoreach_entrypoint</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;auto_interrupt_on_command = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">auto_interrupt_on_command</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;fast_memory = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">fast_memory</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;kill_on_exit = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">kill_on_exit</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  Architecture: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">arch</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="s2">&quot;  Threads:&quot;</span>
+        <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    (</span><span class="si">{</span><span class="n">thread</span><span class="o">.</span><span class="n">tid</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="s1">&#39;dead&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">thread</span><span class="o">.</span><span class="n">dead</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;alive&#39;</span><span class="si">}</span><span class="s2">) &quot;</span>
+            <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;ip: </span><span class="si">{</span><span class="n">thread</span><span class="o">.</span><span class="n">instruction_pointer</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">repr_str</span></div>
 
 </pre></div>
 

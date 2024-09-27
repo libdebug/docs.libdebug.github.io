@@ -476,6 +476,7 @@ document.write(`
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.memory_map_list</span> <span class="kn">import</span> <span class="n">MemoryMapList</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
@@ -925,7 +926,7 @@ document.write(`
             <span class="n">entry_point</span> <span class="o">=</span> <span class="n">get_entry_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
             <span class="c1"># For PIE binaries, the entry point is a relative address</span>
-            <span class="n">entry_point</span> <span class="o">=</span> <span class="n">normalize_and_validate_address</span><span class="p">(</span><span class="n">entry_point</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maps</span><span class="p">())</span>
+            <span class="n">entry_point</span> <span class="o">=</span> <span class="n">normalize_and_validate_address</span><span class="p">(</span><span class="n">entry_point</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_maps</span><span class="p">())</span>
 
             <span class="n">bp</span> <span class="o">=</span> <span class="n">Breakpoint</span><span class="p">(</span><span class="n">entry_point</span><span class="p">,</span> <span class="n">hardware</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_breakpoint</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
@@ -1284,11 +1285,12 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the event message.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">ptrace_geteventmsg</span><span class="p">(</span><span class="n">thread_id</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PtraceInterface.maps">
-<a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.maps">[docs]</a>
-    <span class="k">def</span> <span class="nf">maps</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">]:</span>
+<div class="viewcode-block" id="PtraceInterface.get_maps">
+<a class="viewcode-back" href="../../../libdebug.ptrace.html#libdebug.ptrace.ptrace_interface.PtraceInterface.get_maps">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MemoryMapList</span><span class="p">[</span><span class="n">MemoryMap</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the memory maps of the process.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">get_process_maps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span></div>
+        <span class="k">with</span> <span class="n">extend_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">get_process_maps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PtraceInterface.get_hit_watchpoint">

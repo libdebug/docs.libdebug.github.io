@@ -92,6 +92,14 @@ libdebug.utils.process\_utils module
    :undoc-members:
    :show-inheritance:
 
+libdebug.utils.search\_utils module
+-----------------------------------
+
+.. automodule:: libdebug.utils.search_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libdebug.utils.signal\_utils module
 -----------------------------------
 

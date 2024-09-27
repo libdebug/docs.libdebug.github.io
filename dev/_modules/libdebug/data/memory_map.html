@@ -426,7 +426,7 @@ document.write(`
   <h1>Source code for libdebug.data.memory_map</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2023-2024 Roberto Alessandro Bertolini. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2023-2024 Roberto Alessandro Bertolini, Gabriele Digregorio. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
@@ -489,6 +489,11 @@ document.write(`
 
         <span class="k">return</span> <span class="n">MemoryMap</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">permissions</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">int_offset</span><span class="p">,</span> <span class="n">backing_file</span><span class="p">)</span></div>
 
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">base</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the start address of the memory map.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the string representation of the memory map.&quot;&quot;&quot;</span>

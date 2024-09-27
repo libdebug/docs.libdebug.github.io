@@ -487,6 +487,9 @@ document.write(`
     <span class="n">_internal_debugger</span><span class="p">:</span> <span class="n">InternalDebugger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The debugging context this thread belongs to.&quot;&quot;&quot;</span>
 
+    <span class="n">_register_holder</span><span class="p">:</span> <span class="n">RegisterHolder</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The register holder object.&quot;&quot;&quot;</span>
+
     <span class="n">_dead</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether the thread is dead.&quot;&quot;&quot;</span>
 
@@ -506,10 +509,11 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the Thread Context.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span> <span class="o">=</span> <span class="n">provide_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_thread_id</span> <span class="o">=</span> <span class="n">thread_id</span>
-        <span class="n">regs_class</span> <span class="o">=</span> <span class="n">registers</span><span class="o">.</span><span class="n">provide_regs_class</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">regs</span> <span class="o">=</span> <span class="n">regs_class</span><span class="p">(</span><span class="n">thread_id</span><span class="p">)</span>
-        <span class="n">registers</span><span class="o">.</span><span class="n">apply_on_regs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">regs_class</span><span class="p">)</span>
-        <span class="n">registers</span><span class="o">.</span><span class="n">apply_on_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ThreadContext</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span> <span class="o">=</span> <span class="n">registers</span>
+        <span class="n">regs_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">provide_regs_class</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regs</span> <span class="o">=</span> <span class="n">regs_class</span><span class="p">(</span><span class="n">thread_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">provide_regs</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">apply_on_regs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">regs_class</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">apply_on_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ThreadContext</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ThreadContext.set_as_dead">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.set_as_dead">[docs]</a>
@@ -538,12 +542,15 @@ document.write(`
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">process_id</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The process ID of the thread.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The process ID.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">process_id</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">pid</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The process ID of the thread.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for `process_id` property.</span>
+
+<span class="sd">        The process ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">process_id</span>
 
     <span class="nd">@property</span>
@@ -617,7 +624,7 @@ document.write(`
         <span class="n">stack_unwinder</span> <span class="o">=</span> <span class="n">stack_unwinding_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
         <span class="n">backtrace</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">unwind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">as_symbols</span><span class="p">:</span>
-            <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">()</span>
+            <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">get_maps</span><span class="p">()</span>
             <span class="n">backtrace</span> <span class="o">=</span> <span class="p">[</span><span class="n">resolve_address_in_maps</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">maps</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">backtrace</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">backtrace</span></div>
 
@@ -629,13 +636,51 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
         <span class="n">stack_unwinder</span> <span class="o">=</span> <span class="n">stack_unwinding_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
         <span class="n">backtrace</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">unwind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">()</span>
+        <span class="n">maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">get_maps</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">return_address</span> <span class="ow">in</span> <span class="n">backtrace</span><span class="p">:</span>
             <span class="n">return_address_symbol</span> <span class="o">=</span> <span class="n">resolve_address_in_maps</span><span class="p">(</span><span class="n">return_address</span><span class="p">,</span> <span class="n">maps</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">return_address_symbol</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;0x&quot;</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">return_address</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">return_address</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2"> &lt;</span><span class="si">{</span><span class="n">return_address_symbol</span><span class="si">}</span><span class="s2">&gt; </span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ThreadContext.pprint_registers">
+<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_registers">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty prints the thread&#39;s registers.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">register</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">provide_regs</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">register</span><span class="si">}{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span><span class="w"> </span><span class="n">register</span><span class="p">)</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ThreadContext.pprint_regs">
+<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_regs">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers` method.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ThreadContext.pprint_registers_all">
+<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_registers_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_registers_all</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty prints all the thread&#39;s registers.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">provide_vector_fp_regs</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">register</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
+                <span class="n">formatted_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">register</span><span class="si">}{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">formatted_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ThreadContext.pprint_regs_all">
+<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_regs_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_regs_all</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers_all` method.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers_all</span><span class="p">()</span></div>
 
 
     <span class="nd">@property</span>
@@ -645,7 +690,7 @@ document.write(`
         <span class="n">stack_unwinder</span> <span class="o">=</span> <span class="n">stack_unwinding_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">return_address</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">maps</span><span class="p">())</span>
+            <span class="n">return_address</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Failed to get the return address. Check stack frame registers (e.g., base pointer).&quot;</span><span class="p">,</span>
@@ -750,7 +795,16 @@ document.write(`
     <span class="k">def</span> <span class="nf">ni</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `next` method. Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
-</div>
+
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the object.&quot;&quot;&quot;</span>
+        <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;ThreadContext()</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  Thread ID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_id</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  Process ID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  Instruction Pointer: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">instruction_pointer</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  Dead: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dead</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">repr_str</span></div>
 
 </pre></div>
 

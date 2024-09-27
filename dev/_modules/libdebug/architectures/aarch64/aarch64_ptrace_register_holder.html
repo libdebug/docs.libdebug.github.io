@@ -426,7 +426,7 @@ document.write(`
   <h1>Source code for libdebug.architectures.aarch64.aarch64_ptrace_register_holder</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2024 Roberto Alessandro Bertolini. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024 Roberto Alessandro Bertolini, Gabriele Digregorio. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
@@ -442,7 +442,7 @@ document.write(`
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
 
-<span class="n">AARCH64_GP_REGS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">]</span>
+<span class="n">AARCH64_REGS</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;sp&quot;</span><span class="p">,</span> <span class="s2">&quot;xzr&quot;</span><span class="p">,</span> <span class="s2">&quot;pc&quot;</span><span class="p">]</span>
 
 
 <span class="k">def</span> <span class="nf">_get_property_64</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">property</span><span class="p">:</span>
@@ -587,6 +587,20 @@ document.write(`
         <span class="k">return</span> <span class="n">Aarch64Registers</span></div>
 
 
+<div class="viewcode-block" id="Aarch64PtraceRegisterHolder.provide_regs">
+<a class="viewcode-back" href="../../../../libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.provide_regs">[docs]</a>
+    <span class="k">def</span> <span class="nf">provide_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Aarch64PtraceRegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide the list of registers, excluding the vector and fp registers.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AARCH64_REGS</span></div>
+
+
+<div class="viewcode-block" id="Aarch64PtraceRegisterHolder.provide_vector_fp_regs">
+<a class="viewcode-back" href="../../../../libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.provide_vector_fp_regs">[docs]</a>
+    <span class="k">def</span> <span class="nf">provide_vector_fp_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Aarch64PtraceRegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide the list of vector and floating point registers.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span></div>
+
+
 <div class="viewcode-block" id="Aarch64PtraceRegisterHolder.apply_on_regs">
 <a class="viewcode-back" href="../../../../libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_ptrace_register_holder.Aarch64PtraceRegisterHolder.apply_on_regs">[docs]</a>
     <span class="k">def</span> <span class="nf">apply_on_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Aarch64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Aarch64Registers</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -596,6 +610,8 @@ document.write(`
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="s2">&quot;w0&quot;</span><span class="p">):</span>
             <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">31</span><span class="p">):</span>
             <span class="n">name_64</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;x</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -618,6 +634,7 @@ document.write(`
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_32</span><span class="p">,</span> <span class="n">_get_property_fp_32</span><span class="p">(</span><span class="n">name_32</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_16</span><span class="p">,</span> <span class="n">_get_property_fp_16</span><span class="p">(</span><span class="n">name_16</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_8</span><span class="p">,</span> <span class="n">_get_property_fp_8</span><span class="p">(</span><span class="n">name_8</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_v</span><span class="p">,</span> <span class="n">name_128</span><span class="p">,</span> <span class="n">name_64</span><span class="p">,</span> <span class="n">name_32</span><span class="p">,</span> <span class="n">name_16</span><span class="p">,</span> <span class="n">name_8</span><span class="p">))</span>
 
         <span class="c1"># setup special aarch64 registers</span>
         <span class="n">target_class</span><span class="o">.</span><span class="n">pc</span> <span class="o">=</span> <span class="n">_get_property_64</span><span class="p">(</span><span class="s2">&quot;pc&quot;</span><span class="p">)</span>
@@ -625,7 +642,9 @@ document.write(`
         <span class="n">target_class</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">_get_property_64</span><span class="p">(</span><span class="s2">&quot;x30&quot;</span><span class="p">)</span>
         <span class="n">target_class</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">_get_property_64</span><span class="p">(</span><span class="s2">&quot;x29&quot;</span><span class="p">)</span>
         <span class="n">target_class</span><span class="o">.</span><span class="n">xzr</span> <span class="o">=</span> <span class="n">_get_property_zr</span><span class="p">(</span><span class="s2">&quot;xzr&quot;</span><span class="p">)</span>
-        <span class="n">target_class</span><span class="o">.</span><span class="n">wzr</span> <span class="o">=</span> <span class="n">_get_property_zr</span><span class="p">(</span><span class="s2">&quot;wzr&quot;</span><span class="p">)</span></div>
+        <span class="n">target_class</span><span class="o">.</span><span class="n">wzr</span> <span class="o">=</span> <span class="n">_get_property_zr</span><span class="p">(</span><span class="s2">&quot;wzr&quot;</span><span class="p">)</span>
+
+        <span class="n">Aarch64PtraceRegisterHolder</span><span class="o">.</span><span class="n">_vector_fp_registers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span></div>
 
 
 <div class="viewcode-block" id="Aarch64PtraceRegisterHolder.apply_on_thread">
