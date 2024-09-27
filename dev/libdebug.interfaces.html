@@ -476,8 +476,13 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.interfaces.debugging_interface.DebuggingInterface.run">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/interfaces/debugging_interface.html#DebuggingInterface.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.run" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">redirect_pipes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/interfaces/debugging_interface.html#DebuggingInterface.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.interfaces.debugging_interface.DebuggingInterface.run" title="Link to this definition">#</a></dt>
 <dd><p>Runs the specified process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>redirect_pipes</strong> (<em>bool</em>) – Whether to hook and redirect the pipes of the process to a PipeManager.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

@@ -448,6 +448,13 @@ document.write(`
             <span class="n">signal_to_number</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">number</span>
             <span class="n">number_to_signal</span><span class="p">[</span><span class="n">number</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
 
+    <span class="c1"># RT signals have a different convention</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGRTMAX</span> <span class="o">-</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGRTMIN</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SIGRTMIN+</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGRTMIN</span> <span class="o">+</span> <span class="n">i</span>
+        <span class="n">signal_to_number</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="n">number_to_signal</span><span class="p">[</span><span class="n">number</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+
     <span class="k">return</span> <span class="n">signal_to_number</span><span class="p">,</span> <span class="n">number_to_signal</span></div>
 
 

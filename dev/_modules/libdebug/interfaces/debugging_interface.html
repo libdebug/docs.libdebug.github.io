@@ -464,8 +464,12 @@ document.write(`
 <div class="viewcode-block" id="DebuggingInterface.run">
 <a class="viewcode-back" href="../../../libdebug.interfaces.html#libdebug.interfaces.debugging_interface.DebuggingInterface.run">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">DebuggingInterface</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runs the specified process.&quot;&quot;&quot;</span></div>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">DebuggingInterface</span><span class="p">,</span> <span class="n">redirect_pipes</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runs the specified process.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            redirect_pipes (bool): Whether to hook and redirect the pipes of the process to a PipeManager.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="DebuggingInterface.attach">

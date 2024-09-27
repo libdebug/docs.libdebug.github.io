@@ -476,8 +476,13 @@ document.write(`
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager" title="libdebug.utils.pipe_manager.PipeManager"><span class="pre">PipeManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.run" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">redirect_pipes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager" title="libdebug.utils.pipe_manager.PipeManager"><span class="pre">PipeManager</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.run" title="Link to this definition">#</a></dt>
 <dd><p>Starts the process and waits for it to stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>redirect_pipes</strong> (<em>bool</em>) – Whether to hook and redirect the pipes of the process to a PipeManager.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -708,9 +713,14 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.r">
-<span class="sig-name descname"><span class="pre">r</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager" title="libdebug.utils.pipe_manager.PipeManager"><span class="pre">PipeManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.r"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.r" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">r</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">redirect_pipes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager" title="libdebug.utils.pipe_manager.PipeManager"><span class="pre">PipeManager</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.r"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.r" title="Link to this definition">#</a></dt>
 <dd><p>Alias for the <cite>run</cite> method.</p>
 <p>Starts the process and waits for it to stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>redirect_pipes</strong> (<em>bool</em>) – Whether to hook and redirect the pipes of the process to a PipeManager.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1088,8 +1098,13 @@ Key: the signal number.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager" title="libdebug.utils.pipe_manager.PipeManager"><span class="pre">PipeManager</span></a></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.run" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">redirect_pipes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager" title="libdebug.utils.pipe_manager.PipeManager"><span class="pre">PipeManager</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/internal_debugger.html#InternalDebugger.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.run" title="Link to this definition">#</a></dt>
 <dd><p>Starts the process and waits for it to stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>redirect_pipes</strong> (<em>bool</em>) – Whether to hook and redirect the pipes of the process to a PipeManager.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

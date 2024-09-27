@@ -684,8 +684,12 @@ document.write(`
 
 <div class="viewcode-block" id="InternalDebugger.run">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.run">[docs]</a>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PipeManager</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Starts the process and waits for it to stop.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">redirect_pipes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PipeManager</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Starts the process and waits for it to stop.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            redirect_pipes (bool): Whether to hook and redirect the pipes of the process to a PipeManager.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No binary file specified.&quot;</span><span class="p">)</span>
 
@@ -709,7 +713,7 @@ document.write(`
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Polling thread command queue not empty.&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_run</span><span class="p">,</span> <span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_run</span><span class="p">,</span> <span class="p">(</span><span class="n">redirect_pipes</span><span class="p">,</span> <span class="p">)))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
@@ -717,7 +721,7 @@ document.write(`
             <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Enabling anti-debugging escape mechanism.&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_enable_antidebug_escaping</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe_manager</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">redirect_pipes</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pipe_manager</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Something went wrong during pipe initialization.&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_process_memory_manager</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span>
@@ -1746,9 +1750,9 @@ document.write(`
         <span class="k">with</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/proc/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="si">}</span><span class="s2">/comm&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__threaded_run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__threaded_run</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">redirect_pipes</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Starting process </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debugging_interface</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">redirect_pipes</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_stopped</span><span class="p">()</span>
 
