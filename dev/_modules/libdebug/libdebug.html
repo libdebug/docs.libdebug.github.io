@@ -440,7 +440,7 @@ document.write(`
 <a class="viewcode-back" href="../../libdebug.html#libdebug.libdebug.debugger">[docs]</a>
 <span class="k">def</span> <span class="nf">debugger</span><span class="p">(</span>
     <span class="n">argv</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
-    <span class="n">aslr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">aslr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">env</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">escape_antidebug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">continue_to_binary_entrypoint</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -451,12 +451,16 @@ document.write(`
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This function is used to create a new `Debugger` object. It returns a `Debugger` object.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        argv (str | list[str], optional): The location of the binary to debug, and any additional arguments to pass to it.</span>
-<span class="sd">        aslr (bool, optional): Whether to enable ASLR. Defaults to False.</span>
-<span class="sd">        env (dict[str, str], optional): The environment variables to use. Defaults to the same environment of the debugging script.</span>
-<span class="sd">        escape_antidebug (bool): Whether to automatically attempt to patch antidebugger detectors based on the ptrace syscall.</span>
-<span class="sd">        continue_to_binary_entrypoint (bool, optional): Whether to automatically continue to the binary entrypoint. Defaults to True.</span>
-<span class="sd">        auto_interrupt_on_command (bool, optional): Whether to automatically interrupt the process when a command is issued. Defaults to False.</span>
+<span class="sd">        argv (str | list[str], optional): The location of the binary to debug and any arguments to pass to it.</span>
+<span class="sd">        aslr (bool, optional): Whether to enable ASLR. Defaults to True.</span>
+<span class="sd">        env (dict[str, str], optional): The environment variables to use. Defaults to the same environment of the</span>
+<span class="sd">        debugging script.</span>
+<span class="sd">        escape_antidebug (bool): Whether to automatically attempt to patch antidebugger detectors based on the ptrace</span>
+<span class="sd">        syscall.</span>
+<span class="sd">        continue_to_binary_entrypoint (bool, optional): Whether to automatically continue to the binary entrypoint.</span>
+<span class="sd">        Defaults to True.</span>
+<span class="sd">        auto_interrupt_on_command (bool, optional): Whether to automatically interrupt the process when a command is</span>
+<span class="sd">        issued. Defaults to False.</span>
 <span class="sd">        fast_memory (bool, optional): Whether to use a faster memory reading method. Defaults to False.</span>
 <span class="sd">        kill_on_exit (bool, optional): Whether to kill the debugged process when the debugger exits. Defaults to True.</span>
 
@@ -478,6 +482,8 @@ document.write(`
 
     <span class="n">debugger</span> <span class="o">=</span> <span class="n">Debugger</span><span class="p">()</span>
     <span class="n">debugger</span><span class="o">.</span><span class="n">post_init_</span><span class="p">(</span><span class="n">internal_debugger</span><span class="p">)</span>
+
+    <span class="n">internal_debugger</span><span class="o">.</span><span class="n">debugger</span> <span class="o">=</span> <span class="n">debugger</span>
 
     <span class="c1"># If we are attaching, we assume the architecture is the same as the current platform</span>
     <span class="k">if</span> <span class="n">argv</span><span class="p">:</span>

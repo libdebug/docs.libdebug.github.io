@@ -638,12 +638,15 @@ document.write(`
 
         <span class="n">syscall_number</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">syscall_number</span>
 
-        <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">:</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">[</span><span class="n">syscall_number</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">:</span>
+            <span class="c1"># Handle all syscalls is enabled</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="c1"># This is a syscall we don&#39;t care about</span>
             <span class="c1"># Resume the execution</span>
             <span class="k">return</span>
-
-        <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">[</span><span class="n">syscall_number</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">handler</span><span class="o">.</span><span class="n">_has_entered</span><span class="p">:</span>
             <span class="c1"># The syscall is being entered</span>
@@ -751,6 +754,15 @@ document.write(`
 
         <span class="k">if</span> <span class="n">signal_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">caught_signals</span><span class="p">:</span>
             <span class="n">catcher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">caught_signals</span><span class="p">[</span><span class="n">signal_number</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_manage_caught_signal</span><span class="p">(</span><span class="n">catcher</span><span class="p">,</span> <span class="n">thread</span><span class="p">,</span> <span class="n">signal_number</span><span class="p">,</span> <span class="p">{</span><span class="n">signal_number</span><span class="p">})</span>
+        <span class="k">elif</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">caught_signals</span> <span class="ow">and</span> <span class="n">signal_number</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">SIGSTOP</span><span class="p">,</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">SIGTRAP</span><span class="p">,</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">SIGKILL</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="c1"># Handle all signals is enabled</span>
+            <span class="n">catcher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">caught_signals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_manage_caught_signal</span><span class="p">(</span><span class="n">catcher</span><span class="p">,</span> <span class="n">thread</span><span class="p">,</span> <span class="n">signal_number</span><span class="p">,</span> <span class="p">{</span><span class="n">signal_number</span><span class="p">})</span>
 

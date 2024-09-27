@@ -471,6 +471,9 @@ document.write(`
 <span class="sd">    Returns:</span>
 <span class="sd">        int: the signal number.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ALL&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;pkm&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
     <span class="n">signal_to_number</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">create_signal_mappings</span><span class="p">()</span>
 
     <span class="k">try</span><span class="p">:</span>
@@ -492,6 +495,9 @@ document.write(`
 <span class="sd">    Returns:</span>
 <span class="sd">        str: the signal name.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;ALL&quot;</span>
+
     <span class="n">_</span><span class="p">,</span> <span class="n">number_to_signal</span> <span class="o">=</span> <span class="n">create_signal_mappings</span><span class="p">()</span>
 
     <span class="k">try</span><span class="p">:</span>

@@ -495,6 +495,13 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_has_entered</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
+<div class="viewcode-block" id="SyscallHandler.hit_on">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler.hit_on">[docs]</a>
+    <span class="k">def</span> <span class="nf">hit_on</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SyscallHandler</span><span class="p">,</span> <span class="n">thread_context</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns whether the syscall handler has been hit on the given thread context.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">syscall_number</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">syscall_number</span></div>
+
+
 <div class="viewcode-block" id="SyscallHandler.hit_on_enter">
 <a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.syscall_handler.SyscallHandler.hit_on_enter">[docs]</a>
     <span class="k">def</span> <span class="nf">hit_on_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SyscallHandler</span><span class="p">,</span> <span class="n">thread_context</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>

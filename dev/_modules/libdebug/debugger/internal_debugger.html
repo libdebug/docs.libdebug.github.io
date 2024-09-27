@@ -495,6 +495,7 @@ document.write(`
     <span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.symbol</span> <span class="kn">import</span> <span class="n">Symbol</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.symbol_dict</span> <span class="kn">import</span> <span class="n">SymbolDict</span>
+    <span class="kn">from</span> <span class="nn">libdebug.debugger</span> <span class="kn">import</span> <span class="n">Debugger</span>
     <span class="kn">from</span> <span class="nn">libdebug.interfaces.debugging_interface</span> <span class="kn">import</span> <span class="n">DebuggingInterface</span>
     <span class="kn">from</span> <span class="nn">libdebug.memory.abstract_memory_view</span> <span class="kn">import</span> <span class="n">AbstractMemoryView</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
@@ -580,6 +581,9 @@ document.write(`
 
     <span class="n">resume_context</span><span class="p">:</span> <span class="n">ResumeContext</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Context that indicates if the debugger should resume the debugged process.&quot;&quot;&quot;</span>
+
+    <span class="n">debugger</span><span class="p">:</span> <span class="n">Debugger</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The debugger object.&quot;&quot;&quot;</span>
 
     <span class="n">__polling_thread</span><span class="p">:</span> <span class="n">Thread</span> <span class="o">|</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The background thread used to poll the process for state change.&quot;&quot;&quot;</span>
@@ -936,7 +940,7 @@ document.write(`
         <span class="n">hardware</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">condition</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span>
         <span class="n">length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">callback</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">Breakpoint</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">callback</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">Breakpoint</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Breakpoint</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets a breakpoint at the specified location.</span>
@@ -947,8 +951,8 @@ document.write(`
 <span class="sd">            Defaults to False.</span>
 <span class="sd">            condition (str, optional): The trigger condition for the breakpoint. Defaults to None.</span>
 <span class="sd">            length (int, optional): The length of the breakpoint. Only for watchpoints. Defaults to 1.</span>
-<span class="sd">            callback (Callable[[ThreadContext, Breakpoint], None], optional): A callback to be called when the</span>
-<span class="sd">            breakpoint is hit. Defaults to None.</span>
+<span class="sd">            callback (None | bool | Callable[[ThreadContext, Breakpoint], None], optional): A callback to be called</span>
+<span class="sd">            when the breakpoint is hit. If True, an empty callback will be set. Defaults to None.</span>
 <span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;hybrid&quot;</span>
 <span class="sd">            (libdebug will first try to solve the address as an absolute address, then as a relative address w.r.t.</span>
 <span class="sd">            the &quot;binary&quot; map file).</span>
@@ -961,6 +965,11 @@ document.write(`
 
         <span class="k">if</span> <span class="n">condition</span> <span class="o">!=</span> <span class="s2">&quot;x&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hardware</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Breakpoint condition is supported only for hardware watchpoints.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">__</span><span class="p">:</span> <span class="n">Breakpoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">pass</span>
 
         <span class="n">bp</span> <span class="o">=</span> <span class="n">Breakpoint</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">hardware</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">condition</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">length</span><span class="p">)</span>
 
@@ -987,20 +996,20 @@ document.write(`
     <span class="k">def</span> <span class="nf">catch_signal</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
         <span class="n">signal</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">callback</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">SignalCatcher</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">callback</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ThreadContext</span><span class="p">,</span> <span class="n">SignalCatcher</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SignalCatcher</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Catch a signal in the target process.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            signal (int | str): The signal to catch.</span>
-<span class="sd">            callback (Callable[[ThreadContext, CaughtSignal], None], optional): A callback to be called when the signal is</span>
-<span class="sd">            caught. Defaults to None.</span>
+<span class="sd">            signal (int | str): The signal to catch. If &quot;*&quot;, &quot;ALL&quot;, &quot;all&quot; or -1 is passed, all signals will be caught.</span>
+<span class="sd">            callback (None | bool | Callable[[ThreadContext, SignalCatcher], None], optional): A callback to be called</span>
+<span class="sd">            when the signal is caught. If True, an empty callback will be set. Defaults to None.</span>
 <span class="sd">            recursive (bool, optional): Whether, when the signal is hijacked with another one, the signal catcher</span>
 <span class="sd">            associated with the new signal should be considered as well. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            CaughtSignal: The CaughtSignal object.</span>
+<span class="sd">            SignalCatcher: The SignalCatcher object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">signal_number</span> <span class="o">=</span> <span class="n">resolve_signal_number</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
@@ -1031,6 +1040,11 @@ document.write(`
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">recursive</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;recursive must be a boolean&quot;</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">__</span><span class="p">:</span> <span class="n">SignalCatcher</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">pass</span>
+
         <span class="n">catcher</span> <span class="o">=</span> <span class="n">SignalCatcher</span><span class="p">(</span><span class="n">signal_number</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)</span>
 
         <span class="n">link_to_internal_debugger</span><span class="p">(</span><span class="n">catcher</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -1055,13 +1069,14 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Hijack a signal in the target process.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            original_signal (int | str): The signal to hijack.</span>
+<span class="sd">            original_signal (int | str): The signal to hijack. If &quot;*&quot;, &quot;ALL&quot;, &quot;all&quot; or -1 is passed, all signals will be</span>
+<span class="sd">            hijacked.</span>
 <span class="sd">            new_signal (int | str): The signal to hijack the original signal with.</span>
 <span class="sd">            recursive (bool, optional): Whether, when the signal is hijacked with another one, the signal catcher</span>
 <span class="sd">            associated with the new signal should be considered as well. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            CaughtSignal: The CaughtSignal object.</span>
+<span class="sd">            SignalCatcher: The SignalCatcher object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">original_signal</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">original_signal_number</span> <span class="o">=</span> <span class="n">resolve_signal_number</span><span class="p">(</span><span class="n">original_signal</span><span class="p">)</span>
@@ -1069,6 +1084,9 @@ document.write(`
             <span class="n">original_signal_number</span> <span class="o">=</span> <span class="n">original_signal</span>
 
         <span class="n">new_signal_number</span> <span class="o">=</span> <span class="n">resolve_signal_number</span><span class="p">(</span><span class="n">new_signal</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_signal</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">new_signal</span>
+
+        <span class="k">if</span> <span class="n">new_signal_number</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot hijack a signal with the &#39;ALL&#39; signal.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">original_signal_number</span> <span class="o">==</span> <span class="n">new_signal_number</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -1096,21 +1114,32 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a syscall in the target process.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            syscall (int | str): The syscall name or number to handle.</span>
-<span class="sd">            on_enter (Callable[[ThreadContext, HandledSyscall], None], optional): The callback to execute when the</span>
-<span class="sd">            syscall is entered. Defaults to None.</span>
-<span class="sd">            on_exit (Callable[[ThreadContext, HandledSyscall], None], optional): The callback to execute when the</span>
-<span class="sd">            syscall is exited. Defaults to None.</span>
+<span class="sd">            syscall (int | str): The syscall name or number to handle. If &quot;*&quot;, &quot;ALL&quot;, &quot;all&quot;, or -1 is passed, all</span>
+<span class="sd">            syscalls will be handled.</span>
+<span class="sd">            on_enter (None | bool |Callable[[ThreadContext, SyscallHandler], None], optional): The callback to execute</span>
+<span class="sd">            when the syscall is entered. If True, an empty callback will be set. Defaults to None.</span>
+<span class="sd">            on_exit (None | bool | Callable[[ThreadContext, SyscallHandler], None], optional): The callback to execute</span>
+<span class="sd">            when the syscall is exited. If True, an empty callback will be set. Defaults to None.</span>
 <span class="sd">            recursive (bool, optional): Whether, when the syscall is hijacked with another one, the syscall handler</span>
 <span class="sd">            associated with the new syscall should be considered as well. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            HandledSyscall: The HandledSyscall object.</span>
+<span class="sd">            SyscallHandler: The SyscallHandler object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">syscall_number</span> <span class="o">=</span> <span class="n">resolve_syscall_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arch</span><span class="p">,</span> <span class="n">syscall</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">syscall</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">syscall</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">recursive</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;recursive must be a boolean&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">on_enter</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="k">def</span> <span class="nf">on_enter</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">__</span><span class="p">:</span> <span class="n">SyscallHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="n">on_exit</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="k">def</span> <span class="nf">on_exit</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">__</span><span class="p">:</span> <span class="n">SyscallHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">pass</span>
 
         <span class="c1"># Check if the syscall is already handled (by the user or by the pretty print handler)</span>
         <span class="k">if</span> <span class="n">syscall_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handled_syscalls</span><span class="p">:</span>
@@ -1158,14 +1187,15 @@ document.write(`
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Hijacks a syscall in the target process.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            original_syscall (int | str): The syscall name or number to hijack.</span>
+<span class="sd">            original_syscall (int | str): The syscall name or number to hijack. If &quot;*&quot;, &quot;ALL&quot;, &quot;all&quot; or -1 is passed,</span>
+<span class="sd">            all syscalls will be hijacked.</span>
 <span class="sd">            new_syscall (int | str): The syscall name or number to hijack the original syscall with.</span>
 <span class="sd">            recursive (bool, optional): Whether, when the syscall is hijacked with another one, the syscall handler</span>
 <span class="sd">            associated with the new syscall should be considered as well. Defaults to False.</span>
 <span class="sd">            **kwargs: (int, optional): The arguments to pass to the new syscall.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            HandledSyscall: The HandledSyscall object.</span>
+<span class="sd">            SyscallHandler: The SyscallHandler object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-</span> <span class="n">SyscallHijacker</span><span class="o">.</span><span class="n">allowed_args</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid keyword arguments in syscall hijack&quot;</span><span class="p">)</span>
@@ -1178,6 +1208,9 @@ document.write(`
         <span class="n">new_syscall_number</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">resolve_syscall_number</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arch</span><span class="p">,</span> <span class="n">new_syscall</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_syscall</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">new_syscall</span>
         <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">new_syscall_number</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot hijack a syscall with the &#39;ALL&#39; syscall.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">original_syscall_number</span> <span class="o">==</span> <span class="n">new_syscall_number</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
