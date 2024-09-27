@@ -569,6 +569,21 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">running</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">saved_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The return address of the current function.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
+        <span class="n">stack_unwinder</span> <span class="o">=</span> <span class="n">stack_unwinding_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">return_address</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to get the return address. Check stack frame registers (e.g., base pointer).&quot;</span><span class="p">,</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+        <span class="k">return</span> <span class="n">return_address</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">exit_code</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The thread&#39;s exit code.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
@@ -612,6 +627,11 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_signal_number</span> <span class="o">=</span> <span class="n">signal</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">threads_with_signals_to_forward</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">signal_number</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The signal number to forward to the thread.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signal_number</span>
+
 <div class="viewcode-block" id="ThreadContext.backtrace">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.backtrace">[docs]</a>
     <span class="k">def</span> <span class="nf">backtrace</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">as_symbols</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
@@ -629,10 +649,10 @@ document.write(`
         <span class="k">return</span> <span class="n">backtrace</span></div>
 
 
-<div class="viewcode-block" id="ThreadContext.print_backtrace">
-<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.print_backtrace">[docs]</a>
-    <span class="k">def</span> <span class="nf">print_backtrace</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prints the current backtrace of the thread.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ThreadContext.pprint_backtrace">
+<a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_backtrace">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_backtrace</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty prints the current backtrace of the thread.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
         <span class="n">stack_unwinder</span> <span class="o">=</span> <span class="n">stack_unwinding_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
         <span class="n">backtrace</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">unwind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -675,7 +695,10 @@ document.write(`
 <div class="viewcode-block" id="ThreadContext.pprint_regs">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_regs">[docs]</a>
     <span class="k">def</span> <span class="nf">pprint_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers` method.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers` method.</span>
+
+<span class="sd">        Pretty prints the thread&#39;s registers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers</span><span class="p">()</span></div>
 
 
@@ -698,24 +721,12 @@ document.write(`
 <div class="viewcode-block" id="ThreadContext.pprint_regs_all">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_regs_all">[docs]</a>
     <span class="k">def</span> <span class="nf">pprint_regs_all</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers_all` method.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers_all` method.</span>
+
+<span class="sd">        Pretty prints all the thread&#39;s registers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers_all</span><span class="p">()</span></div>
 
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">saved_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The return address of the current function.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">_ensure_process_stopped</span><span class="p">()</span>
-        <span class="n">stack_unwinder</span> <span class="o">=</span> <span class="n">stack_unwinding_provider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">return_address</span> <span class="o">=</span> <span class="n">stack_unwinder</span><span class="o">.</span><span class="n">get_return_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="p">)</span>
-        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Failed to get the return address. Check stack frame registers (e.g., base pointer).&quot;</span><span class="p">,</span>
-            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-
-        <span class="k">return</span> <span class="n">return_address</span>
 
 <div class="viewcode-block" id="ThreadContext.step">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.step">[docs]</a>

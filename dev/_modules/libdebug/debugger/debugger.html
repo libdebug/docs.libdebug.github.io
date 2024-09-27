@@ -453,11 +453,13 @@ document.write(`
     <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map_list</span> <span class="kn">import</span> <span class="n">MemoryMapList</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.symbol</span> <span class="kn">import</span> <span class="n">Symbol</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.symbol_dict</span> <span class="kn">import</span> <span class="n">SymbolDict</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
     <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
+    <span class="kn">from</span> <span class="nn">libdebug.memory.abstract_memory_view</span> <span class="kn">import</span> <span class="n">AbstractMemoryView</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
     <span class="kn">from</span> <span class="nn">libdebug.utils.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
 
@@ -1070,33 +1072,392 @@ document.write(`
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;fast_memory must be a boolean&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">fast_memory</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function is called when an attribute is not found in the `Debugger` object.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">instruction_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s instruction pointer.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instruction_pointer</span>
 
-<span class="sd">        It is used to forward the call to the first `ThreadContext` object.</span>
+    <span class="nd">@instruction_pointer</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">instruction_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s instruction pointer.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instruction_pointer</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_arg0</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall argument 0.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg0</span>
+
+    <span class="nd">@syscall_arg0</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_arg0</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall argument 0.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg0</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_arg1</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall argument 1.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg1</span>
+
+    <span class="nd">@syscall_arg1</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_arg1</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall argument 1.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg1</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_arg2</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall argument 2.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg2</span>
+
+    <span class="nd">@syscall_arg2</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_arg2</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall argument 2.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg2</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_arg3</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall argument 3.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg3</span>
+
+    <span class="nd">@syscall_arg3</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_arg3</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall argument 3.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg3</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_arg4</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall argument 4.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg4</span>
+
+    <span class="nd">@syscall_arg4</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_arg4</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall argument 4.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg4</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_arg5</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall argument 5.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg5</span>
+
+    <span class="nd">@syscall_arg5</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_arg5</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall argument 5.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_arg5</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_number</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall number.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_number</span>
+
+    <span class="nd">@syscall_number</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_number</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall number.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_number</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">syscall_return</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s syscall return value.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_return</span>
+
+    <span class="nd">@syscall_return</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">syscall_return</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the main thread&#39;s syscall return value.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">syscall_return</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Registers</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the main thread&#39;s registers.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">regs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dead</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the process is dead.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dead</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">memory</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AbstractMemoryView</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The memory view of the process.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">memory</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mem</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AbstractMemoryView</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `memory` property.</span>
+
+<span class="sd">        Get the memory view of the process.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">memory</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">process_id</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The process ID.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">process_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pid</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for `process_id` property.</span>
+
+<span class="sd">        The process ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">process_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">thread_id</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The thread ID of the main thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tid</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tid</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for `thread_id` property.</span>
+
+<span class="sd">        The thread ID of the main thread.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thread_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">running</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether the process is running.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">running</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">saved_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the saved instruction pointer of the main thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">saved_ip</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exit_code</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The main thread&#39;s exit code.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">exit_code</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exit_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The main thread&#39;s exit signal.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">exit_signal</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The signal to be forwarded to the main thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signal</span>
+
+    <span class="nd">@signal</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">signal</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the signal to forward to the main thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signal</span> <span class="o">=</span> <span class="n">signal</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">signal_number</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The signal number to be forwarded to the main thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signal_number</span>
+
+<div class="viewcode-block" id="Debugger.backtrace">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.backtrace">[docs]</a>
+    <span class="k">def</span> <span class="nf">backtrace</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">as_symbols</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the current backtrace of the main thread.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            as_symbols (bool, optional): Whether to return the backtrace as symbols</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;debugger has no attribute &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">backtrace</span><span class="p">(</span><span class="n">as_symbols</span><span class="p">)</span></div>
 
-        <span class="n">thread_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="c1"># hasattr internally calls getattr, so we use this to avoid double access to the attribute</span>
-        <span class="c1"># do not use None as default value, as it is a valid value</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">attr</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">thread_context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sentinel</span><span class="p">))</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sentinel</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;Debugger has no attribute &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">attr</span>
+<div class="viewcode-block" id="Debugger.pprint_backtrace">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_backtrace">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_backtrace</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty pints the current backtrace of the main thread.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pprint_backtrace</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function is called when an attribute is set in the `Debugger` object.</span>
 
-<span class="sd">        It is used to forward the call to the first `ThreadContext` object.</span>
+<div class="viewcode-block" id="Debugger.pprint_registers">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_registers">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty prints the main thread&#39;s registers.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pprint_registers</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Debugger.pprint_regs">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_regs">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers` method.</span>
+
+<span class="sd">        Pretty prints the main thread&#39;s registers.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># First we check if the attribute is available in the `Debugger` object</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Debugger</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">thread_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">thread_context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Debugger.pprint_registers_all">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_registers_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_registers_all</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty prints all the main thread&#39;s registers.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No threads available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pprint_registers_all</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Debugger.pprint_regs_all">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.pprint_regs_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">pprint_regs_all</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `pprint_registers_all` method.</span>
+
+<span class="sd">        Pretty prints all the main thread&#39;s registers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers_all</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Debugger.step">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.step">[docs]</a>
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes a single instruction of the process.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Debugger.step_until">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.step_until">[docs]</a>
+    <span class="k">def</span> <span class="nf">step_until</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes instructions of the process until the specified location is reached.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            position (int | bytes): The location to reach.</span>
+<span class="sd">            max_steps (int, optional): The maximum number of steps to execute. Defaults to -1.</span>
+<span class="sd">            file (str, optional): The user-defined backing file to resolve the address in. Defaults to &quot;hybrid&quot;</span>
+<span class="sd">            (libdebug will first try to solve the address as an absolute address, then as a relative address w.r.t.</span>
+<span class="sd">            the &quot;binary&quot; map file).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">step_until</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">max_steps</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Debugger.finish">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.finish">[docs]</a>
+    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;backtrace&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Continues execution until the current function returns or the process stops.</span>
+
+<span class="sd">        The command requires a heuristic to determine the end of the function. The available heuristics are:</span>
+<span class="sd">        - `backtrace`: The debugger will place a breakpoint on the saved return address found on the stack and continue execution on all threads.</span>
+<span class="sd">        - `step-mode`: The debugger will step on the specified thread until the current function returns. This will be slower.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            heuristic (str, optional): The heuristic to use. Defaults to &quot;backtrace&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heuristic</span><span class="o">=</span><span class="n">heuristic</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Debugger.next">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.next">[docs]</a>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Debugger.si">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.si">[docs]</a>
+    <span class="k">def</span> <span class="nf">si</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `step` method.</span>
+
+<span class="sd">        Executes a single instruction of the process.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Debugger.su">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.su">[docs]</a>
+    <span class="k">def</span> <span class="nf">su</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `step_until` method.</span>
+
+<span class="sd">        Executes instructions of the process until the specified location is reached.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            position (int | bytes): The location to reach.</span>
+<span class="sd">            max_steps (int, optional): The maximum number of steps to execute. Defaults to -1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">step_until</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">max_steps</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Debugger.fin">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.fin">[docs]</a>
+    <span class="k">def</span> <span class="nf">fin</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;backtrace&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `finish` method. Continues execution until the current function returns or the process stops.</span>
+
+<span class="sd">        The command requires a heuristic to determine the end of the function. The available heuristics are:</span>
+<span class="sd">        - `backtrace`: The debugger will place a breakpoint on the saved return address found on the stack and continue execution on all threads.</span>
+<span class="sd">        - `step-mode`: The debugger will step on the specified thread until the current function returns. This will be slower.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            heuristic (str, optional): The heuristic to use. Defaults to &quot;backtrace&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Debugger.ni">
+<a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.ni">[docs]</a>
+    <span class="k">def</span> <span class="nf">ni</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the `next` method. Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the string representation of the `Debugger` object.&quot;&quot;&quot;</span>

@@ -485,7 +485,7 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.signal_catcher.SignalCatcher.hit_on">[docs]</a>
     <span class="k">def</span> <span class="nf">hit_on</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SignalCatcher</span><span class="p">,</span> <span class="n">thread_context</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns whether the signal catcher has been hit on the given thread context.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">_signal_number</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_number</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">and</span> <span class="n">thread_context</span><span class="o">.</span><span class="n">signal_number</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_number</span></div>
 
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SignalCatcher</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>

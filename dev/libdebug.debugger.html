@@ -933,6 +933,276 @@ This method should only be called to free up resources when the debugger object 
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.instruction_pointer">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instruction_pointer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.instruction_pointer" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s instruction pointer.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_arg0">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_arg0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_arg0" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall argument 0.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_arg1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_arg1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_arg1" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall argument 1.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_arg2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_arg2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_arg2" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall argument 2.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_arg3">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_arg3</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_arg3" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall argument 3.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_arg4">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_arg4</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_arg4" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall argument 4.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_arg5">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_arg5</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_arg5" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall argument 5.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_number">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_number" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall number.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.syscall_return">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">syscall_return</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.syscall_return" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s syscall return value.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.regs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">regs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.registers.Registers" title="libdebug.data.registers.Registers"><span class="pre">Registers</span></a></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.regs" title="Link to this definition">#</a></dt>
+<dd><p>Get the main thread’s registers.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.dead">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dead</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.dead" title="Link to this definition">#</a></dt>
+<dd><p>Whether the process is dead.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.memory">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView" title="libdebug.memory.abstract_memory_view.AbstractMemoryView"><span class="pre">AbstractMemoryView</span></a></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.memory" title="Link to this definition">#</a></dt>
+<dd><p>The memory view of the process.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.mem">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mem</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.memory.html#libdebug.memory.abstract_memory_view.AbstractMemoryView" title="libdebug.memory.abstract_memory_view.AbstractMemoryView"><span class="pre">AbstractMemoryView</span></a></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.mem" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>memory</cite> property.</p>
+<p>Get the memory view of the process.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.process_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.process_id" title="Link to this definition">#</a></dt>
+<dd><p>The process ID.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.pid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.pid" title="Link to this definition">#</a></dt>
+<dd><p>Alias for <cite>process_id</cite> property.</p>
+<p>The process ID.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.thread_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">thread_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.thread_id" title="Link to this definition">#</a></dt>
+<dd><p>The thread ID of the main thread.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.tid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.tid" title="Link to this definition">#</a></dt>
+<dd><p>Alias for <cite>thread_id</cite> property.</p>
+<p>The thread ID of the main thread.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.running">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">running</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.running" title="Link to this definition">#</a></dt>
+<dd><p>Whether the process is running.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.saved_ip">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">saved_ip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.saved_ip" title="Link to this definition">#</a></dt>
+<dd><p>Get the saved instruction pointer of the main thread.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.exit_code">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exit_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.exit_code" title="Link to this definition">#</a></dt>
+<dd><p>The main thread’s exit code.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.exit_signal">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exit_signal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.exit_signal" title="Link to this definition">#</a></dt>
+<dd><p>The main thread’s exit signal.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.signal">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.signal" title="Link to this definition">#</a></dt>
+<dd><p>The signal to be forwarded to the main thread.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.signal_number">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signal_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.signal_number" title="Link to this definition">#</a></dt>
+<dd><p>The signal number to be forwarded to the main thread.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.backtrace">
+<span class="sig-name descname"><span class="pre">backtrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">as_symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.backtrace" title="Link to this definition">#</a></dt>
+<dd><p>Returns the current backtrace of the main thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>as_symbols</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the backtrace as symbols</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.pprint_backtrace">
+<span class="sig-name descname"><span class="pre">pprint_backtrace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.pprint_backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.pprint_backtrace" title="Link to this definition">#</a></dt>
+<dd><p>Pretty pints the current backtrace of the main thread.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.pprint_registers">
+<span class="sig-name descname"><span class="pre">pprint_registers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.pprint_registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.pprint_registers" title="Link to this definition">#</a></dt>
+<dd><p>Pretty prints the main thread’s registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.pprint_regs">
+<span class="sig-name descname"><span class="pre">pprint_regs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.pprint_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.pprint_regs" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>pprint_registers</cite> method.</p>
+<p>Pretty prints the main thread’s registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.pprint_registers_all">
+<span class="sig-name descname"><span class="pre">pprint_registers_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.pprint_registers_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.pprint_registers_all" title="Link to this definition">#</a></dt>
+<dd><p>Pretty prints all the main thread’s registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.pprint_regs_all">
+<span class="sig-name descname"><span class="pre">pprint_regs_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.pprint_regs_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.pprint_regs_all" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>pprint_registers_all</cite> method.</p>
+<p>Pretty prints all the main thread’s registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.step" title="Link to this definition">#</a></dt>
+<dd><p>Executes a single instruction of the process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.step_until">
+<span class="sig-name descname"><span class="pre">step_until</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'hybrid'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.step_until"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.step_until" title="Link to this definition">#</a></dt>
+<dd><p>Executes instructions of the process until the specified location is reached.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>int</em><em> | </em><em>bytes</em>) – The location to reach.</p></li>
+<li><p><strong>max_steps</strong> (<em>int</em><em>, </em><em>optional</em>) – The maximum number of steps to execute. Defaults to -1.</p></li>
+<li><p><strong>file</strong> (<em>str</em><em>, </em><em>optional</em>) – The user-defined backing file to resolve the address in. Defaults to “hybrid”</p></li>
+<li><p><strong>address</strong> (<em>(</em><em>libdebug will first try to solve the address as an absolute</em>)</p></li>
+<li><p><strong>w.r.t.</strong> (<em>then as a relative address</em>)</p></li>
+<li><p><strong>file</strong><strong>)</strong><strong>.</strong> (<em>the &quot;binary&quot; map</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heuristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'backtrace'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.finish" title="Link to this definition">#</a></dt>
+<dd><p>Continues execution until the current function returns or the process stops.</p>
+<p>The command requires a heuristic to determine the end of the function. The available heuristics are:
+- <cite>backtrace</cite>: The debugger will place a breakpoint on the saved return address found on the stack and continue execution on all threads.
+- <cite>step-mode</cite>: The debugger will step on the specified thread until the current function returns. This will be slower.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>heuristic</strong> (<em>str</em><em>, </em><em>optional</em>) – The heuristic to use. Defaults to “backtrace”.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.next" title="Link to this definition">#</a></dt>
+<dd><p>Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.si">
+<span class="sig-name descname"><span class="pre">si</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.si"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.si" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>step</cite> method.</p>
+<p>Executes a single instruction of the process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.su">
+<span class="sig-name descname"><span class="pre">su</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.su"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.su" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>step_until</cite> method.</p>
+<p>Executes instructions of the process until the specified location is reached.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>int</em><em> | </em><em>bytes</em>) – The location to reach.</p></li>
+<li><p><strong>max_steps</strong> (<em>int</em><em>, </em><em>optional</em>) – The maximum number of steps to execute. Defaults to -1.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.fin">
+<span class="sig-name descname"><span class="pre">fin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">heuristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'backtrace'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.fin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.fin" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>finish</cite> method. Continues execution until the current function returns or the process stops.</p>
+<p>The command requires a heuristic to determine the end of the function. The available heuristics are:
+- <cite>backtrace</cite>: The debugger will place a breakpoint on the saved return address found on the stack and continue execution on all threads.
+- <cite>step-mode</cite>: The debugger will step on the specified thread until the current function returns. This will be slower.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>heuristic</strong> (<em>str</em><em>, </em><em>optional</em>) – The heuristic to use. Defaults to “backtrace”.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.ni">
+<span class="sig-name descname"><span class="pre">ni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/debugger/debugger.html#Debugger.ni"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.ni" title="Link to this definition">#</a></dt>
+<dd><p>Alias for the <cite>next</cite> method. Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -1655,6 +1925,43 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscalls_to_not_pprint"><code class="docutils literal notranslate"><span class="pre">Debugger.syscalls_to_not_pprint</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.signals_to_block"><code class="docutils literal notranslate"><span class="pre">Debugger.signals_to_block</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.fast_memory"><code class="docutils literal notranslate"><span class="pre">Debugger.fast_memory</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.instruction_pointer"><code class="docutils literal notranslate"><span class="pre">Debugger.instruction_pointer</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_arg0"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_arg0</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_arg1"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_arg1</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_arg2"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_arg2</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_arg3"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_arg3</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_arg4"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_arg4</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_arg5"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_arg5</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_number"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_number</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.syscall_return"><code class="docutils literal notranslate"><span class="pre">Debugger.syscall_return</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.regs"><code class="docutils literal notranslate"><span class="pre">Debugger.regs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.dead"><code class="docutils literal notranslate"><span class="pre">Debugger.dead</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.memory"><code class="docutils literal notranslate"><span class="pre">Debugger.memory</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.mem"><code class="docutils literal notranslate"><span class="pre">Debugger.mem</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.process_id"><code class="docutils literal notranslate"><span class="pre">Debugger.process_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pid"><code class="docutils literal notranslate"><span class="pre">Debugger.pid</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.thread_id"><code class="docutils literal notranslate"><span class="pre">Debugger.thread_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.tid"><code class="docutils literal notranslate"><span class="pre">Debugger.tid</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.running"><code class="docutils literal notranslate"><span class="pre">Debugger.running</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.saved_ip"><code class="docutils literal notranslate"><span class="pre">Debugger.saved_ip</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.exit_code"><code class="docutils literal notranslate"><span class="pre">Debugger.exit_code</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.exit_signal"><code class="docutils literal notranslate"><span class="pre">Debugger.exit_signal</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.signal"><code class="docutils literal notranslate"><span class="pre">Debugger.signal</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.signal_number"><code class="docutils literal notranslate"><span class="pre">Debugger.signal_number</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.backtrace"><code class="docutils literal notranslate"><span class="pre">Debugger.backtrace()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_backtrace"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_backtrace()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_registers"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_registers()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_regs"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_regs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_registers_all"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_registers_all()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.pprint_regs_all"><code class="docutils literal notranslate"><span class="pre">Debugger.pprint_regs_all()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.step"><code class="docutils literal notranslate"><span class="pre">Debugger.step()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.step_until"><code class="docutils literal notranslate"><span class="pre">Debugger.step_until()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.finish"><code class="docutils literal notranslate"><span class="pre">Debugger.finish()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.next"><code class="docutils literal notranslate"><span class="pre">Debugger.next()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.si"><code class="docutils literal notranslate"><span class="pre">Debugger.si()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.su"><code class="docutils literal notranslate"><span class="pre">Debugger.su()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.fin"><code class="docutils literal notranslate"><span class="pre">Debugger.fin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.debugger.Debugger.ni"><code class="docutils literal notranslate"><span class="pre">Debugger.ni()</span></code></a></li>
 </ul>
 </li>
 </ul>
