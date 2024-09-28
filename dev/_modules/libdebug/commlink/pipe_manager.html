@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.utils.pipe_manager &#8212; libdebug 0.6.0 documentation</title>
+    <title>libdebug.commlink.pipe_manager &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/utils/pipe_manager';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/commlink/pipe_manager';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -406,7 +406,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">libdebug.uti...</li>
+    <li class="breadcrumb-item active" aria-current="page">libdebug.com...</li>
   </ul>
 </nav>
 </div>
@@ -423,7 +423,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.utils.pipe_manager</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.commlink.pipe_manager</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
 <span class="c1"># Copyright (c) 2023-2024 Gabriele Digregorio, Roberto Alessandro Bertolini. All rights reserved.</span>
@@ -433,19 +433,28 @@ document.write(`
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">select</span> <span class="kn">import</span> <span class="n">select</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
+<span class="kn">from</span> <span class="nn">libdebug.commlink.libterminal</span> <span class="kn">import</span> <span class="n">LibTerminal</span>
+<span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">extend_internal_debugger</span><span class="p">,</span> <span class="n">provide_internal_debugger</span>
 <span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
 
 
 <div class="viewcode-block" id="PipeManager">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager">[docs]</a>
 <span class="k">class</span> <span class="nc">PipeManager</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for managing pipes of the child process.&quot;&quot;&quot;</span>
 
-    <span class="n">_instance</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">timeout_default</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">prompt_default</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;$ &quot;</span>
+    <span class="n">__end_interactive_event</span><span class="p">:</span> <span class="n">Event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">stdin_write</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stdout_read</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stderr_read</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the PipeManager class.</span>
@@ -458,6 +467,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stdin_write</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stdout_read</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stderr_read</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="p">:</span> <span class="n">InternalDebugger</span> <span class="o">=</span> <span class="n">provide_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_recv</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
@@ -530,7 +540,7 @@ document.write(`
         <span class="k">return</span> <span class="n">data_buffer</span>
 
 <div class="viewcode-block" id="PipeManager.close">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.close">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.close">[docs]</a>
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes all the pipes of the child process.&quot;&quot;&quot;</span>
         <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">)</span>
@@ -539,7 +549,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="PipeManager.recv">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.recv">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recv">[docs]</a>
     <span class="k">def</span> <span class="nf">recv</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives at most numb bytes from the child process stdout.</span>
 
@@ -554,7 +564,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="PipeManager.recverr">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.recverr">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recverr">[docs]</a>
     <span class="k">def</span> <span class="nf">recverr</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives at most numb bytes from the child process stderr.</span>
 
@@ -657,7 +667,7 @@ document.write(`
         <span class="k">return</span> <span class="n">data_buffer</span>
 
 <div class="viewcode-block" id="PipeManager.recvuntil">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.recvuntil">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recvuntil">[docs]</a>
     <span class="k">def</span> <span class="nf">recvuntil</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
         <span class="n">delims</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -686,7 +696,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="PipeManager.recverruntil">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.recverruntil">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recverruntil">[docs]</a>
     <span class="k">def</span> <span class="nf">recverruntil</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
         <span class="n">delims</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -715,7 +725,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="PipeManager.recvline">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.recvline">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recvline">[docs]</a>
     <span class="k">def</span> <span class="nf">recvline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numlines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives numlines lines from the child process stdout.</span>
 
@@ -731,7 +741,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="PipeManager.recverrline">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.recverrline">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recverrline">[docs]</a>
     <span class="k">def</span> <span class="nf">recverrline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numlines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives numlines lines from the child process stderr.</span>
 
@@ -747,7 +757,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="PipeManager.send">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.send">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.send">[docs]</a>
     <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends data to the child process stdin.</span>
 
@@ -769,11 +779,16 @@ document.write(`
             <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The input data is a string, converting to bytes&quot;</span><span class="p">)</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">number_bytes</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Broken pipe. Is the child process still running?&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+        <span class="k">return</span> <span class="n">number_bytes</span></div>
 
 
 <div class="viewcode-block" id="PipeManager.sendline">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.sendline">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.sendline">[docs]</a>
     <span class="k">def</span> <span class="nf">sendline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends data to the child process stdin and append a newline.</span>
 
@@ -786,12 +801,11 @@ document.write(`
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The input data is a string, converting to bytes&quot;</span><span class="p">)</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
-
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PipeManager.sendafter">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.sendafter">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.sendafter">[docs]</a>
     <span class="k">def</span> <span class="nf">sendafter</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
         <span class="n">delims</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -819,7 +833,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="PipeManager.sendlineafter">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.pipe_manager.PipeManager.sendlineafter">[docs]</a>
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.sendlineafter">[docs]</a>
     <span class="k">def</span> <span class="nf">sendlineafter</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
         <span class="n">delims</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
@@ -844,6 +858,70 @@ document.write(`
         <span class="n">received</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">occurences</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
         <span class="n">sent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">received</span><span class="p">,</span> <span class="n">sent</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_recv_for_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives data from the child process.&quot;&quot;&quot;</span>
+        <span class="n">stdout_is_open</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">stderr_is_open</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">stdout_is_open</span> <span class="ow">or</span> <span class="n">stderr_is_open</span><span class="p">):</span>
+            <span class="c1"># We can afford to treat stdout and stderr sequentially. This approach should also prevent</span>
+            <span class="c1"># messing up the order of the information printed by the child process.</span>
+            <span class="c1"># To avoid starvation, we will read at most one byte at a time and force a switch between pipes</span>
+            <span class="c1"># upon receiving a newline character.</span>
+            <span class="k">if</span> <span class="n">stdout_is_open</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">while</span> <span class="n">recv_stdout</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="o">=</span><span class="n">recv_stdout</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">recv_stdout</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
+                            <span class="k">break</span>
+                <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                    <span class="c1"># The child process has closed the stdout pipe</span>
+                    <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The stdout pipe of the child process is not available anymore&quot;</span><span class="p">)</span>
+                    <span class="n">stdout_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">stderr_is_open</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">while</span> <span class="n">recv_stderr</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="o">=</span><span class="n">recv_stderr</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">recv_stderr</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
+                            <span class="k">break</span>
+                <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                    <span class="c1"># The child process has closed the stderr pipe</span>
+                    <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The stderr pipe of the child process is not available anymore&quot;</span><span class="p">)</span>
+                    <span class="n">stderr_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">continue</span>
+
+<div class="viewcode-block" id="PipeManager.interactive">
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.interactive">[docs]</a>
+    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">prompt_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Manually interact with the child process.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            prompt (str, optional): prompt for the interactive mode. Defaults to &quot;$ &quot; (prompt_default).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">liblog</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Calling interactive mode&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Set up and run the terminal</span>
+        <span class="k">with</span> <span class="n">extend_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">libterminal</span> <span class="o">=</span> <span class="n">LibTerminal</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendline</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="p">)</span>
+
+        <span class="c1"># Receive data from the child process&#39;s stdout and stderr pipes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recv_for_interactive</span><span class="p">()</span>
+
+        <span class="c1"># Be sure that the interactive mode has ended</span>
+        <span class="c1"># If the the stderr and stdout pipes are closed, the interactive mode will continue until the user manually</span>
+        <span class="c1"># stops it or also the stdin pipe is closed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+        <span class="c1"># Unset the interactive mode event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="c1"># Reset the terminal</span>
+        <span class="n">libterminal</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="n">liblog</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Exiting interactive mode&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

@@ -442,6 +442,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.architectures.call_utilities_provider</span> <span class="kn">import</span> <span class="n">call_utilities_provider</span>
 <span class="kn">from</span> <span class="nn">libdebug.architectures.register_helper</span> <span class="kn">import</span> <span class="n">register_holder_provider</span>
 <span class="kn">from</span> <span class="nn">libdebug.cffi</span> <span class="kn">import</span> <span class="n">_ptrace_cffi</span>
+<span class="kn">from</span> <span class="nn">libdebug.commlink.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">extend_internal_debugger</span><span class="p">,</span>
@@ -453,7 +454,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.debugging_utils</span> <span class="kn">import</span> <span class="n">normalize_and_validate_address</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.elf_utils</span> <span class="kn">import</span> <span class="n">get_entry_point</span>
-<span class="kn">from</span> <span class="nn">libdebug.utils.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.process_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">disable_self_aslr</span><span class="p">,</span>
     <span class="n">get_process_maps</span><span class="p">,</span>
@@ -930,9 +930,9 @@ document.write(`
             <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_write</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr_write</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="c1"># TODO: custom exception</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Closing fds failed: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-        <span class="k">return</span> <span class="n">PipeManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">extend_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">PipeManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_setup_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">continue_to_entry_point</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets up the parent process after the child process has been created or attached to.&quot;&quot;&quot;</span>

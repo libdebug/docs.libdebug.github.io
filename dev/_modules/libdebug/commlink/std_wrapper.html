@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.utils.print_style &#8212; libdebug 0.6.0 documentation</title>
+    <title>libdebug.commlink.std_wrapper &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/utils/print_style';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/commlink/std_wrapper';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -406,7 +406,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">libdebug.uti...</li>
+    <li class="breadcrumb-item active" aria-current="page">libdebug.com...</li>
   </ul>
 </nav>
 </div>
@@ -423,31 +423,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.utils.print_style</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.commlink.std_wrapper</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
 <span class="c1"># Copyright (c) 2024 Gabriele Digregorio. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<div class="viewcode-block" id="PrintStyle">
-<a class="viewcode-back" href="../../../libdebug.utils.html#libdebug.utils.print_style.PrintStyle">[docs]</a>
-<span class="k">class</span> <span class="nc">PrintStyle</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to define colors for the terminal.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-    <span class="n">RED</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[91m&quot;</span>
-    <span class="n">BLUE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[94m&quot;</span>
-    <span class="n">GREEN</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[92m&quot;</span>
-    <span class="n">BRIGHT_YELLOW</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[93m&quot;</span>
-    <span class="n">YELLOW</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[33m&quot;</span>
-    <span class="n">PINK</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[95m&quot;</span>
-    <span class="n">CYAN</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[96m&quot;</span>
-    <span class="n">BOLD</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[1m&quot;</span>
-    <span class="n">UNDERLINE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[4m&quot;</span>
-    <span class="n">STRIKE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[9m&quot;</span>
-    <span class="n">DEFAULT_COLOR</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[39m&quot;</span>
-    <span class="n">RESET</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span></div>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">libdebug.commlink.libterminal</span> <span class="kn">import</span> <span class="n">LibTerminal</span>
+
+
+<div class="viewcode-block" id="StdWrapper">
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.std_wrapper.StdWrapper">[docs]</a>
+<span class="k">class</span> <span class="nc">StdWrapper</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper around stderr/stdout to allow for custom write method.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">StdWrapper</span><span class="p">,</span> <span class="n">fd</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">terminal</span><span class="p">:</span> <span class="n">LibTerminal</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the StderrWrapper object.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fd</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="n">fd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_terminal</span><span class="p">:</span> <span class="n">LibTerminal</span> <span class="o">=</span> <span class="n">terminal</span>
+
+<div class="viewcode-block" id="StdWrapper.write">
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.std_wrapper.StdWrapper.write">[docs]</a>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overloads the write method to allow for custom behavior.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_terminal</span><span class="o">.</span><span class="n">_write_manager</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure that all other attributes are forwarded to the original file descriptor.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fd</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span></div>
 
 </pre></div>
 

@@ -10,6 +10,7 @@ Subpackages
    libdebug.architectures
    libdebug.builtin
    libdebug.cffi
+   libdebug.commlink
    libdebug.data
    libdebug.debugger
    libdebug.interfaces

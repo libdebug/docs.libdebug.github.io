@@ -388,6 +388,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.builtin.html">libdebug.builtin package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.cffi.html">libdebug.cffi package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libdebug.commlink.html">libdebug.commlink package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.data.html">libdebug.data package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.debugger.html">libdebug.debugger package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.interfaces.html">libdebug.interfaces package</a></li>
@@ -459,6 +460,76 @@ document.write(`
 <h1>libdebug.utils package<a class="headerlink" href="#libdebug-utils-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-libdebug.utils.ansi_escape_codes">
+<span id="libdebug-utils-ansi-escape-codes-module"></span><h2>libdebug.utils.ansi_escape_codes module<a class="headerlink" href="#module-libdebug.utils.ansi_escape_codes" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.utils.ansi_escape_codes.</span></span><span class="sig-name descname"><span class="pre">ANSIColors</span></span><a class="reference internal" href="_modules/libdebug/utils/ansi_escape_codes.html#ANSIColors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to define colors for the terminal.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[91m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.RED" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[94m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.BLUE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[92m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.GREEN" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.BRIGHT_YELLOW">
+<span class="sig-name descname"><span class="pre">BRIGHT_YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[93m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.BRIGHT_YELLOW" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.YELLOW">
+<span class="sig-name descname"><span class="pre">YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[33m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.YELLOW" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.PINK">
+<span class="sig-name descname"><span class="pre">PINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[95m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.PINK" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.CYAN">
+<span class="sig-name descname"><span class="pre">CYAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[96m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.CYAN" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.BOLD">
+<span class="sig-name descname"><span class="pre">BOLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.BOLD" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.UNDERLINE">
+<span class="sig-name descname"><span class="pre">UNDERLINE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.UNDERLINE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.STRIKE">
+<span class="sig-name descname"><span class="pre">STRIKE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[9m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.STRIKE" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.DEFAULT_COLOR">
+<span class="sig-name descname"><span class="pre">DEFAULT_COLOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[39m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.DEFAULT_COLOR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.utils.ansi_escape_codes.ANSIColors.RESET">
+<span class="sig-name descname"><span class="pre">RESET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#libdebug.utils.ansi_escape_codes.ANSIColors.RESET" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-libdebug.utils.arch_mappings">
 <span id="libdebug-utils-arch-mappings-module"></span><h2>libdebug.utils.arch_mappings module<a class="headerlink" href="#module-libdebug.utils.arch_mappings" title="Link to this heading">#</a></h2>
@@ -805,238 +876,6 @@ document.write(`
 </dd></dl>
 
 </section>
-<section id="module-libdebug.utils.pipe_manager">
-<span id="libdebug-utils-pipe-manager-module"></span><h2>libdebug.utils.pipe_manager module<a class="headerlink" href="#module-libdebug.utils.pipe_manager" title="Link to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.utils.pipe_manager.</span></span><span class="sig-name descname"><span class="pre">PipeManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdin_write</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout_read</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr_read</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class for managing pipes of the child process.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.timeout_default">
-<span class="sig-name descname"><span class="pre">timeout_default</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.timeout_default" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.close" title="Link to this definition">#</a></dt>
-<dd><p>Closes all the pipes of the child process.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.recv">
-<span class="sig-name descname"><span class="pre">recv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.recv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.recv" title="Link to this definition">#</a></dt>
-<dd><p>Receives at most numb bytes from the child process stdout.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>numb</strong> (<em>int</em><em>, </em><em>optional</em>) – number of bytes to receive. Defaults to None.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received bytes from the child process stdout.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.recverr">
-<span class="sig-name descname"><span class="pre">recverr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.recverr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.recverr" title="Link to this definition">#</a></dt>
-<dd><p>Receives at most numb bytes from the child process stderr.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>numb</strong> (<em>int</em><em>, </em><em>optional</em>) – number of bytes to receive. Defaults to None.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received bytes from the child process stderr.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.recvuntil">
-<span class="sig-name descname"><span class="pre">recvuntil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">occurences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.recvuntil"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.recvuntil" title="Link to this definition">#</a></dt>
-<dd><p>Receives data from the child process stdout until the delimiters are found.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>delims</strong> (<em>bytes</em>) – delimiters where to stop.</p></li>
-<li><p><strong>occurences</strong> (<em>int</em><em>, </em><em>optional</em>) – number of delimiters to find. Defaults to 1.</p></li>
-<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – drop the delimiter. Defaults to False.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received data from the child process stdout.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.recverruntil">
-<span class="sig-name descname"><span class="pre">recverruntil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">occurences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.recverruntil"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.recverruntil" title="Link to this definition">#</a></dt>
-<dd><p>Receives data from the child process stderr until the delimiters are found.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>delims</strong> (<em>bytes</em>) – delimiters where to stop.</p></li>
-<li><p><strong>occurences</strong> (<em>int</em><em>, </em><em>optional</em>) – number of delimiters to find. Defaults to 1.</p></li>
-<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – drop the delimiter. Defaults to False.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received data from the child process stderr.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.recvline">
-<span class="sig-name descname"><span class="pre">recvline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numlines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.recvline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.recvline" title="Link to this definition">#</a></dt>
-<dd><p>Receives numlines lines from the child process stdout.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>numlines</strong> (<em>int</em><em>, </em><em>optional</em>) – number of lines to receive. Defaults to 1.</p></li>
-<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – drop the line ending. Defaults to True.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received lines from the child process stdout.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.recverrline">
-<span class="sig-name descname"><span class="pre">recverrline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numlines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.recverrline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.recverrline" title="Link to this definition">#</a></dt>
-<dd><p>Receives numlines lines from the child process stderr.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>numlines</strong> (<em>int</em><em>, </em><em>optional</em>) – number of lines to receive. Defaults to 1.</p></li>
-<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – drop the line ending. Defaults to True.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received lines from the child process stdout.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.send">
-<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.send" title="Link to this definition">#</a></dt>
-<dd><p>Sends data to the child process stdin.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>bytes</em>) – data to send.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>number of bytes sent.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>RuntimeError</strong> – no stdin pipe of the child process.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.sendline">
-<span class="sig-name descname"><span class="pre">sendline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.sendline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.sendline" title="Link to this definition">#</a></dt>
-<dd><p>Sends data to the child process stdin and append a newline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>bytes</em>) – data to send.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>number of bytes sent.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.sendafter">
-<span class="sig-name descname"><span class="pre">sendafter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">occurences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.sendafter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.sendafter" title="Link to this definition">#</a></dt>
-<dd><p>Sends data to the child process stdin after the delimiters are found.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>delims</strong> (<em>bytes</em>) – delimiters where to stop.</p></li>
-<li><p><strong>data</strong> (<em>bytes</em>) – data to send.</p></li>
-<li><p><strong>occurences</strong> (<em>int</em><em>, </em><em>optional</em>) – number of delimiters to find. Defaults to 1.</p></li>
-<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – drop the delimiter. Defaults to False.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received data from the child process stdout.
-int: number of bytes sent.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="libdebug.utils.pipe_manager.PipeManager.sendlineafter">
-<span class="sig-name descname"><span class="pre">sendlineafter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">occurences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/utils/pipe_manager.html#PipeManager.sendlineafter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.pipe_manager.PipeManager.sendlineafter" title="Link to this definition">#</a></dt>
-<dd><p>Sends line to the child process stdin after the delimiters are found.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>delims</strong> (<em>bytes</em>) – delimiters where to stop.</p></li>
-<li><p><strong>data</strong> (<em>bytes</em>) – data to send.</p></li>
-<li><p><strong>occurences</strong> (<em>int</em><em>, </em><em>optional</em>) – number of delimiters to find. Defaults to 1.</p></li>
-<li><p><strong>drop</strong> (<em>bool</em><em>, </em><em>optional</em>) – drop the delimiter. Defaults to False.</p></li>
-<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – timeout in seconds. Defaults to timeout_default.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>received data from the child process stdout.
-int: number of bytes sent.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bytes</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
 <section id="module-libdebug.utils.platform_utils">
 <span id="libdebug-utils-platform-utils-module"></span><h2>libdebug.utils.platform_utils module<a class="headerlink" href="#module-libdebug.utils.platform_utils" title="Link to this heading">#</a></h2>
 <dl class="py function">
@@ -1063,76 +902,6 @@ int: number of bytes sent.</p>
 <dt class="sig sig-object py" id="libdebug.utils.posix_spawn.posix_spawn">
 <span class="sig-prename descclassname"><span class="pre">libdebug.utils.posix_spawn.</span></span><span class="sig-name descname"><span class="pre">posix_spawn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setpgroup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/libdebug/utils/posix_spawn.html#posix_spawn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.posix_spawn.posix_spawn" title="Link to this definition">#</a></dt>
 <dd><p>Spawn a new process, emulating the POSIX spawn function.</p>
-</dd></dl>
-
-</section>
-<section id="module-libdebug.utils.print_style">
-<span id="libdebug-utils-print-style-module"></span><h2>libdebug.utils.print_style module<a class="headerlink" href="#module-libdebug.utils.print_style" title="Link to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.utils.print_style.</span></span><span class="sig-name descname"><span class="pre">PrintStyle</span></span><a class="reference internal" href="_modules/libdebug/utils/print_style.html#PrintStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class to define colors for the terminal.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.RED">
-<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[91m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.RED" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.BLUE">
-<span class="sig-name descname"><span class="pre">BLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[94m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.BLUE" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.GREEN">
-<span class="sig-name descname"><span class="pre">GREEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[92m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.GREEN" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.BRIGHT_YELLOW">
-<span class="sig-name descname"><span class="pre">BRIGHT_YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[93m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.BRIGHT_YELLOW" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.YELLOW">
-<span class="sig-name descname"><span class="pre">YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[33m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.YELLOW" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.PINK">
-<span class="sig-name descname"><span class="pre">PINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[95m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.PINK" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.CYAN">
-<span class="sig-name descname"><span class="pre">CYAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[96m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.CYAN" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.BOLD">
-<span class="sig-name descname"><span class="pre">BOLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[1m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.BOLD" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.UNDERLINE">
-<span class="sig-name descname"><span class="pre">UNDERLINE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.UNDERLINE" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.STRIKE">
-<span class="sig-name descname"><span class="pre">STRIKE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[9m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.STRIKE" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.DEFAULT_COLOR">
-<span class="sig-name descname"><span class="pre">DEFAULT_COLOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[39m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.DEFAULT_COLOR" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="libdebug.utils.print_style.PrintStyle.RESET">
-<span class="sig-name descname"><span class="pre">RESET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#libdebug.utils.print_style.PrintStyle.RESET" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -1356,6 +1125,24 @@ int: number of bytes sent.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.ansi_escape_codes">libdebug.utils.ansi_escape_codes module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors"><code class="docutils literal notranslate"><span class="pre">ANSIColors</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.RED"><code class="docutils literal notranslate"><span class="pre">ANSIColors.RED</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.BLUE"><code class="docutils literal notranslate"><span class="pre">ANSIColors.BLUE</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.GREEN"><code class="docutils literal notranslate"><span class="pre">ANSIColors.GREEN</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.BRIGHT_YELLOW"><code class="docutils literal notranslate"><span class="pre">ANSIColors.BRIGHT_YELLOW</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.YELLOW"><code class="docutils literal notranslate"><span class="pre">ANSIColors.YELLOW</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.PINK"><code class="docutils literal notranslate"><span class="pre">ANSIColors.PINK</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.CYAN"><code class="docutils literal notranslate"><span class="pre">ANSIColors.CYAN</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.BOLD"><code class="docutils literal notranslate"><span class="pre">ANSIColors.BOLD</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.UNDERLINE"><code class="docutils literal notranslate"><span class="pre">ANSIColors.UNDERLINE</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.STRIKE"><code class="docutils literal notranslate"><span class="pre">ANSIColors.STRIKE</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.DEFAULT_COLOR"><code class="docutils literal notranslate"><span class="pre">ANSIColors.DEFAULT_COLOR</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.ansi_escape_codes.ANSIColors.RESET"><code class="docutils literal notranslate"><span class="pre">ANSIColors.RESET</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.arch_mappings">libdebug.utils.arch_mappings module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.arch_mappings.map_arch"><code class="docutils literal notranslate"><span class="pre">map_arch()</span></code></a></li>
 </ul>
@@ -1397,48 +1184,12 @@ int: number of bytes sent.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.pipe_manager">libdebug.utils.pipe_manager module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager"><code class="docutils literal notranslate"><span class="pre">PipeManager</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.timeout_default"><code class="docutils literal notranslate"><span class="pre">PipeManager.timeout_default</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.close"><code class="docutils literal notranslate"><span class="pre">PipeManager.close()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.recv"><code class="docutils literal notranslate"><span class="pre">PipeManager.recv()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.recverr"><code class="docutils literal notranslate"><span class="pre">PipeManager.recverr()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.recvuntil"><code class="docutils literal notranslate"><span class="pre">PipeManager.recvuntil()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.recverruntil"><code class="docutils literal notranslate"><span class="pre">PipeManager.recverruntil()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.recvline"><code class="docutils literal notranslate"><span class="pre">PipeManager.recvline()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.recverrline"><code class="docutils literal notranslate"><span class="pre">PipeManager.recverrline()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.send"><code class="docutils literal notranslate"><span class="pre">PipeManager.send()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.sendline"><code class="docutils literal notranslate"><span class="pre">PipeManager.sendline()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.sendafter"><code class="docutils literal notranslate"><span class="pre">PipeManager.sendafter()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.pipe_manager.PipeManager.sendlineafter"><code class="docutils literal notranslate"><span class="pre">PipeManager.sendlineafter()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.platform_utils">libdebug.utils.platform_utils module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.platform_utils.get_platform_register_size"><code class="docutils literal notranslate"><span class="pre">get_platform_register_size()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.posix_spawn">libdebug.utils.posix_spawn module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.posix_spawn.posix_spawn"><code class="docutils literal notranslate"><span class="pre">posix_spawn()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.print_style">libdebug.utils.print_style module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle"><code class="docutils literal notranslate"><span class="pre">PrintStyle</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.RED"><code class="docutils literal notranslate"><span class="pre">PrintStyle.RED</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.BLUE"><code class="docutils literal notranslate"><span class="pre">PrintStyle.BLUE</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.GREEN"><code class="docutils literal notranslate"><span class="pre">PrintStyle.GREEN</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.BRIGHT_YELLOW"><code class="docutils literal notranslate"><span class="pre">PrintStyle.BRIGHT_YELLOW</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.YELLOW"><code class="docutils literal notranslate"><span class="pre">PrintStyle.YELLOW</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.PINK"><code class="docutils literal notranslate"><span class="pre">PrintStyle.PINK</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.CYAN"><code class="docutils literal notranslate"><span class="pre">PrintStyle.CYAN</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.BOLD"><code class="docutils literal notranslate"><span class="pre">PrintStyle.BOLD</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.UNDERLINE"><code class="docutils literal notranslate"><span class="pre">PrintStyle.UNDERLINE</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.STRIKE"><code class="docutils literal notranslate"><span class="pre">PrintStyle.STRIKE</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.DEFAULT_COLOR"><code class="docutils literal notranslate"><span class="pre">PrintStyle.DEFAULT_COLOR</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.utils.print_style.PrintStyle.RESET"><code class="docutils literal notranslate"><span class="pre">PrintStyle.RESET</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.utils.process_utils">libdebug.utils.process_utils module</a><ul class="nav section-nav flex-column">

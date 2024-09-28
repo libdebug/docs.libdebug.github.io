@@ -434,7 +434,7 @@ document.write(`
 
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">libdebug.utils.print_style</span> <span class="kn">import</span> <span class="n">PrintStyle</span>
+<span class="kn">from</span> <span class="nn">libdebug.utils.ansi_escape_codes</span> <span class="kn">import</span> <span class="n">ANSIColors</span>
 
 
 <div class="viewcode-block" id="LibLog">
@@ -502,7 +502,7 @@ document.write(`
 <span class="sd">            *args: positional arguments to pass to the logger.</span>
 <span class="sd">            **kwargs: keyword arguments to pass to the logger.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">DEBUGGER</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">DEBUGGER</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debugger_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -516,7 +516,7 @@ document.write(`
 <span class="sd">            *args: positional arguments to pass to the logger.</span>
 <span class="sd">            **kwargs: keyword arguments to pass to the logger.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">PIPE</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">PIPE</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pipe_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -530,7 +530,7 @@ document.write(`
 <span class="sd">            *args: positional arguments to pass to the logger.</span>
 <span class="sd">            **kwargs: keyword arguments to pass to the logger.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">INFO</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">INFO</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">general_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -544,7 +544,7 @@ document.write(`
 <span class="sd">            *args: positional arguments to pass to the logger.</span>
 <span class="sd">            **kwargs: keyword arguments to pass to the logger.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">BRIGHT_YELLOW</span><span class="si">}</span><span class="s2">WARNING</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">BRIGHT_YELLOW</span><span class="si">}</span><span class="s2">WARNING</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">general_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -558,7 +558,7 @@ document.write(`
 <span class="sd">            *args: positional arguments to pass to the logger.</span>
 <span class="sd">            **kwargs: keyword arguments to pass to the logger.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">ERROR</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">ERROR</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">general_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </div>
 

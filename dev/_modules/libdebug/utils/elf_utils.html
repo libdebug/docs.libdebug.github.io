@@ -464,6 +464,8 @@ document.write(`
 
             <span class="k">with</span> <span class="n">debuginfod_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to download debuginfo file. Error code: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> occurred while downloading debuginfod symbols&quot;</span><span class="p">)</span>
 

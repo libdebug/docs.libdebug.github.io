@@ -450,6 +450,7 @@ document.write(`
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 
+    <span class="kn">from</span> <span class="nn">libdebug.commlink.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map_list</span> <span class="kn">import</span> <span class="n">MemoryMapList</span>
@@ -461,7 +462,6 @@ document.write(`
     <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger</span> <span class="kn">import</span> <span class="n">InternalDebugger</span>
     <span class="kn">from</span> <span class="nn">libdebug.memory.abstract_memory_view</span> <span class="kn">import</span> <span class="n">AbstractMemoryView</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
-    <span class="kn">from</span> <span class="nn">libdebug.utils.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
 
 
 <div class="viewcode-block" id="Debugger">

@@ -449,7 +449,10 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.architectures.breakpoint_validator</span> <span class="kn">import</span> <span class="n">validate_hardware_breakpoint</span>
 <span class="kn">from</span> <span class="nn">libdebug.architectures.syscall_hijacker</span> <span class="kn">import</span> <span class="n">SyscallHijacker</span>
 <span class="kn">from</span> <span class="nn">libdebug.builtin.antidebug_syscall_handler</span> <span class="kn">import</span> <span class="n">on_enter_ptrace</span><span class="p">,</span> <span class="n">on_exit_ptrace</span>
-<span class="kn">from</span> <span class="nn">libdebug.builtin.pretty_print_syscall_handler</span> <span class="kn">import</span> <span class="n">pprint_on_enter</span><span class="p">,</span> <span class="n">pprint_on_exit</span>
+<span class="kn">from</span> <span class="nn">libdebug.builtin.pretty_print_syscall_handler</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">pprint_on_enter</span><span class="p">,</span>
+    <span class="n">pprint_on_exit</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
@@ -463,6 +466,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.memory.direct_memory_view</span> <span class="kn">import</span> <span class="n">DirectMemoryView</span>
 <span class="kn">from</span> <span class="nn">libdebug.memory.process_memory_manager</span> <span class="kn">import</span> <span class="n">ProcessMemoryManager</span>
 <span class="kn">from</span> <span class="nn">libdebug.state.resume_context</span> <span class="kn">import</span> <span class="n">ResumeContext</span>
+<span class="kn">from</span> <span class="nn">libdebug.utils.ansi_escape_codes</span> <span class="kn">import</span> <span class="n">ANSIColors</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.arch_mappings</span> <span class="kn">import</span> <span class="n">map_arch</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.debugger_wrappers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">background_alias</span><span class="p">,</span>
@@ -476,7 +480,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.utils.elf_utils</span> <span class="kn">import</span> <span class="n">get_all_symbols</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.libcontext</span> <span class="kn">import</span> <span class="n">libcontext</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.platform_utils</span> <span class="kn">import</span> <span class="n">get_platform_register_size</span>
-<span class="kn">from</span> <span class="nn">libdebug.utils.print_style</span> <span class="kn">import</span> <span class="n">PrintStyle</span>
 <span class="kn">from</span> <span class="nn">libdebug.utils.signal_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">resolve_signal_name</span><span class="p">,</span>
     <span class="n">resolve_signal_number</span><span class="p">,</span>
@@ -490,6 +493,7 @@ document.write(`
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 
+    <span class="kn">from</span> <span class="nn">libdebug.commlink.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map</span> <span class="kn">import</span> <span class="n">MemoryMap</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.memory_map_list</span> <span class="kn">import</span> <span class="n">MemoryMapList</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
@@ -499,7 +503,6 @@ document.write(`
     <span class="kn">from</span> <span class="nn">libdebug.interfaces.debugging_interface</span> <span class="kn">import</span> <span class="n">DebuggingInterface</span>
     <span class="kn">from</span> <span class="nn">libdebug.memory.abstract_memory_view</span> <span class="kn">import</span> <span class="n">AbstractMemoryView</span>
     <span class="kn">from</span> <span class="nn">libdebug.state.thread_context</span> <span class="kn">import</span> <span class="n">ThreadContext</span>
-    <span class="kn">from</span> <span class="nn">libdebug.utils.pipe_manager</span> <span class="kn">import</span> <span class="n">PipeManager</span>
 
 <span class="n">THREAD_TERMINATE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="n">GDB_GOBACK_LOCATION</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;utils&quot;</span> <span class="o">/</span> <span class="s2">&quot;gdb.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
@@ -565,7 +568,7 @@ document.write(`
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The PID of the debugged process.&quot;&quot;&quot;</span>
 
     <span class="n">pipe_manager</span><span class="p">:</span> <span class="n">PipeManager</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The pipe manager used to communicate with the debugged process.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The PipeManager used to communicate with the debugged process.&quot;&quot;&quot;</span>
 
     <span class="n">memory</span><span class="p">:</span> <span class="n">AbstractMemoryView</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The memory view of the debugged process.&quot;&quot;&quot;</span>
@@ -919,13 +922,13 @@ document.write(`
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_map</span><span class="o">.</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="s2">&quot;rwx&quot;</span> <span class="ow">in</span> <span class="n">memory_map</span><span class="o">.</span><span class="n">permissions</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">UNDERLINE</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">UNDERLINE</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="s2">&quot;x&quot;</span> <span class="ow">in</span> <span class="n">memory_map</span><span class="o">.</span><span class="n">permissions</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">memory_map</span><span class="o">.</span><span class="n">permissions</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="s2">&quot;r&quot;</span> <span class="ow">in</span> <span class="n">memory_map</span><span class="o">.</span><span class="n">permissions</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">PrintStyle</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}{</span><span class="n">info</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span></div>
 

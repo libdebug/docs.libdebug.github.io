@@ -4,6 +4,14 @@ libdebug.utils package
 Submodules
 ----------
 
+libdebug.utils.ansi\_escape\_codes module
+-----------------------------------------
+
+.. automodule:: libdebug.utils.ansi_escape_codes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libdebug.utils.arch\_mappings module
 ------------------------------------
 
@@ -52,14 +60,6 @@ libdebug.utils.libcontext module
    :undoc-members:
    :show-inheritance:
 
-libdebug.utils.pipe\_manager module
------------------------------------
-
-.. automodule:: libdebug.utils.pipe_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 libdebug.utils.platform\_utils module
 -------------------------------------
 
@@ -72,14 +72,6 @@ libdebug.utils.posix\_spawn module
 ----------------------------------
 
 .. automodule:: libdebug.utils.posix_spawn
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-libdebug.utils.print\_style module
-----------------------------------
-
-.. automodule:: libdebug.utils.print_style
    :members:
    :undoc-members:
    :show-inheritance:
