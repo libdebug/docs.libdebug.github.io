@@ -720,7 +720,7 @@ document.write(`
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Polling thread command queue not empty.&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_run</span><span class="p">,</span> <span class="p">(</span><span class="n">redirect_pipes</span><span class="p">,</span> <span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_run</span><span class="p">,</span> <span class="p">(</span><span class="n">redirect_pipes</span><span class="p">,)))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
@@ -1261,7 +1261,7 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.gdb">[docs]</a>
     <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_invalid_call</span><span class="p">)</span>
     <span class="nd">@change_state_function_process</span>
-    <span class="k">def</span> <span class="nf">gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Migrates the current debugging session to GDB.&quot;&quot;&quot;</span>
         <span class="c1"># TODO: not needed?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interrupt</span><span class="p">()</span>
@@ -1270,21 +1270,23 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_command</span><span class="p">(</span><span class="n">migrate_breakpoints</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">open_in_new_process</span> <span class="ow">and</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_new_process</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_new_process</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">open_in_new_process</span><span class="p">:</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="s2">&quot;Cannot open in a new process. Please configure the terminal in libcontext.terminal.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_shell</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_shell</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_migrate_from_gdb</span><span class="p">,</span> <span class="p">()))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_craft_gdb_migration_command</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_craft_gdb_migration_command</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Crafts the command to migrate to GDB.&quot;&quot;&quot;</span>
         <span class="n">gdb_command</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;/bin/gdb&quot;</span><span class="p">,</span>
@@ -1298,6 +1300,9 @@ document.write(`
             <span class="s2">&quot;-ex&quot;</span><span class="p">,</span>
             <span class="s2">&quot;ni&quot;</span><span class="p">,</span>
         <span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">migrate_breakpoints</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">gdb_command</span>
 
         <span class="n">bp_args</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -1320,10 +1325,8 @@ document.write(`
 
         <span class="k">return</span> <span class="n">gdb_command</span> <span class="o">+</span> <span class="n">bp_args</span>
 
-    <span class="k">def</span> <span class="nf">_open_gdb_in_new_process</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_open_gdb_in_new_process</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens GDB in a new process following the configuration in libcontext.terminal.&quot;&quot;&quot;</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_command</span><span class="p">()</span>
-
         <span class="n">initial_pid</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span> <span class="o">+</span> <span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">pid</span>
 
         <span class="n">os</span><span class="o">.</span><span class="n">waitpid</span><span class="p">(</span><span class="n">initial_pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -1348,11 +1351,10 @@ document.write(`
             <span class="c1"># So we must keep polling it until it is no longer running</span>
             <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">_open_gdb_in_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_open_gdb_in_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Open GDB in the current shell.&quot;&quot;&quot;</span>
         <span class="n">gdb_pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">gdb_pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># This is the child process.</span>
-            <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_command</span><span class="p">()</span>
             <span class="n">os</span><span class="o">.</span><span class="n">execv</span><span class="p">(</span><span class="s2">&quot;/bin/gdb&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># This is the parent process.</span>
             <span class="c1"># Parent ignores SIGINT, so only GDB (child) receives it</span>

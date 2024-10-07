@@ -746,9 +746,14 @@ document.write(`
 
 <div class="viewcode-block" id="Debugger.gdb">
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.debugger.Debugger.gdb">[docs]</a>
-    <span class="k">def</span> <span class="nf">gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Migrates the current debugging session to GDB.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">gdb</span><span class="p">(</span><span class="n">open_in_new_process</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Debugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Migrates the current debugging session to GDB.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            migrate_breakpoints (bool): Whether to migrate over the breakpoints set in libdebug to GDB.</span>
+<span class="sd">            open_in_new_process (bool): Whether to attempt to open GDB in a new process instead of the current one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">gdb</span><span class="p">(</span><span class="n">migrate_breakpoints</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Debugger.r">
