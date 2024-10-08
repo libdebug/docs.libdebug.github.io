@@ -454,6 +454,7 @@ document.write(`
     <span class="n">pprint_on_exit</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
+<span class="kn">from</span> <span class="nn">libdebug.data.gdb_resume_event</span> <span class="kn">import</span> <span class="n">GdbResumeEvent</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="p">(</span>
@@ -600,6 +601,9 @@ document.write(`
     <span class="n">_is_running</span><span class="p">:</span> <span class="nb">bool</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The overall state of the debugged process. True if the process is running, False otherwise.&quot;&quot;&quot;</span>
 
+    <span class="n">_is_migrated_to_gdb</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A flag that indicates if the debuggee was migrated to GDB.&quot;&quot;&quot;</span>
+
     <span class="n">_fast_memory</span><span class="p">:</span> <span class="n">DirectMemoryView</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The memory view of the debugged process using the fast memory access method.&quot;&quot;&quot;</span>
 
@@ -626,6 +630,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instanced</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_migrated_to_gdb</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resume_context</span> <span class="o">=</span> <span class="n">ResumeContext</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="n">map_arch</span><span class="p">(</span><span class="n">libcontext</span><span class="o">.</span><span class="n">platform</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kill_on_exit</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1261,7 +1266,12 @@ document.write(`
 <a class="viewcode-back" href="../../../libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger.gdb">[docs]</a>
     <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_invalid_call</span><span class="p">)</span>
     <span class="nd">@change_state_function_process</span>
-    <span class="k">def</span> <span class="nf">gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">gdb</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span>
+        <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">open_in_new_process</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">blocking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GdbResumeEvent</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Migrates the current debugging session to GDB.&quot;&quot;&quot;</span>
         <span class="c1"># TODO: not needed?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interrupt</span><span class="p">()</span>
@@ -1273,17 +1283,23 @@ document.write(`
         <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_command</span><span class="p">(</span><span class="n">migrate_breakpoints</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">open_in_new_process</span> <span class="ow">and</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_new_process</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+            <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_new_process</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">open_in_new_process</span><span class="p">:</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="s2">&quot;Cannot open in a new process. Please configure the terminal in libcontext.terminal.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_shell</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+            <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_shell</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_migrate_from_gdb</span><span class="p">,</span> <span class="p">()))</span>
+        <span class="n">resume_event</span> <span class="o">=</span> <span class="n">GdbResumeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lambda_fun</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_migrated_to_gdb</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">blocking</span><span class="p">:</span>
+            <span class="n">resume_event</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">resume_event</span></div>
 
 
     <span class="k">def</span> <span class="nf">_craft_gdb_migration_command</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -1331,40 +1347,57 @@ document.write(`
 
         <span class="n">os</span><span class="o">.</span><span class="n">waitpid</span><span class="p">(</span><span class="n">initial_pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-        <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Waiting for GDB process to terminate...&quot;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wait_for_termination</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Waiting for GDB process to terminate...&quot;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">cmdline</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">cmdline</span><span class="p">()</span>
-            <span class="k">except</span> <span class="n">psutil</span><span class="o">.</span><span class="n">ZombieProcess</span><span class="p">:</span>
-                <span class="c1"># This is a zombie process, which psutil tracks but we cannot interact with</span>
-                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cmdline</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">cmdline</span><span class="p">()</span>
+                <span class="k">except</span> <span class="n">psutil</span><span class="o">.</span><span class="n">ZombieProcess</span><span class="p">:</span>
+                    <span class="c1"># This is a zombie process, which psutil tracks but we cannot interact with</span>
+                    <span class="k">continue</span>
 
-            <span class="k">if</span> <span class="n">args</span> <span class="o">==</span> <span class="n">cmdline</span><span class="p">:</span>
-                <span class="n">gdb_process</span> <span class="o">=</span> <span class="n">proc</span>
-                <span class="k">break</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;GDB process not found.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">args</span> <span class="o">==</span> <span class="n">cmdline</span><span class="p">:</span>
+                    <span class="n">gdb_process</span> <span class="o">=</span> <span class="n">proc</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;GDB process not found.&quot;</span><span class="p">)</span>
 
-        <span class="k">while</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">is_running</span><span class="p">()</span> <span class="ow">and</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">STATUS_ZOMBIE</span><span class="p">:</span>
-            <span class="c1"># As the GDB process is in a different group, we do not have the authority to wait on it</span>
-            <span class="c1"># So we must keep polling it until it is no longer running</span>
-            <span class="k">pass</span>
+            <span class="k">while</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">is_running</span><span class="p">()</span> <span class="ow">and</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">STATUS_ZOMBIE</span><span class="p">:</span>
+                <span class="c1"># As the GDB process is in a different group, we do not have the authority to wait on it</span>
+                <span class="c1"># So we must keep polling it until it is no longer running</span>
+                <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">wait_for_termination</span>
 
     <span class="k">def</span> <span class="nf">_open_gdb_in_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Open GDB in the current shell.&quot;&quot;&quot;</span>
         <span class="n">gdb_pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="n">gdb_pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># This is the child process.</span>
             <span class="n">os</span><span class="o">.</span><span class="n">execv</span><span class="p">(</span><span class="s2">&quot;/bin/gdb&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c1"># This is the parent process.</span>
-            <span class="c1"># Parent ignores SIGINT, so only GDB (child) receives it</span>
-            <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Failed to execute GDB.&quot;</span><span class="p">)</span>
 
+        <span class="c1"># This is the parent process.</span>
+        <span class="c1"># Parent ignores SIGINT, so only GDB (child) receives it</span>
+        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">wait_for_termination</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Wait for the child process to finish</span>
             <span class="n">os</span><span class="o">.</span><span class="n">waitpid</span><span class="p">(</span><span class="n">gdb_pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
             <span class="c1"># Reset the SIGINT behavior to default handling after child exits</span>
             <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_DFL</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wait_for_termination</span>
+
+    <span class="k">def</span> <span class="nf">_resume_from_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resumes the process after migrating from GDB.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__polling_thread_command_queue</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__threaded_migrate_from_gdb</span><span class="p">,</span> <span class="p">()))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_migrated_to_gdb</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_background_step</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes a single instruction of the process.</span>
@@ -1715,11 +1748,16 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">_background_ensure_process_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Validates the state of the process.&quot;&quot;&quot;</span>
-        <span class="c1"># In background mode, there shouldn&#39;t be anything to do here</span>
+        <span class="c1"># There is no case where this should ever happen, but...</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_migrated_to_gdb</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot execute this command after migrating to GDB.&quot;</span><span class="p">)</span>
 
     <span class="nd">@background_alias</span><span class="p">(</span><span class="n">_background_ensure_process_stopped</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_ensure_process_stopped</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Validates the state of the process.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_migrated_to_gdb</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot execute this command after migrating to GDB.&quot;</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
             <span class="k">return</span>
 

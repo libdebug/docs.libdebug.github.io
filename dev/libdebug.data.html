@@ -618,6 +618,22 @@ document.write(`
 </dd></dl>
 
 </section>
+<section id="module-libdebug.data.gdb_resume_event">
+<span id="libdebug-data-gdb-resume-event-module"></span><h2>libdebug.data.gdb_resume_event module<a class="headerlink" href="#module-libdebug.data.gdb_resume_event" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.data.gdb_resume_event.GdbResumeEvent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.gdb_resume_event.</span></span><span class="sig-name descname"><span class="pre">GdbResumeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">internal_debugger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.debugger.html#libdebug.debugger.internal_debugger.InternalDebugger" title="libdebug.debugger.internal_debugger.InternalDebugger"><span class="pre">InternalDebugger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/data/gdb_resume_event.html#GdbResumeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.gdb_resume_event.GdbResumeEvent" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class handles the actions needed to resume the debugging session, after returning from GDB.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.gdb_resume_event.GdbResumeEvent.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/data/gdb_resume_event.html#GdbResumeEvent.join"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.gdb_resume_event.GdbResumeEvent.join" title="Link to this definition">#</a></dt>
+<dd><p>Resumes the debugging session, blocking the script until GDB terminate and libdebug reattaches.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-libdebug.data.memory_map">
 <span id="libdebug-data-memory-map-module"></span><h2>libdebug.data.memory_map module<a class="headerlink" href="#module-libdebug.data.memory_map" title="Link to this heading">#</a></h2>
 <dl class="py class">
@@ -1324,6 +1340,13 @@ If the value is a string, it is treated as a symbol name.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.breakpoint.Breakpoint.enable"><code class="docutils literal notranslate"><span class="pre">Breakpoint.enable()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.breakpoint.Breakpoint.disable"><code class="docutils literal notranslate"><span class="pre">Breakpoint.disable()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.breakpoint.Breakpoint.hit_on"><code class="docutils literal notranslate"><span class="pre">Breakpoint.hit_on()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.gdb_resume_event">libdebug.data.gdb_resume_event module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.gdb_resume_event.GdbResumeEvent"><code class="docutils literal notranslate"><span class="pre">GdbResumeEvent</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.gdb_resume_event.GdbResumeEvent.join"><code class="docutils literal notranslate"><span class="pre">GdbResumeEvent.join()</span></code></a></li>
 </ul>
 </li>
 </ul>

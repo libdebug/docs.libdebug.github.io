@@ -12,6 +12,14 @@ libdebug.data.breakpoint module
    :undoc-members:
    :show-inheritance:
 
+libdebug.data.gdb\_resume\_event module
+---------------------------------------
+
+.. automodule:: libdebug.data.gdb_resume_event
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 libdebug.data.memory\_map module
 --------------------------------
 
