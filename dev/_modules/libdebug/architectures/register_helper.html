@@ -436,7 +436,14 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.architectures.amd64.amd64_ptrace_register_holder</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">I386OverAMD64PtraceRegisterHolder</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">libdebug.architectures.i386.i386_ptrace_register_holder</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">I386PtraceRegisterHolder</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.register_holder</span> <span class="kn">import</span> <span class="n">RegisterHolder</span>
+<span class="kn">from</span> <span class="nn">libdebug.utils.libcontext</span> <span class="kn">import</span> <span class="n">libcontext</span>
 
 
 <div class="viewcode-block" id="register_holder_provider">
@@ -448,10 +455,15 @@ document.write(`
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RegisterHolder</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an instance of the register holder to be used by the `_InternalDebugger` class.&quot;&quot;&quot;</span>
     <span class="k">match</span> <span class="n">architecture</span><span class="p">:</span>
-        <span class="k">case</span> <span class="s2">&quot;amd64&quot;</span> <span class="o">|</span> <span class="s2">&quot;i386&quot;</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;amd64&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">(</span><span class="n">register_file</span><span class="p">,</span> <span class="n">fp_register_file</span><span class="p">)</span>
         <span class="k">case</span> <span class="s2">&quot;aarch64&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Aarch64PtraceRegisterHolder</span><span class="p">(</span><span class="n">register_file</span><span class="p">,</span> <span class="n">fp_register_file</span><span class="p">)</span>
+        <span class="k">case</span> <span class="s2">&quot;i386&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;amd64&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">I386OverAMD64PtraceRegisterHolder</span><span class="p">(</span><span class="n">register_file</span><span class="p">,</span> <span class="n">fp_register_file</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">I386PtraceRegisterHolder</span><span class="p">(</span><span class="n">register_file</span><span class="p">,</span> <span class="n">fp_register_file</span><span class="p">)</span>
         <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Architecture </span><span class="si">{</span><span class="n">architecture</span><span class="si">}</span><span class="s2"> not available.&quot;</span><span class="p">)</span></div>
 

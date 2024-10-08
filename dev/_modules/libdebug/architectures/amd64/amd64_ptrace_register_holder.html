@@ -780,11 +780,11 @@ document.write(`
 
         <span class="k">match</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp_register_file</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
             <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_fp_512</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_vector_512</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
             <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_fp_896</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_vector_896</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
             <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_fp_2696</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_vector_2696</span><span class="p">(</span><span class="n">target_class</span><span class="p">)</span>
             <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Floating-point register file type </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fp_register_file</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> not available.&quot;</span><span class="p">,</span>
@@ -828,14 +828,14 @@ document.write(`
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_mm</span><span class="p">,</span> <span class="n">name_st</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">_handle_fp_512</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_handle_vector_512</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the case where the xsave area is 512 bytes long, which means we just have the xmm registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
             <span class="n">name_xmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_xmm</span><span class="p">,</span> <span class="n">_get_property_fp_xmm0</span><span class="p">(</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">index</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_xmm</span><span class="p">,))</span>
 
-    <span class="k">def</span> <span class="nf">_handle_fp_896</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_handle_vector_896</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the case where the xsave area is 896 bytes long, which means we have the xmm and ymm registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
             <span class="n">name_xmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -846,7 +846,7 @@ document.write(`
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name_xmm</span><span class="p">,</span> <span class="n">name_ymm</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">_handle_fp_2696</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_handle_vector_2696</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the case where the xsave area is 2696 bytes long, which means we have 32 zmm registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
             <span class="n">name_xmm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;xmm</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>

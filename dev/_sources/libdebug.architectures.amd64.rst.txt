@@ -1,6 +1,14 @@
 libdebug.architectures.amd64 package
 ====================================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   libdebug.architectures.amd64.compat
+
 Submodules
 ----------
 

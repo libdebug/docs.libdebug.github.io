@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>libdebug.ptrace.jumpstart package &#8212; libdebug 0.6.0 documentation</title>
+    <title>libdebug.architectures.amd64.compat package &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -40,11 +40,11 @@
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'libdebug.ptrace.jumpstart';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'libdebug.architectures.amd64.compat';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="libdebug.state package" href="libdebug.state.html" />
-    <link rel="prev" title="libdebug.ptrace package" href="libdebug.ptrace.html" />
+    <link rel="next" title="libdebug.architectures.i386 package" href="libdebug.architectures.i386.html" />
+    <link rel="prev" title="libdebug.architectures.amd64 package" href="libdebug.architectures.amd64.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -382,10 +382,10 @@ document.write(`
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.architectures.html">libdebug.architectures package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="libdebug.architectures.html">libdebug.architectures package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html">libdebug.architectures.aarch64 package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.amd64.compat.html">libdebug.architectures.amd64.compat package</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">libdebug.architectures.amd64.compat package</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.i386.html">libdebug.architectures.i386 package</a></li>
@@ -398,8 +398,8 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="libdebug.debugger.html">libdebug.debugger package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.interfaces.html">libdebug.interfaces package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.memory.html">libdebug.memory package</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="libdebug.ptrace.html">libdebug.ptrace package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">libdebug.ptrace.jumpstart package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.ptrace.html">libdebug.ptrace package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.ptrace.jumpstart.html">libdebug.ptrace.jumpstart package</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.state.html">libdebug.state package</a></li>
@@ -433,6 +433,8 @@ document.write(`
 
 
 
+
+
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -445,9 +447,12 @@ document.write(`
     <li class="breadcrumb-item"><a href="libdebug.html" class="nav-link">libdebug package</a></li>
     
     
-    <li class="breadcrumb-item"><a href="libdebug.ptrace.html" class="nav-link">libdebug.ptrace package</a></li>
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
     
-    <li class="breadcrumb-item active" aria-current="page">libdebug.ptr...</li>
+    
+    <li class="breadcrumb-item"><a href="libdebug.architectures.amd64.html" class="nav-link">libdebug.architectures.amd64 package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">libdebug.arc...</li>
   </ul>
 </nav>
 </div>
@@ -464,10 +469,51 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="libdebug-ptrace-jumpstart-package">
-<h1>libdebug.ptrace.jumpstart package<a class="headerlink" href="#libdebug-ptrace-jumpstart-package" title="Link to this heading">#</a></h1>
-<section id="module-libdebug.ptrace.jumpstart">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-libdebug.ptrace.jumpstart" title="Link to this heading">#</a></h2>
+  <section id="libdebug-architectures-amd64-compat-package">
+<h1>libdebug.architectures.amd64.compat package<a class="headerlink" href="#libdebug-architectures-amd64-compat-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder">
+<span id="libdebug-architectures-amd64-compat-i386-over-amd64-ptrace-register-holder-module"></span><h2>libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder module<a class="headerlink" href="#module-libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.</span></span><span class="sig-name descname"><span class="pre">I386OverAMD64PtraceRegisterHolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp_register_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/architectures/amd64/compat/i386_over_amd64_ptrace_register_holder.html#I386OverAMD64PtraceRegisterHolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="libdebug.architectures.i386.html#libdebug.architectures.i386.i386_ptrace_register_holder.I386PtraceRegisterHolder" title="libdebug.architectures.i386.i386_ptrace_register_holder.I386PtraceRegisterHolder"><code class="xref py py-class docutils literal notranslate"><span class="pre">I386PtraceRegisterHolder</span></code></a></p>
+<p>A class that provides views and setters for the registers of an x86_64 process.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.provide_regs_class">
+<span class="sig-name descname"><span class="pre">provide_regs_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">type</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/amd64/compat/i386_over_amd64_ptrace_register_holder.html#I386OverAMD64PtraceRegisterHolder.provide_regs_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.provide_regs_class" title="Link to this definition">#</a></dt>
+<dd><p>Provide a class to hold the register accessors.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.apply_on_regs">
+<span class="sig-name descname"><span class="pre">apply_on_regs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#libdebug.architectures.amd64.compat.i386_over_amd64_registers.I386OverAMD64Registers" title="libdebug.architectures.amd64.compat.i386_over_amd64_registers.I386OverAMD64Registers"><span class="pre">I386OverAMD64Registers</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/amd64/compat/i386_over_amd64_ptrace_register_holder.html#I386OverAMD64PtraceRegisterHolder.apply_on_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.apply_on_regs" title="Link to this definition">#</a></dt>
+<dd><p>Apply the register accessors to the I386Registers class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.apply_on_thread">
+<span class="sig-name descname"><span class="pre">apply_on_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="libdebug.state.html#libdebug.state.thread_context.ThreadContext" title="libdebug.state.thread_context.ThreadContext"><span class="pre">ThreadContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libdebug/architectures/amd64/compat/i386_over_amd64_ptrace_register_holder.html#I386OverAMD64PtraceRegisterHolder.apply_on_thread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.apply_on_thread" title="Link to this definition">#</a></dt>
+<dd><p>Apply the register accessors to the thread class.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-libdebug.architectures.amd64.compat.i386_over_amd64_registers">
+<span id="libdebug-architectures-amd64-compat-i386-over-amd64-registers-module"></span><h2>libdebug.architectures.amd64.compat.i386_over_amd64_registers module<a class="headerlink" href="#module-libdebug.architectures.amd64.compat.i386_over_amd64_registers" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.architectures.amd64.compat.i386_over_amd64_registers.I386OverAMD64Registers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.architectures.amd64.compat.i386_over_amd64_registers.</span></span><span class="sig-name descname"><span class="pre">I386OverAMD64Registers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generic_regs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/architectures/amd64/compat/i386_over_amd64_registers.html#I386OverAMD64Registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.architectures.amd64.compat.i386_over_amd64_registers.I386OverAMD64Registers" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="libdebug.data.html#libdebug.data.registers.Registers" title="libdebug.data.registers.Registers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Registers</span></code></a></p>
+<p>This class holds the state of the architectural-dependent registers of a process.</p>
+</dd></dl>
+
+</section>
+<section id="module-libdebug.architectures.amd64.compat">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-libdebug.architectures.amd64.compat" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -482,20 +528,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="libdebug.ptrace.html"
+       href="libdebug.architectures.amd64.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">libdebug.ptrace package</p>
+        <p class="prev-next-title">libdebug.architectures.amd64 package</p>
       </div>
     </a>
     <a class="right-next"
-       href="libdebug.state.html"
+       href="libdebug.architectures.i386.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">libdebug.state package</p>
+        <p class="prev-next-title">libdebug.architectures.i386 package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -517,14 +563,28 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.ptrace.jumpstart">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder">libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder"><code class="docutils literal notranslate"><span class="pre">I386OverAMD64PtraceRegisterHolder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.provide_regs_class"><code class="docutils literal notranslate"><span class="pre">I386OverAMD64PtraceRegisterHolder.provide_regs_class()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.apply_on_regs"><code class="docutils literal notranslate"><span class="pre">I386OverAMD64PtraceRegisterHolder.apply_on_regs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.amd64.compat.i386_over_amd64_ptrace_register_holder.I386OverAMD64PtraceRegisterHolder.apply_on_thread"><code class="docutils literal notranslate"><span class="pre">I386OverAMD64PtraceRegisterHolder.apply_on_thread()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.amd64.compat.i386_over_amd64_registers">libdebug.architectures.amd64.compat.i386_over_amd64_registers module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.architectures.amd64.compat.i386_over_amd64_registers.I386OverAMD64Registers"><code class="docutils literal notranslate"><span class="pre">I386OverAMD64Registers</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.architectures.amd64.compat">Module contents</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="_sources/libdebug.ptrace.jumpstart.rst.txt">
+    <a href="_sources/libdebug.architectures.amd64.compat.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

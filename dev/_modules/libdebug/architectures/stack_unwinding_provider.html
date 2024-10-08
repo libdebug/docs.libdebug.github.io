@@ -436,10 +436,14 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.architectures.amd64.amd64_stack_unwinder</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Amd64StackUnwinder</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">libdebug.architectures.i386.i386_stack_unwinder</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">I386StackUnwinder</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">libdebug.architectures.stack_unwinding_manager</span> <span class="kn">import</span> <span class="n">StackUnwindingManager</span>
 
 <span class="n">_aarch64_stack_unwinder</span> <span class="o">=</span> <span class="n">Aarch64StackUnwinder</span><span class="p">()</span>
 <span class="n">_amd64_stack_unwinder</span> <span class="o">=</span> <span class="n">Amd64StackUnwinder</span><span class="p">()</span>
+<span class="n">_i386_stack_unwinder</span> <span class="o">=</span> <span class="n">I386StackUnwinder</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="stack_unwinding_provider">
@@ -451,6 +455,8 @@ document.write(`
             <span class="k">return</span> <span class="n">_amd64_stack_unwinder</span>
         <span class="k">case</span> <span class="s2">&quot;aarch64&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_aarch64_stack_unwinder</span>
+        <span class="k">case</span> <span class="s2">&quot;i386&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_i386_stack_unwinder</span>
         <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Architecture </span><span class="si">{</span><span class="n">architecture</span><span class="si">}</span><span class="s2"> not available.&quot;</span><span class="p">)</span></div>
 

@@ -384,7 +384,11 @@ document.write(`
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="libdebug.architectures.html">libdebug.architectures package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.aarch64.html">libdebug.architectures.aarch64 package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="libdebug.architectures.amd64.html">libdebug.architectures.amd64 package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="libdebug.architectures.amd64.compat.html">libdebug.architectures.amd64.compat package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="libdebug.architectures.i386.html">libdebug.architectures.i386 package</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="libdebug.builtin.html">libdebug.builtin package</a></li>
@@ -870,8 +874,8 @@ If the value is a string, it is treated as a backing file.</p>
 <span id="libdebug-data-registers-module"></span><h2>libdebug.data.registers module<a class="headerlink" href="#module-libdebug.data.registers" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="libdebug.data.registers.Registers">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.registers.</span></span><span class="sig-name descname"><span class="pre">Registers</span></span><a class="reference internal" href="_modules/libdebug/data/registers.html#Registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.registers.Registers" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.registers.</span></span><span class="sig-name descname"><span class="pre">Registers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generic_regs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/data/registers.html#Registers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.registers.Registers" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Abtract class that holds the state of the architectural-dependent registers of a process.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.data.registers.Registers.filter">

@@ -810,6 +810,7 @@ document.write(`
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">stepping_finish</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
                 <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s2">&quot;i386&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>

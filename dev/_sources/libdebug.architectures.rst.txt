@@ -9,6 +9,7 @@ Subpackages
 
    libdebug.architectures.aarch64
    libdebug.architectures.amd64
+   libdebug.architectures.i386
 
 Submodules
 ----------

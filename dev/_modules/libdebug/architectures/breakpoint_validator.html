@@ -436,6 +436,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">libdebug.architectures.aarch64.aarch64_breakpoint_validator</span> <span class="kn">import</span> <span class="n">validate_breakpoint_aarch64</span>
 <span class="kn">from</span> <span class="nn">libdebug.architectures.amd64.amd64_breakpoint_validator</span> <span class="kn">import</span> <span class="n">validate_breakpoint_amd64</span>
+<span class="kn">from</span> <span class="nn">libdebug.architectures.i386.i386_breakpoint_validator</span> <span class="kn">import</span> <span class="n">validate_breakpoint_i386</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">libdebug.data.breakpoint</span> <span class="kn">import</span> <span class="n">Breakpoint</span>
@@ -448,6 +449,8 @@ document.write(`
         <span class="n">validate_breakpoint_aarch64</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">arch</span> <span class="o">==</span> <span class="s2">&quot;amd64&quot;</span><span class="p">:</span>
         <span class="n">validate_breakpoint_amd64</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">arch</span> <span class="o">==</span> <span class="s2">&quot;i386&quot;</span><span class="p">:</span>
+        <span class="n">validate_breakpoint_i386</span><span class="p">(</span><span class="n">bp</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Architecture </span><span class="si">{</span><span class="n">arch</span><span class="si">}</span><span class="s2"> not supported&quot;</span><span class="p">)</span></div>
 

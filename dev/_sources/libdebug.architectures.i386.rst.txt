@@ -1,0 +1,53 @@
+libdebug.architectures.i386 package
+===================================
+
+Submodules
+----------
+
+libdebug.architectures.i386.i386\_breakpoint\_validator module
+--------------------------------------------------------------
+
+.. automodule:: libdebug.architectures.i386.i386_breakpoint_validator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libdebug.architectures.i386.i386\_call\_utilities module
+--------------------------------------------------------
+
+.. automodule:: libdebug.architectures.i386.i386_call_utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libdebug.architectures.i386.i386\_ptrace\_register\_holder module
+-----------------------------------------------------------------
+
+.. automodule:: libdebug.architectures.i386.i386_ptrace_register_holder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libdebug.architectures.i386.i386\_registers module
+--------------------------------------------------
+
+.. automodule:: libdebug.architectures.i386.i386_registers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libdebug.architectures.i386.i386\_stack\_unwinder module
+--------------------------------------------------------
+
+.. automodule:: libdebug.architectures.i386.i386_stack_unwinder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: libdebug.architectures.i386
+   :members:
+   :undoc-members:
+   :show-inheritance:

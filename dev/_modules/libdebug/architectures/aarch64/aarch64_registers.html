@@ -433,19 +433,12 @@ document.write(`
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.data.registers</span> <span class="kn">import</span> <span class="n">Registers</span>
-<span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">get_global_internal_debugger</span>
 
 
 <div class="viewcode-block" id="Aarch64Registers">
 <a class="viewcode-back" href="../../../../libdebug.architectures.aarch64.html#libdebug.architectures.aarch64.aarch64_registers.Aarch64Registers">[docs]</a>
 <span class="k">class</span> <span class="nc">Aarch64Registers</span><span class="p">(</span><span class="n">Registers</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class holds the state of the architectural-dependent registers of a process.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Aarch64Registers</span><span class="p">,</span> <span class="n">thread_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">generic_regs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the Registers object.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span> <span class="o">=</span> <span class="n">get_global_internal_debugger</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_thread_id</span> <span class="o">=</span> <span class="n">thread_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_generic_regs</span> <span class="o">=</span> <span class="n">generic_regs</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class holds the state of the architectural-dependent registers of a process.&quot;&quot;&quot;</span></div>
 
 </pre></div>
 
