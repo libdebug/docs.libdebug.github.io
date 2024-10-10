@@ -863,8 +863,14 @@ If the value is a string, it is treated as a backing file.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provide_vector_fp_regs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/register_holder.html#RegisterHolder.provide_vector_fp_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provide_vector_fp_regs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/register_holder.html#RegisterHolder.provide_vector_fp_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs" title="Link to this definition">#</a></dt>
 <dd><p>Provide the list of vector and floating point registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.register_holder.RegisterHolder.provide_special_regs">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provide_special_regs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/register_holder.html#RegisterHolder.provide_special_regs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.register_holder.RegisterHolder.provide_special_regs" title="Link to this definition">#</a></dt>
+<dd><p>Provide the list of special registers, which are not intended for general-purpose use.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1049,16 +1055,16 @@ backing_file (str): The backing file of the symbol in the target process.</p>
 </dd></dl>
 
 </section>
-<section id="module-libdebug.data.symbol_dict">
-<span id="libdebug-data-symbol-dict-module"></span><h2>libdebug.data.symbol_dict module<a class="headerlink" href="#module-libdebug.data.symbol_dict" title="Link to this heading">#</a></h2>
+<section id="module-libdebug.data.symbol_list">
+<span id="libdebug-data-symbol-list-module"></span><h2>libdebug.data.symbol_list module<a class="headerlink" href="#module-libdebug.data.symbol_list" title="Link to this heading">#</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="libdebug.data.symbol_dict.SymbolDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.symbol_dict.</span></span><span class="sig-name descname"><span class="pre">SymbolDict</span></span><a class="reference internal" href="_modules/libdebug/data/symbol_dict.html#SymbolDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.symbol_dict.SymbolDict" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">defaultdict</span></code></p>
-<p>A dictionary of symbols in the target process.</p>
+<dt class="sig sig-object py" id="libdebug.data.symbol_list.SymbolList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.symbol_list.</span></span><span class="sig-name descname"><span class="pre">SymbolList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libdebug/data/symbol_list.html#SymbolList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.symbol_list.SymbolList" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>A list of symbols in the target process.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="libdebug.data.symbol_dict.SymbolDict.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict"><span class="pre">SymbolDict</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/symbol_dict.html#SymbolDict.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.symbol_dict.SymbolDict.filter" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="libdebug.data.symbol_list.SymbolList.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#libdebug.data.symbol_list.SymbolList" title="libdebug.data.symbol_list.SymbolList"><span class="pre">SymbolList</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/symbol_list.html#SymbolList.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.symbol_list.SymbolList.filter" title="Link to this definition">#</a></dt>
 <dd><p>Filters the symbols according to the specified value.</p>
 <p>If the value is an integer, it is treated as an address.
 If the value is a string, it is treated as a symbol name.</p>
@@ -1067,10 +1073,10 @@ If the value is a string, it is treated as a symbol name.</p>
 <dd class="field-odd"><p><strong>value</strong> (<em>int</em><em> | </em><em>str</em>) – The address or name of the symbol to find.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The dictionary of symbols that match the specified value.</p>
+<dd class="field-even"><p>The symbols matching the specified value.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict">SymbolDict</a>[str, set[<a class="reference internal" href="#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol">Symbol</a>]]</p>
+<dd class="field-odd"><p><a class="reference internal" href="#libdebug.data.symbol_list.SymbolList" title="libdebug.data.symbol_list.SymbolList">SymbolList</a>[<a class="reference internal" href="#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol">Symbol</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1390,6 +1396,7 @@ If the value is a string, it is treated as a symbol name.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.flush"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.flush()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.provide_regs"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.provide_regs()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.provide_vector_fp_regs()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.register_holder.RegisterHolder.provide_special_regs"><code class="docutils literal notranslate"><span class="pre">RegisterHolder.provide_special_regs()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1430,9 +1437,9 @@ If the value is a string, it is treated as a symbol name.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.symbol_dict">libdebug.data.symbol_dict module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol_dict.SymbolDict"><code class="docutils literal notranslate"><span class="pre">SymbolDict</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol_dict.SymbolDict.filter"><code class="docutils literal notranslate"><span class="pre">SymbolDict.filter()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.symbol_list">libdebug.data.symbol_list module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol_list.SymbolList"><code class="docutils literal notranslate"><span class="pre">SymbolList</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.symbol_list.SymbolList.filter"><code class="docutils literal notranslate"><span class="pre">SymbolList.filter()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -433,7 +433,9 @@ document.write(`
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">atexit</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">termios</span> <span class="kn">import</span> <span class="n">TCSANOW</span><span class="p">,</span> <span class="n">tcsetattr</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakKeyDictionary</span>
@@ -463,6 +465,13 @@ document.write(`
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cleanup the internal debugger.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">debugger</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">internal_debugger_holder</span><span class="o">.</span><span class="n">internal_debuggers</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
         <span class="n">debugger</span><span class="p">:</span> <span class="n">InternalDebugger</span>
+
+        <span class="c1"># Restore the original stdin settings, just in case</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">debugger</span><span class="o">.</span><span class="n">stdin_settings_backup</span><span class="p">:</span>
+                <span class="n">tcsetattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">TCSANOW</span><span class="p">,</span> <span class="n">debugger</span><span class="o">.</span><span class="n">stdin_settings_backup</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while restoring the original stdin settings: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">debugger</span><span class="o">.</span><span class="n">instanced</span> <span class="ow">and</span> <span class="n">debugger</span><span class="o">.</span><span class="n">kill_on_exit</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>

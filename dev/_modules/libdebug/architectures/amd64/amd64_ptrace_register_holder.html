@@ -468,6 +468,18 @@ document.write(`
     <span class="s2">&quot;rip&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
+<span class="n">AMD64_SPECIAL_REGS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;eflags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ss&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ds&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;es&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fs_base&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gs_base&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
 
 <span class="k">def</span> <span class="nf">_get_property_64</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">property</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">getter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -722,6 +734,13 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vector_fp_registers</span></div>
 
 
+<div class="viewcode-block" id="Amd64PtraceRegisterHolder.provide_special_regs">
+<a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.provide_special_regs">[docs]</a>
+    <span class="k">def</span> <span class="nf">provide_special_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide the list of special registers, which are not intended for general-purpose use.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AMD64_SPECIAL_REGS</span></div>
+
+
 <div class="viewcode-block" id="Amd64PtraceRegisterHolder.apply_on_regs">
 <a class="viewcode-back" href="../../../../libdebug.architectures.amd64.html#libdebug.architectures.amd64.amd64_ptrace_register_holder.Amd64PtraceRegisterHolder.apply_on_regs">[docs]</a>
     <span class="k">def</span> <span class="nf">apply_on_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Amd64PtraceRegisterHolder</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">Amd64Registers</span><span class="p">,</span> <span class="n">target_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -770,6 +789,9 @@ document.write(`
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_32</span><span class="p">,</span> <span class="n">_get_property_32</span><span class="p">(</span><span class="n">name_64</span><span class="p">))</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_16</span><span class="p">,</span> <span class="n">_get_property_16</span><span class="p">(</span><span class="n">name_64</span><span class="p">))</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_8l</span><span class="p">,</span> <span class="n">_get_property_8l</span><span class="p">(</span><span class="n">name_64</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">AMD64_SPECIAL_REGS</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_64</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
         <span class="c1"># setup special registers</span>
         <span class="n">target_class</span><span class="o">.</span><span class="n">rip</span> <span class="o">=</span> <span class="n">_get_property_64</span><span class="p">(</span><span class="s2">&quot;rip&quot;</span><span class="p">)</span>

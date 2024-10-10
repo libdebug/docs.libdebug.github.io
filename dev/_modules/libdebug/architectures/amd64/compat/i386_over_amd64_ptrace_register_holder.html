@@ -445,6 +445,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.architectures.i386.i386_ptrace_register_holder</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">I386_BASE_REGS</span><span class="p">,</span>
     <span class="n">I386_GP_REGS</span><span class="p">,</span>
+    <span class="n">I386_SPECIAL_REGS</span><span class="p">,</span>
     <span class="n">I386PtraceRegisterHolder</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -504,6 +505,9 @@ document.write(`
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_32</span><span class="p">,</span> <span class="n">_get_property_32</span><span class="p">(</span><span class="n">name_64</span><span class="p">))</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_16</span><span class="p">,</span> <span class="n">_get_property_16</span><span class="p">(</span><span class="n">name_64</span><span class="p">))</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name_8l</span><span class="p">,</span> <span class="n">_get_property_8l</span><span class="p">(</span><span class="n">name_64</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">I386_SPECIAL_REGS</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">target_class</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_get_property_32</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
         <span class="c1"># setup special registers</span>
         <span class="n">target_class</span><span class="o">.</span><span class="n">eip</span> <span class="o">=</span> <span class="n">_get_property_32</span><span class="p">(</span><span class="s2">&quot;rip&quot;</span><span class="p">)</span>

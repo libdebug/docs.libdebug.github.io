@@ -435,10 +435,11 @@ document.write(`
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">select</span> <span class="kn">import</span> <span class="n">select</span>
+<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n">EAGAIN</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
+<span class="kn">from</span> <span class="nn">libdebug.commlink.buffer_data</span> <span class="kn">import</span> <span class="n">BufferData</span>
 <span class="kn">from</span> <span class="nn">libdebug.commlink.libterminal</span> <span class="kn">import</span> <span class="n">LibTerminal</span>
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">extend_internal_debugger</span><span class="p">,</span> <span class="n">provide_internal_debugger</span>
 <span class="kn">from</span> <span class="nn">libdebug.liblog</span> <span class="kn">import</span> <span class="n">liblog</span>
@@ -454,7 +455,6 @@ document.write(`
 
     <span class="n">timeout_default</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">prompt_default</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;$ &quot;</span>
-    <span class="n">__end_interactive_event</span><span class="p">:</span> <span class="n">Event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">stdin_write</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stdout_read</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stderr_read</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the PipeManager class.</span>
@@ -464,118 +464,167 @@ document.write(`
 <span class="sd">            stdout_read (int): file descriptor for stdout read.</span>
 <span class="sd">            stderr_read (int): file descriptor for stderr read.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stdin_write</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stdout_read</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stderr_read</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stdin_write</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stdin_write</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stdout_read</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stderr_read</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_is_open</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_is_open</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="p">:</span> <span class="n">InternalDebugger</span> <span class="o">=</span> <span class="n">provide_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_recv</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__stdout_buffer</span><span class="p">:</span> <span class="n">BufferData</span> <span class="o">=</span> <span class="n">BufferData</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__stderr_buffer</span><span class="p">:</span> <span class="n">BufferData</span> <span class="o">=</span> <span class="n">BufferData</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="p">:</span> <span class="n">Event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_raw_recv</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
         <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">stderr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives at most numb bytes from the child process.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            numb (int, optional): number of bytes to receive. Defaults to None.</span>
-<span class="sd">            timeout (float, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            numb (int | None, optional): number of bytes to receive. Defaults to None.</span>
+<span class="sd">            timeout (float, optional): timeout in seconds. Defaults to None.</span>
 <span class="sd">            stderr (bool, optional): receive from stderr. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bytes: received bytes from the child process stdout.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError: numb is negative.</span>
-<span class="sd">            RuntimeError: no stdout pipe of the child process.</span>
+<span class="sd">            int: number of bytes received.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pipe_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span> <span class="k">if</span> <span class="n">stderr</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span>
+        <span class="n">pipe_read</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_read</span> <span class="k">if</span> <span class="n">stderr</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_read</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">pipe_read</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No pipe of the child process&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Buffer for the received data</span>
-        <span class="n">data_buffer</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+        <span class="n">data_buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stderr_buffer</span> <span class="k">if</span> <span class="n">stderr</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stdout_buffer</span>
 
-        <span class="k">if</span> <span class="n">numb</span><span class="p">:</span>
+        <span class="n">received_numb</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">numb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Checking the numb</span>
             <span class="k">if</span> <span class="n">numb</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The number of bytes to receive must be positive&quot;</span><span class="p">)</span>
 
             <span class="c1"># Setting the alarm</span>
             <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">timeout</span>
-            <span class="k">while</span> <span class="n">numb</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end_time</span><span class="p">:</span>
+
+            <span class="k">while</span> <span class="n">numb</span> <span class="o">&gt;</span> <span class="n">received_numb</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end_time</span><span class="p">:</span>
                     <span class="c1"># Timeout reached</span>
                     <span class="k">break</span>
 
-                <span class="c1"># Adjust the timeout for select to the remaining time</span>
-                <span class="n">remaining_time</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
-                <span class="n">ready</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">pipe_read</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="n">remaining_time</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">ready</span><span class="p">:</span>
-                    <span class="c1"># No data ready within the remaining timeout</span>
-                    <span class="k">break</span>
-
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">pipe_read</span><span class="p">,</span> <span class="n">numb</span><span class="p">)</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">pipe_read</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+                        <span class="c1"># No more data available</span>
+                        <span class="k">break</span>
                 <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Broken pipe. Is the child process still running?&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+                    <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">EAGAIN</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">stderr</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_is_open</span> <span class="o">=</span> <span class="kc">False</span>
 
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
-                    <span class="c1"># No more data available</span>
-                    <span class="k">break</span>
-
-                <span class="n">numb</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-                <span class="n">data_buffer</span> <span class="o">+=</span> <span class="n">data</span>
+                <span class="n">received_numb</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">data_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">ready</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">pipe_read</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="n">timeout</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">ready</span><span class="p">:</span>
-                <span class="c1"># Read all available bytes up to 4096</span>
+            <span class="k">try</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">pipe_read</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>
-                <span class="n">data_buffer</span> <span class="o">+=</span> <span class="n">data</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">received_numb</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                    <span class="n">data_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">!=</span> <span class="n">EAGAIN</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">stderr</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_is_open</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_is_open</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="n">liblog</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_buffer</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes from the child process: </span><span class="si">{</span><span class="n">data_buffer</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">data_buffer</span>
+        <span class="k">if</span> <span class="n">received_numb</span><span class="p">:</span>
+            <span class="n">liblog</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;stderr&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">stderr</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;stdout&#39;</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">received_numb</span><span class="si">}</span><span class="s2">B: </span><span class="si">{</span><span class="n">data_buffer</span><span class="p">[:</span><span class="n">received_numb</span><span class="p">]</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">received_numb</span>
 
 <div class="viewcode-block" id="PipeManager.close">
 <a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.close">[docs]</a>
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes all the pipes of the child process.&quot;&quot;&quot;</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">)</span></div>
+        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stdin_write</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stdout_read</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stderr_read</span><span class="p">)</span></div>
 
+
+    <span class="k">def</span> <span class="nf">_buffered_recv</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stderr</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives at most numb bytes from the child process stdout or stderr.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            numb (int): number of bytes to receive.</span>
+<span class="sd">            timeout (int): timeout in seconds.</span>
+<span class="sd">            stderr (bool): receive from stderr.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bytes: received bytes from the child process stdout or stderr.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data_buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stderr_buffer</span> <span class="k">if</span> <span class="n">stderr</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stdout_buffer</span>
+        <span class="n">open_flag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_is_open</span> <span class="k">if</span> <span class="n">stderr</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_is_open</span>
+
+        <span class="n">data_buffer_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_buffer</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">data_buffer_len</span> <span class="o">&gt;=</span> <span class="n">numb</span><span class="p">:</span>
+            <span class="c1"># We have enough data in the buffer</span>
+            <span class="n">received</span> <span class="o">=</span> <span class="n">data_buffer</span><span class="p">[:</span><span class="n">numb</span><span class="p">]</span>
+            <span class="n">data_buffer</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="n">data_buffer</span><span class="p">[</span><span class="n">numb</span><span class="p">:])</span>
+        <span class="k">elif</span> <span class="n">open_flag</span><span class="p">:</span>
+            <span class="c1"># We can receive more data</span>
+            <span class="n">remaining</span> <span class="o">=</span> <span class="n">numb</span> <span class="o">-</span> <span class="n">data_buffer_len</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_raw_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="n">remaining</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="n">received</span> <span class="o">=</span> <span class="n">data_buffer</span><span class="p">[:</span><span class="n">numb</span><span class="p">]</span>
+            <span class="n">data_buffer</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="n">data_buffer</span><span class="p">[</span><span class="n">numb</span><span class="p">:])</span>
+        <span class="k">elif</span> <span class="n">data_buffer_len</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># The pipe is not available but we have some data in the buffer. We will return just that</span>
+            <span class="n">received</span> <span class="o">=</span> <span class="n">data_buffer</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+            <span class="n">data_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The pipe is not available and no data is buffered</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Broken </span><span class="si">{</span><span class="s1">&#39;stderr&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">stderr</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;stdout&#39;</span><span class="si">}</span><span class="s2"> pipe. Is the child process still alive?&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">received</span>
 
 <div class="viewcode-block" id="PipeManager.recv">
 <a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recv">[docs]</a>
-    <span class="k">def</span> <span class="nf">recv</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">recv</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
+        <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4096</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives at most numb bytes from the child process stdout.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            numb (int, optional): number of bytes to receive. Defaults to None.</span>
+<span class="sd">            numb (int, optional): number of bytes to receive. Defaults to 4096.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received bytes from the child process stdout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="n">numb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="n">numb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PipeManager.recverr">
 <a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recverr">[docs]</a>
-    <span class="k">def</span> <span class="nf">recverr</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">recverr</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
+        <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4096</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives at most numb bytes from the child process stderr.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            numb (int, optional): number of bytes to receive. Defaults to None.</span>
+<span class="sd">            numb (int, optional): number of bytes to receive. Defaults to 4096.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received bytes from the child process stderr.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="n">numb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffered_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="n">numb</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="nf">_recvonceuntil</span><span class="p">(</span>
@@ -584,6 +633,7 @@ document.write(`
         <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
         <span class="n">stderr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives data from the child process until the delimiters are found.</span>
 
@@ -592,42 +642,55 @@ document.write(`
 <span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
 <span class="sd">            timeout (float, optional): timeout in seconds. Defaults to timeout_default.</span>
 <span class="sd">            stderr (bool, optional): receive from stderr. Defaults to False.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received data from the child process stdout.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            RuntimeError: no stdout pipe of the child process.</span>
-<span class="sd">            TimeoutError: timeout reached.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">delims</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The delimiters are a string, converting to bytes&quot;</span><span class="p">)</span>
             <span class="n">delims</span> <span class="o">=</span> <span class="n">delims</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 
         <span class="c1"># Buffer for the received data</span>
-        <span class="n">data_buffer</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+        <span class="n">data_buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stderr_buffer</span> <span class="k">if</span> <span class="n">stderr</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stdout_buffer</span>
 
         <span class="c1"># Setting the alarm</span>
         <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">timeout</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end_time</span><span class="p">:</span>
-                <span class="c1"># Timeout reached</span>
-                <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Timeout reached&quot;</span><span class="p">)</span>
+            <span class="n">open_flag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_is_open</span> <span class="k">if</span> <span class="n">stderr</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_is_open</span>
 
-            <span class="c1"># Adjust the timeout for select to the remaining time</span>
-            <span class="n">remaining_time</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
-
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">remaining_time</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
-
-            <span class="n">data_buffer</span> <span class="o">+=</span> <span class="n">data</span>
-
-            <span class="k">if</span> <span class="n">delims</span> <span class="ow">in</span> <span class="n">data_buffer</span><span class="p">:</span>
-                <span class="c1"># Delims reached</span>
-                <span class="k">if</span> <span class="n">drop</span><span class="p">:</span>
-                    <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">data_buffer</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">delims</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">until</span> <span class="o">:=</span> <span class="n">data_buffer</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">delims</span><span class="p">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
                 <span class="k">break</span>
 
-        <span class="k">return</span> <span class="n">data_buffer</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end_time</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Timeout reached&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">open_flag</span><span class="p">:</span>
+                <span class="c1"># The delimiters are not in the buffer and the pipe is not available</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Broken </span><span class="si">{</span><span class="s1">&#39;stderr&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">stderr</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;stdout&#39;</span><span class="si">}</span><span class="s2"> pipe. Is the child process still alive?&quot;</span><span class="p">)</span>
+
+            <span class="n">received_numb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_recv</span><span class="p">(</span><span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">received_numb</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">running</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">is_debugging</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="n">event</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">get_event_type</span><span class="p">())</span>
+            <span class="p">):</span>
+                <span class="c1"># We will not receive more data, the child process is not running</span>
+                <span class="k">if</span> <span class="n">optional</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+                <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">get_event_type</span><span class="p">()</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Receive until error. The debugged process has stopped due to the following event(s). </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="n">received_data</span> <span class="o">=</span> <span class="n">data_buffer</span><span class="p">[:</span><span class="n">until</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">drop</span><span class="p">:</span>
+            <span class="c1"># Include the delimiters in the received data</span>
+            <span class="n">received_data</span> <span class="o">+=</span> <span class="n">data_buffer</span><span class="p">[</span><span class="n">until</span> <span class="p">:</span> <span class="n">until</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">delims</span><span class="p">)]</span>
+        <span class="n">remaining_data</span> <span class="o">=</span> <span class="n">data_buffer</span><span class="p">[</span><span class="n">until</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">delims</span><span class="p">)</span> <span class="p">:]</span>
+        <span class="n">data_buffer</span><span class="o">.</span><span class="n">overwrite</span><span class="p">(</span><span class="n">remaining_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">received_data</span>
 
     <span class="k">def</span> <span class="nf">_recvuntil</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
@@ -636,6 +699,7 @@ document.write(`
         <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
         <span class="n">stderr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives data from the child process until the delimiters are found occurences time.</span>
 
@@ -645,6 +709,7 @@ document.write(`
 <span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
 <span class="sd">            timeout (float, optional): timeout in seconds. Defaults to timeout_default.</span>
 <span class="sd">            stderr (bool, optional): receive from stderr. Defaults to False.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received data from the child process stdout.</span>
@@ -662,7 +727,13 @@ document.write(`
             <span class="c1"># Adjust the timeout for select to the remaining time</span>
             <span class="n">remaining_time</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
 
-            <span class="n">data_buffer</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recvonceuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">remaining_time</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="n">data_buffer</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recvonceuntil</span><span class="p">(</span>
+                <span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span>
+                <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="n">remaining_time</span><span class="p">,</span>
+                <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">,</span>
+                <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span>
+            <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">data_buffer</span>
 
@@ -674,6 +745,7 @@ document.write(`
         <span class="n">occurences</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives data from the child process stdout until the delimiters are found.</span>
 
@@ -682,6 +754,7 @@ document.write(`
 <span class="sd">            occurences (int, optional): number of delimiters to find. Defaults to 1.</span>
 <span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received data from the child process stdout.</span>
@@ -692,6 +765,7 @@ document.write(`
             <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span>
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
             <span class="n">stderr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
@@ -703,6 +777,7 @@ document.write(`
         <span class="n">occurences</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives data from the child process stderr until the delimiters are found.</span>
 
@@ -711,6 +786,7 @@ document.write(`
 <span class="sd">            occurences (int, optional): number of delimiters to find. Defaults to 1.</span>
 <span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received data from the child process stderr.</span>
@@ -721,39 +797,54 @@ document.write(`
             <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span>
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
             <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PipeManager.recvline">
 <a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recvline">[docs]</a>
-    <span class="k">def</span> <span class="nf">recvline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numlines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">recvline</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
+        <span class="n">numlines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives numlines lines from the child process stdout.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            numlines (int, optional): number of lines to receive. Defaults to 1.</span>
 <span class="sd">            drop (bool, optional): drop the line ending. Defaults to True.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received lines from the child process stdout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">numlines</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">numlines</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PipeManager.recverrline">
 <a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.recverrline">[docs]</a>
-    <span class="k">def</span> <span class="nf">recverrline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">numlines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">recverrline</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
+        <span class="n">numlines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives numlines lines from the child process stderr.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            numlines (int, optional): number of lines to receive. Defaults to 1.</span>
 <span class="sd">            drop (bool, optional): drop the line ending. Defaults to True.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received lines from the child process stdout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">recverruntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">numlines</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">recverruntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">numlines</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="PipeManager.send">
@@ -770,7 +861,7 @@ document.write(`
 <span class="sd">        Raises:</span>
 <span class="sd">            RuntimeError: no stdin pipe of the child process.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stdin_write</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No stdin pipe of the child process&quot;</span><span class="p">)</span>
 
         <span class="n">liblog</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes to the child process: </span><span class="si">{</span><span class="n">data</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -780,7 +871,7 @@ document.write(`
             <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">number_bytes</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">number_bytes</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stdin_write</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Broken pipe. Is the child process still running?&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
@@ -813,8 +904,9 @@ document.write(`
         <span class="n">occurences</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends data to the child process stdin after the delimiters are found.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends data to the child process stdin after the delimiters are found in the stdout.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            delims (bytes): delimiters where to stop.</span>
@@ -822,12 +914,49 @@ document.write(`
 <span class="sd">            occurences (int, optional): number of delimiters to find. Defaults to 1.</span>
 <span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received data from the child process stdout.</span>
 <span class="sd">            int: number of bytes sent.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">received</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">occurences</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="n">received</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">occurences</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">)</span>
+        <span class="n">sent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">received</span><span class="p">,</span> <span class="n">sent</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PipeManager.sendaftererr">
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.sendaftererr">[docs]</a>
+    <span class="k">def</span> <span class="nf">sendaftererr</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
+        <span class="n">delims</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
+        <span class="n">occurences</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends data to the child process stdin after the delimiters are found in stderr.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            delims (bytes): delimiters where to stop.</span>
+<span class="sd">            data (bytes): data to send.</span>
+<span class="sd">            occurences (int, optional): number of delimiters to find. Defaults to 1.</span>
+<span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
+<span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bytes: received data from the child process stderr.</span>
+<span class="sd">            int: number of bytes sent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">received</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recverruntil</span><span class="p">(</span>
+            <span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span>
+            <span class="n">occurences</span><span class="o">=</span><span class="n">occurences</span><span class="p">,</span>
+            <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">sent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">received</span><span class="p">,</span> <span class="n">sent</span><span class="p">)</span></div>
 
@@ -841,8 +970,9 @@ document.write(`
         <span class="n">occurences</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends line to the child process stdin after the delimiters are found.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends line to the child process stdin after the delimiters are found in the stdout.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            delims (bytes): delimiters where to stop.</span>
@@ -850,69 +980,114 @@ document.write(`
 <span class="sd">            occurences (int, optional): number of delimiters to find. Defaults to 1.</span>
 <span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
 <span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            bytes: received data from the child process stdout.</span>
 <span class="sd">            int: number of bytes sent.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">received</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">occurences</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="n">received</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span> <span class="n">occurences</span><span class="o">=</span><span class="n">occurences</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">)</span>
+        <span class="n">sent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">received</span><span class="p">,</span> <span class="n">sent</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PipeManager.sendlineaftererr">
+<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.sendlineaftererr">[docs]</a>
+    <span class="k">def</span> <span class="nf">sendlineaftererr</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span>
+        <span class="n">delims</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
+        <span class="n">occurences</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">drop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">timeout_default</span><span class="p">,</span>
+        <span class="n">optional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends line to the child process stdin after the delimiters are found in the stderr.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            delims (bytes): delimiters where to stop.</span>
+<span class="sd">            data (bytes): data to send.</span>
+<span class="sd">            occurences (int, optional): number of delimiters to find. Defaults to 1.</span>
+<span class="sd">            drop (bool, optional): drop the delimiter. Defaults to False.</span>
+<span class="sd">            timeout (int, optional): timeout in seconds. Defaults to timeout_default.</span>
+<span class="sd">            optional (bool, optional): whether to ignore the wait for the received input if the command is executed when the process is stopped. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bytes: received data from the child process stderr.</span>
+<span class="sd">            int: number of bytes sent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">received</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recverruntil</span><span class="p">(</span>
+            <span class="n">delims</span><span class="o">=</span><span class="n">delims</span><span class="p">,</span>
+            <span class="n">occurences</span><span class="o">=</span><span class="n">occurences</span><span class="p">,</span>
+            <span class="n">drop</span><span class="o">=</span><span class="n">drop</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">optional</span><span class="o">=</span><span class="n">optional</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">sent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">received</span><span class="p">,</span> <span class="n">sent</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="nf">_recv_for_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Receives data from the child process.&quot;&quot;&quot;</span>
-        <span class="n">stdout_is_open</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">stderr_is_open</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">stdout_has_warned</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">stderr_has_warned</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">stdout_is_open</span> <span class="ow">or</span> <span class="n">stderr_is_open</span><span class="p">):</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span> <span class="ow">or</span> <span class="p">(</span><span class="n">stdout_has_warned</span> <span class="ow">and</span> <span class="n">stderr_has_warned</span><span class="p">)):</span>
             <span class="c1"># We can afford to treat stdout and stderr sequentially. This approach should also prevent</span>
             <span class="c1"># messing up the order of the information printed by the child process.</span>
-            <span class="c1"># To avoid starvation, we will read at most one byte at a time and force a switch between pipes</span>
-            <span class="c1"># upon receiving a newline character.</span>
-            <span class="k">if</span> <span class="n">stdout_is_open</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="k">while</span> <span class="n">recv_stdout</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-                        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="o">=</span><span class="n">recv_stdout</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">recv_stdout</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
-                            <span class="k">break</span>
-                <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
-                    <span class="c1"># The child process has closed the stdout pipe</span>
-                    <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The stdout pipe of the child process is not available anymore&quot;</span><span class="p">)</span>
-                    <span class="n">stdout_is_open</span> <span class="o">=</span> <span class="kc">False</span>
-                    <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">stderr_is_open</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="k">while</span> <span class="n">recv_stderr</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">numb</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-                        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="o">=</span><span class="n">recv_stderr</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">recv_stderr</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
-                            <span class="k">break</span>
-                <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
-                    <span class="c1"># The child process has closed the stderr pipe</span>
-                    <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The stderr pipe of the child process is not available anymore&quot;</span><span class="p">)</span>
-                    <span class="n">stderr_is_open</span> <span class="o">=</span> <span class="kc">False</span>
-                    <span class="k">continue</span>
+            <span class="c1"># To avoid starvation, we switch between pipes upon receiving a bunch of data from one of them.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stdout_is_open</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">new_recv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_recv</span><span class="p">()</span>
+                    <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stdout_buffer</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">new_recv</span> <span class="ow">or</span> <span class="n">payload</span><span class="p">):</span>
+                        <span class="c1"># No more data available in the stdout pipe at the moment</span>
+                        <span class="k">break</span>
+
+                    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__stdout_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">stdout_has_warned</span><span class="p">:</span>
+                <span class="c1"># The child process has closed the stdout pipe and we have to print the warning message</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The stdout pipe of the child process is not available anymore&quot;</span><span class="p">)</span>
+                <span class="n">stdout_has_warned</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stderr_is_open</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">new_recv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_recv</span><span class="p">(</span><span class="n">stderr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stderr_buffer</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">new_recv</span> <span class="ow">or</span> <span class="n">payload</span><span class="p">):</span>
+                        <span class="c1"># No more data available in the stderr pipe at the moment</span>
+                        <span class="k">break</span>
+
+                    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__stderr_buffer</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">stderr_has_warned</span><span class="p">:</span>
+                <span class="c1"># The child process has closed the stderr pipe</span>
+                <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The stderr pipe of the child process is not available anymore&quot;</span><span class="p">)</span>
+                <span class="n">stderr_has_warned</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="PipeManager.interactive">
 <a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.pipe_manager.PipeManager.interactive">[docs]</a>
-    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">prompt_default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PipeManager</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">prompt_default</span><span class="p">,</span> <span class="n">auto_quit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Manually interact with the child process.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            prompt (str, optional): prompt for the interactive mode. Defaults to &quot;$ &quot; (prompt_default).</span>
+<span class="sd">            auto_quit (bool, optional): whether to automatically quit the interactive mode when the child process is not running. Defaults to False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">liblog</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Calling interactive mode&quot;</span><span class="p">)</span>
 
         <span class="c1"># Set up and run the terminal</span>
         <span class="k">with</span> <span class="n">extend_internal_debugger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="n">libterminal</span> <span class="o">=</span> <span class="n">LibTerminal</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendline</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="p">)</span>
+            <span class="n">libterminal</span> <span class="o">=</span> <span class="n">LibTerminal</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendline</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="p">,</span> <span class="n">auto_quit</span><span class="p">)</span>
 
         <span class="c1"># Receive data from the child process&#39;s stdout and stderr pipes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_recv_for_interactive</span><span class="p">()</span>
 
         <span class="c1"># Be sure that the interactive mode has ended</span>
         <span class="c1"># If the the stderr and stdout pipes are closed, the interactive mode will continue until the user manually</span>
-        <span class="c1"># stops it or also the stdin pipe is closed</span>
+        <span class="c1"># stops it</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__end_interactive_event</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
         <span class="c1"># Unset the interactive mode event</span>

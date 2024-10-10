@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.commlink.logging_lexer &#8212; libdebug 0.6.0 documentation</title>
+    <title>libdebug.data.symbol_list &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/commlink/logging_lexer';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/data/symbol_list';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -406,7 +406,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">libdebug.com...</li>
+    <li class="breadcrumb-item active" aria-current="page">libdebug.dat...</li>
   </ul>
 </nav>
 </div>
@@ -423,72 +423,111 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.commlink.logging_lexer</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.data.symbol_list</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
 <span class="c1"># Copyright (c) 2024 Gabriele Digregorio. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
-
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">ClassVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span> <span class="nn">prompt_toolkit.lexers</span> <span class="kn">import</span> <span class="n">Lexer</span>
-
-<span class="kn">from</span> <span class="nn">libdebug.utils.ansi_escape_codes</span> <span class="kn">import</span> <span class="n">ANSIColors</span>
+<span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="n">get_global_internal_debugger</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">prompt_toolkit.document</span> <span class="kn">import</span> <span class="n">Document</span>
+    <span class="kn">from</span> <span class="nn">libdebug.data.symbol</span> <span class="kn">import</span> <span class="n">Symbol</span>
 
 
-<div class="viewcode-block" id="LoggingLexer">
-<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.logging_lexer.LoggingLexer">[docs]</a>
-<span class="k">class</span> <span class="nc">LoggingLexer</span><span class="p">(</span><span class="n">Lexer</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lexer to colorize the output of the terminal.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SymbolList">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.symbol_list.SymbolList">[docs]</a>
+<span class="k">class</span> <span class="nc">SymbolList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A list of symbols in the target process.&quot;&quot;&quot;</span>
 
-    <span class="n">patterns</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">BRIGHT_YELLOW</span><span class="si">}</span><span class="s2">WARNING</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">ERROR</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
-        <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">INFO</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">DEFAULT_COLOR</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SymbolList</span><span class="p">,</span> <span class="n">symbols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Symbol</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the SymbolDict.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
 
-<div class="viewcode-block" id="LoggingLexer.lex_document">
-<a class="viewcode-back" href="../../../libdebug.commlink.html#libdebug.commlink.logging_lexer.LoggingLexer.lex_document">[docs]</a>
-    <span class="k">def</span> <span class="nf">lex_document</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">LoggingLexer</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Document</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a callable that takes a line number and returns a list of tokens for that line.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_search_by_address</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SymbolList</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Searches for a symbol by address.</span>
 
-        <span class="k">def</span> <span class="nf">get_line_tokens</span><span class="p">(</span><span class="n">line_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
-            <span class="n">line</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">line_number</span><span class="p">]</span>
-            <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;class:warning&quot;</span><span class="p">,</span> <span class="s2">&quot;WARNING&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;class:error&quot;</span><span class="p">,</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;class:info&quot;</span><span class="p">,</span> <span class="s2">&quot;INFO&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;]&quot;</span><span class="p">))</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">tokens</span>
+<span class="sd">        Args:</span>
+<span class="sd">            address (int): The address of the symbol to search for.</span>
 
-        <span class="k">return</span> <span class="n">get_line_tokens</span></div>
-</div>
+<span class="sd">        Returns:</span>
+<span class="sd">            list[Symbol]: The list of symbols that match the specified address.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Find the memory map that contains the address</span>
+        <span class="k">if</span> <span class="n">maps</span> <span class="o">:=</span> <span class="n">get_global_internal_debugger</span><span class="p">()</span><span class="o">.</span><span class="n">maps</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+            <span class="n">address</span> <span class="o">-=</span> <span class="n">maps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Address </span><span class="si">{</span><span class="n">address</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2"> does not belong to any memory map. You must specify an absolute address.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">symbol</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">symbol</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">symbol</span><span class="o">.</span><span class="n">end</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_search_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SymbolList</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Searches for a symbol by name.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): The name of the symbol to search for.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[Symbol]: The list of symbols that match the specified name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">exact_match</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">no_exact_match</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># We first want to list the symbols that exactly match the name</span>
+        <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">symbol</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">exact_match</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                <span class="n">no_exact_match</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">exact_match</span> <span class="o">+</span> <span class="n">no_exact_match</span>
+
+<div class="viewcode-block" id="SymbolList.filter">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.symbol_list.SymbolList.filter">[docs]</a>
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SymbolList</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymbolList</span><span class="p">[</span><span class="n">Symbol</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Filters the symbols according to the specified value.</span>
+
+<span class="sd">        If the value is an integer, it is treated as an address.</span>
+<span class="sd">        If the value is a string, it is treated as a symbol name.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (int | str): The address or name of the symbol to find.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            SymbolList[Symbol]: The symbols matching the specified value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">filtered_symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_by_address</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filtered_symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_by_name</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The value must be an integer or a string.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">SymbolList</span><span class="p">(</span><span class="n">filtered_symbols</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SymbolList</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Symbol</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the symbol with the specified name.&quot;&quot;&quot;</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">symbol</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">symbol</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">symbols</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Symbol &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">symbols</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the hash of the symbol list.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if the symbol list is equal to another object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">SymbolList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the string representation of the SymbolDict without the default factory.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SymbolList(</span><span class="si">{</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span></div>
 
 </pre></div>
 

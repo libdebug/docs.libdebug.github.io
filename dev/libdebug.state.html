@@ -479,6 +479,12 @@ document.write(`
 <dd><p>Clears the context.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.state.resume_context.ResumeContext.get_event_type">
+<span class="sig-name descname"><span class="pre">get_event_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/libdebug/state/resume_context.html#ResumeContext.get_event_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.state.resume_context.ResumeContext.get_event_type" title="Link to this definition">#</a></dt>
+<dd><p>Returns the event type to be printed.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -488,37 +494,37 @@ document.write(`
 <p>A class representing the type of event that caused the resume decision.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.state.resume_context.EventType.UNKNOWN">
-<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'unknown</span> <span class="pre">event'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.UNKNOWN" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Unknown</span> <span class="pre">Event'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.UNKNOWN" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.state.resume_context.EventType.BREAKPOINT">
-<span class="sig-name descname"><span class="pre">BREAKPOINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'breakpoint'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.BREAKPOINT" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">BREAKPOINT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Breakpoint'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.BREAKPOINT" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.state.resume_context.EventType.SYSCALL">
-<span class="sig-name descname"><span class="pre">SYSCALL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'syscall'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.SYSCALL" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">SYSCALL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Syscall'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.SYSCALL" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.state.resume_context.EventType.SIGNAL">
-<span class="sig-name descname"><span class="pre">SIGNAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'signal'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.SIGNAL" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">SIGNAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Signal'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.SIGNAL" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.state.resume_context.EventType.USER_INTERRUPT">
-<span class="sig-name descname"><span class="pre">USER_INTERRUPT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'user</span> <span class="pre">interrupt'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.USER_INTERRUPT" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">USER_INTERRUPT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'User</span> <span class="pre">Interrupt'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.USER_INTERRUPT" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.state.resume_context.EventType.STEP">
-<span class="sig-name descname"><span class="pre">STEP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'step'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.STEP" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">STEP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Step'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.STEP" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.state.resume_context.EventType.STARTUP">
-<span class="sig-name descname"><span class="pre">STARTUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'process</span> <span class="pre">startup'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.STARTUP" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">STARTUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Process</span> <span class="pre">Startup'</span></em><a class="headerlink" href="#libdebug.state.resume_context.EventType.STARTUP" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -870,6 +876,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.state.resume_context">libdebug.state.resume_context module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.resume_context.ResumeContext"><code class="docutils literal notranslate"><span class="pre">ResumeContext</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.resume_context.ResumeContext.clear"><code class="docutils literal notranslate"><span class="pre">ResumeContext.clear()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.resume_context.ResumeContext.get_event_type"><code class="docutils literal notranslate"><span class="pre">ResumeContext.get_event_type()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.state.resume_context.EventType"><code class="docutils literal notranslate"><span class="pre">EventType</span></code></a><ul class="nav section-nav flex-column">

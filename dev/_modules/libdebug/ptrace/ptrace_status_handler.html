@@ -498,7 +498,7 @@ document.write(`
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">thread</span><span class="p">,</span> <span class="s2">&quot;instruction_pointer&quot;</span><span class="p">):</span>
             <span class="c1"># This is a signal trap hit on process startup</span>
             <span class="c1"># Do not resume the process until the user decides to do so</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">STARTUP</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">STARTUP</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">forward_signal</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">return</span>
@@ -537,7 +537,7 @@ document.write(`
                 <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Watchpoint hit at 0x</span><span class="si">%x</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">bp</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">bp</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">bp</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">forward_signal</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">bp</span><span class="o">.</span><span class="n">hit_count</span> <span class="o">+=</span> <span class="mi">1</span>
 
@@ -545,7 +545,7 @@ document.write(`
                 <span class="n">bp</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">thread</span><span class="p">,</span> <span class="n">bp</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># If the breakpoint has no callback, we need to stop the process despite the other signals</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">BREAKPOINT</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">BREAKPOINT</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_manage_syscall_on_enter</span><span class="p">(</span>
@@ -625,7 +625,7 @@ document.write(`
             <span class="n">handler</span><span class="o">.</span><span class="n">_has_entered</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_user</span> <span class="ow">and</span> <span class="n">handler</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
             <span class="c1"># If the syscall has no callback, we need to stop the process despite the other signals</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">SYSCALL</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="p">[</span><span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">SYSCALL</span>
             <span class="n">handler</span><span class="o">.</span><span class="n">_has_entered</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -647,6 +647,8 @@ document.write(`
             <span class="c1"># This is a syscall we don&#39;t care about</span>
             <span class="c1"># Resume the execution</span>
             <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">handler</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">handler</span><span class="o">.</span><span class="n">_has_entered</span><span class="p">:</span>
             <span class="c1"># The syscall is being entered</span>
@@ -693,7 +695,7 @@ document.write(`
             <span class="n">handler</span><span class="o">.</span><span class="n">_skip_exit</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_enter_user</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">handler</span><span class="o">.</span><span class="n">on_exit_user</span> <span class="ow">and</span> <span class="n">handler</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
                 <span class="c1"># If the syscall has no callback, we need to stop the process despite the other signals</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">SYSCALL</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="p">[</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">SYSCALL</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">_manage_caught_signal</span><span class="p">(</span>
@@ -764,6 +766,8 @@ document.write(`
             <span class="c1"># Handle all signals is enabled</span>
             <span class="n">catcher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">caught_signals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
+            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="p">[</span><span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">catcher</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">_manage_caught_signal</span><span class="p">(</span><span class="n">catcher</span><span class="p">,</span> <span class="n">thread</span><span class="p">,</span> <span class="n">signal_number</span><span class="p">,</span> <span class="p">{</span><span class="n">signal_number</span><span class="p">})</span>
 
     <span class="k">def</span> <span class="nf">_internal_signal_handler</span><span class="p">(</span>
@@ -786,7 +790,7 @@ document.write(`
                 <span class="n">pid</span><span class="p">,</span>
                 <span class="n">resolve_signal_name</span><span class="p">(</span><span class="n">signum</span><span class="p">),</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">USER_INTERRUPT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">USER_INTERRUPT</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">force_interrupt</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">forward_signal</span> <span class="o">=</span> <span class="kc">False</span>
@@ -797,7 +801,7 @@ document.write(`
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">is_a_step</span><span class="p">:</span>
                 <span class="c1"># The process is stepping, we need to stop the execution</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">STEP</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">=</span> <span class="n">EventType</span><span class="o">.</span><span class="n">STEP</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">resume</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">is_a_step</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">forward_signal</span> <span class="o">=</span> <span class="kc">False</span>

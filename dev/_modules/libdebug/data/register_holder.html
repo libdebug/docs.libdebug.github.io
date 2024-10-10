@@ -500,8 +500,15 @@ document.write(`
 <div class="viewcode-block" id="RegisterHolder.provide_vector_fp_regs">
 <a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.register_holder.RegisterHolder.provide_vector_fp_regs">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">provide_vector_fp_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">RegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">provide_vector_fp_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">RegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide the list of vector and floating point registers.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="RegisterHolder.provide_special_regs">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.register_holder.RegisterHolder.provide_special_regs">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">provide_special_regs</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">RegisterHolder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide the list of special registers, which are not intended for general-purpose use.&quot;&quot;&quot;</span></div>
 </div>
 
 </pre></div>

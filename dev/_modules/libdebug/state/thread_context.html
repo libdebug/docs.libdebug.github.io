@@ -671,31 +671,34 @@ document.write(`
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">return_address</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2"> &lt;</span><span class="si">{</span><span class="n">return_address_symbol</span><span class="si">}</span><span class="s2">&gt; </span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
+    <span class="k">def</span> <span class="nf">_pprint_reg</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">,</span> <span class="n">register</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">formatted_attr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">maps</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">attr</span><span class="p">):</span>
+            <span class="n">permissions</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">permissions</span>
+            <span class="k">if</span> <span class="s2">&quot;rwx&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span>
+                <span class="n">style</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">UNDERLINE</span>
+            <span class="k">elif</span> <span class="s2">&quot;x&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span>
+            <span class="k">elif</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">YELLOW</span>
+            <span class="k">elif</span> <span class="s2">&quot;r&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">GREEN</span>
+
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">or</span> <span class="n">style</span><span class="p">:</span>
+            <span class="n">formatted_attr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">style</span><span class="si">}{</span><span class="n">attr</span><span class="si">:</span><span class="s2">#x</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">register</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">formatted_attr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
 <div class="viewcode-block" id="ThreadContext.pprint_registers">
 <a class="viewcode-back" href="../../../libdebug.state.html#libdebug.state.thread_context.ThreadContext.pprint_registers">[docs]</a>
     <span class="k">def</span> <span class="nf">pprint_registers</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty prints the thread&#39;s registers.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">register</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">provide_regs</span><span class="p">():</span>
-            <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regs</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-            <span class="n">style</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-            <span class="n">formatted_attr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr</span><span class="si">:</span><span class="s2">#x</span><span class="si">}</span><span class="s2">&quot;</span>
-
-            <span class="k">if</span> <span class="n">maps</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">maps</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">attr</span><span class="p">):</span>
-                <span class="n">permissions</span> <span class="o">=</span> <span class="n">maps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">permissions</span>
-                <span class="k">if</span> <span class="s2">&quot;rwx&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
-                    <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span>
-                    <span class="n">style</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">UNDERLINE</span>
-                <span class="k">elif</span> <span class="s2">&quot;x&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
-                    <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span>
-                <span class="k">elif</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
-                    <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">YELLOW</span>
-                <span class="k">elif</span> <span class="s2">&quot;r&quot;</span> <span class="ow">in</span> <span class="n">permissions</span><span class="p">:</span>
-                    <span class="n">color</span> <span class="o">=</span> <span class="n">ANSIColors</span><span class="o">.</span><span class="n">GREEN</span>
-
-            <span class="k">if</span> <span class="n">color</span> <span class="ow">or</span> <span class="n">style</span><span class="p">:</span>
-                <span class="n">formatted_attr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">style</span><span class="si">}{</span><span class="n">attr</span><span class="si">:</span><span class="s2">#x</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RED</span><span class="si">}{</span><span class="n">register</span><span class="si">}{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">formatted_attr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pprint_reg</span><span class="p">(</span><span class="n">register</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ThreadContext.pprint_regs">
@@ -713,6 +716,9 @@ document.write(`
     <span class="k">def</span> <span class="nf">pprint_registers_all</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Pretty prints all the thread&#39;s registers.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pprint_registers</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">provide_special_regs</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pprint_reg</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_holder</span><span class="o">.</span><span class="n">provide_vector_fp_regs</span><span class="p">():</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ANSIColors</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>

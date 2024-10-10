@@ -68,10 +68,10 @@ libdebug.data.symbol module
    :undoc-members:
    :show-inheritance:
 
-libdebug.data.symbol\_dict module
+libdebug.data.symbol\_list module
 ---------------------------------
 
-.. automodule:: libdebug.data.symbol_dict
+.. automodule:: libdebug.data.symbol_list
    :members:
    :undoc-members:
    :show-inheritance:

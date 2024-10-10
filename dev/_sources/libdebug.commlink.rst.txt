@@ -4,18 +4,18 @@ libdebug.commlink package
 Submodules
 ----------
 
-libdebug.commlink.libterminal module
-------------------------------------
+libdebug.commlink.buffer\_data module
+-------------------------------------
 
-.. automodule:: libdebug.commlink.libterminal
+.. automodule:: libdebug.commlink.buffer_data
    :members:
    :undoc-members:
    :show-inheritance:
 
-libdebug.commlink.logging\_lexer module
----------------------------------------
+libdebug.commlink.libterminal module
+------------------------------------
 
-.. automodule:: libdebug.commlink.logging_lexer
+.. automodule:: libdebug.commlink.libterminal
    :members:
    :undoc-members:
    :show-inheritance:

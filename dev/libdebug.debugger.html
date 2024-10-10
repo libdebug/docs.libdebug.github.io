@@ -568,7 +568,7 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py property">
 <dt class="sig sig-object py" id="libdebug.debugger.debugger.Debugger.symbols">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict"><span class="pre">SymbolDict</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.symbols" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol_list.SymbolList" title="libdebug.data.symbol_list.SymbolList"><span class="pre">SymbolList</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.debugger.Debugger.symbols" title="Link to this definition">#</a></dt>
 <dd><p>Get the symbols of the process.</p>
 </dd></dl>
 
@@ -1353,9 +1353,21 @@ Key: the signal number.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.is_debugging">
+<span class="sig-name descname"><span class="pre">is_debugging</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.is_debugging" title="Link to this definition">#</a></dt>
+<dd><p>Whether the debugger is currently debugging a process.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.resume_context">
 <span class="sig-name descname"><span class="pre">resume_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.state.html#libdebug.state.resume_context.ResumeContext" title="libdebug.state.resume_context.ResumeContext"><span class="pre">ResumeContext</span></a></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.resume_context" title="Link to this definition">#</a></dt>
 <dd><p>Context that indicates if the debugger should resume the debugged process.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.stdin_settings_backup">
+<span class="sig-name descname"><span class="pre">stdin_settings_backup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.stdin_settings_backup" title="Link to this definition">#</a></dt>
+<dd><p>The backup of the stdin settings. Used to restore the original settings after possible conflicts due to the pipe manager interacactive mode.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1755,7 +1767,7 @@ This method should only be called to free up resources when the debugger object 
 
 <dl class="py property">
 <dt class="sig sig-object py" id="libdebug.debugger.internal_debugger.InternalDebugger.symbols">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol_dict.SymbolDict" title="libdebug.data.symbol_dict.SymbolDict"><span class="pre">SymbolDict</span></a><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.symbols" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol_list.SymbolList" title="libdebug.data.symbol_list.SymbolList"><span class="pre">SymbolList</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="libdebug.data.html#libdebug.data.symbol.Symbol" title="libdebug.data.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#libdebug.debugger.internal_debugger.InternalDebugger.symbols" title="Link to this definition">#</a></dt>
 <dd><p>Get the symbols of the process.</p>
 </dd></dl>
 
@@ -2022,7 +2034,9 @@ This method should only be called to free up resources when the debugger object 
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.process_id"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.process_id</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.threads"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.threads</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.instanced"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.instanced</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.is_debugging"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.is_debugging</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.resume_context"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.resume_context</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.stdin_settings_backup"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.stdin_settings_backup</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.arch"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.arch</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.kill_on_exit"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.kill_on_exit</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.debugger.internal_debugger.InternalDebugger.fast_memory"><code class="docutils literal notranslate"><span class="pre">InternalDebugger.fast_memory</span></code></a></li>

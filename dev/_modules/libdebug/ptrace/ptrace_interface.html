@@ -436,6 +436,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pty</span>
 <span class="kn">import</span> <span class="nn">tty</span>
+<span class="kn">from</span> <span class="nn">fcntl</span> <span class="kn">import</span> <span class="n">F_GETFL</span><span class="p">,</span> <span class="n">F_SETFL</span><span class="p">,</span> <span class="n">fcntl</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
@@ -560,17 +561,25 @@ document.write(`
             <span class="n">tty</span><span class="o">.</span><span class="n">setraw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">)</span>
             <span class="n">tty</span><span class="o">.</span><span class="n">setraw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">)</span>
 
-            <span class="n">file_actions</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_DUP2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdin_read</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_DUP2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_write</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_DUP2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_write</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdin_read</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_write</span><span class="p">),</span>
-                <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_write</span><span class="p">),</span>
-            <span class="p">])</span>
+            <span class="n">flags</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">)</span>
+            <span class="n">fcntl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">,</span> <span class="n">F_SETFL</span><span class="p">,</span> <span class="n">flags</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">O_NONBLOCK</span><span class="p">)</span>
+
+            <span class="n">flags</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">)</span>
+            <span class="n">fcntl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">,</span> <span class="n">F_SETFL</span><span class="p">,</span> <span class="n">flags</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">O_NONBLOCK</span><span class="p">)</span>
+
+            <span class="n">file_actions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdin_write</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_read</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_read</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_DUP2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdin_read</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_DUP2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_write</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_DUP2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_write</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdin_read</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_write</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">POSIX_SPAWN_CLOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_write</span><span class="p">),</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
 
         <span class="c1"># argv[1] is the length of the custom environment variables</span>
         <span class="c1"># argv[2:2 + env_len] is the custom environment variables</span>
@@ -669,7 +678,13 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">ptrace_detach_and_cont</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">detached</span> <span class="o">=</span> <span class="kc">True</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detached</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Reset the event type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="c1"># Reset the breakpoint hit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="PtraceInterface.kill">
@@ -716,10 +731,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="o">.</span><span class="n">handle_syscall_enabled</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># Reset the event type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="c1"># Reset the breakpoint hit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">cont_all_and_set_bps</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
@@ -744,10 +759,10 @@ document.write(`
             <span class="n">bp</span><span class="o">.</span><span class="n">_disabled_for_step</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># Reset the event type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="c1"># Reset the breakpoint hit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">singlestep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span> <span class="n">thread</span><span class="o">.</span><span class="n">thread_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -772,10 +787,10 @@ document.write(`
             <span class="n">bp</span><span class="o">.</span><span class="n">_disabled_for_step</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="c1"># Reset the event type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="c1"># Reset the breakpoint hit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">step_until</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_global_state</span><span class="p">,</span>
@@ -801,10 +816,10 @@ document.write(`
 <span class="sd">            heuristic (str): The heuristic to use.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Reset the event type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="c1"># Reset the breakpoint hit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">heuristic</span> <span class="o">==</span> <span class="s2">&quot;step-mode&quot;</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_trace</span><span class="o">.</span><span class="n">stepping_finish</span><span class="p">(</span>
@@ -868,10 +883,10 @@ document.write(`
     <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">PtraceInterface</span><span class="p">,</span> <span class="n">thread</span><span class="p">:</span> <span class="n">ThreadContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the next instruction of the process. If the instruction is a call, the debugger will continue until the called function returns.&quot;&quot;&quot;</span>
         <span class="c1"># Reset the event type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="c1"># Reset the breakpoint hit</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">breakpoint_hit</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal_debugger</span><span class="o">.</span><span class="n">resume_context</span><span class="o">.</span><span class="n">event_hit_ref</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="n">opcode_window</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">thread</span><span class="o">.</span><span class="n">instruction_pointer</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 
