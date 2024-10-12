@@ -441,10 +441,11 @@ document.write(`
 <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
 <span class="kn">from</span> <span class="nn">signal</span> <span class="kn">import</span> <span class="n">SIGKILL</span><span class="p">,</span> <span class="n">SIGSTOP</span><span class="p">,</span> <span class="n">SIGTRAP</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">NamedTemporaryFile</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">current_thread</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">from</span> <span class="nn">psutil</span> <span class="kn">import</span> <span class="n">STATUS_ZOMBIE</span><span class="p">,</span> <span class="n">Error</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">ZombieProcess</span><span class="p">,</span> <span class="n">process_iter</span>
 
 <span class="kn">from</span> <span class="nn">libdebug.architectures.breakpoint_validator</span> <span class="kn">import</span> <span class="n">validate_hardware_breakpoint</span>
 <span class="kn">from</span> <span class="nn">libdebug.architectures.syscall_hijacker</span> <span class="kn">import</span> <span class="n">SyscallHijacker</span>
@@ -457,6 +458,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">libdebug.data.gdb_resume_event</span> <span class="kn">import</span> <span class="n">GdbResumeEvent</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.signal_catcher</span> <span class="kn">import</span> <span class="n">SignalCatcher</span>
 <span class="kn">from</span> <span class="nn">libdebug.data.syscall_handler</span> <span class="kn">import</span> <span class="n">SyscallHandler</span>
+<span class="kn">from</span> <span class="nn">libdebug.data.terminals</span> <span class="kn">import</span> <span class="n">TerminalTypes</span>
 <span class="kn">from</span> <span class="nn">libdebug.debugger.internal_debugger_instance_manager</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">extend_internal_debugger</span><span class="p">,</span>
     <span class="n">link_to_internal_debugger</span><span class="p">,</span>
@@ -1296,16 +1298,22 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_join_and_check_status</span><span class="p">()</span>
 
-        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_command</span><span class="p">(</span><span class="n">migrate_breakpoints</span><span class="p">)</span>
+        <span class="c1"># Create the command file</span>
+        <span class="n">command_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_file</span><span class="p">(</span><span class="n">migrate_breakpoints</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">open_in_new_process</span> <span class="ow">and</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span><span class="p">:</span>
-            <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_new_process</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">open_in_new_process</span><span class="p">:</span>
+            <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_new_process</span><span class="p">(</span><span class="n">command_file</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">open_in_new_process</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_auto_detect_terminal</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span><span class="p">:</span>
                 <span class="n">liblog</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="s2">&quot;Cannot open in a new process. Please configure the terminal in libcontext.terminal.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;Cannot auto-detect terminal. Please configure the terminal in libcontext.terminal. Opening gdb in the current shell.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_shell</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+                <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_shell</span><span class="p">(</span><span class="n">command_file</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_new_process</span><span class="p">(</span><span class="n">command_file</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lambda_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_gdb_in_shell</span><span class="p">(</span><span class="n">command_file</span><span class="p">)</span>
 
         <span class="n">resume_event</span> <span class="o">=</span> <span class="n">GdbResumeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lambda_fun</span><span class="p">)</span>
 
@@ -1318,80 +1326,121 @@ document.write(`
             <span class="k">return</span> <span class="n">resume_event</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_craft_gdb_migration_command</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crafts the command to migrate to GDB.&quot;&quot;&quot;</span>
-        <span class="n">gdb_command</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">&quot;/bin/gdb&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-q&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;--pid&quot;</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">),</span>
-            <span class="s2">&quot;-ex&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;source &quot;</span> <span class="o">+</span> <span class="n">GDB_GOBACK_LOCATION</span><span class="p">,</span>
-            <span class="s2">&quot;-ex&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;ni&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;-ex&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;ni&quot;</span><span class="p">,</span>
-        <span class="p">]</span>
+    <span class="k">def</span> <span class="nf">_auto_detect_terminal</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Auto-detects the terminal.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">process</span><span class="p">:</span>
+                <span class="n">pname</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">terminal_command</span> <span class="o">:=</span> <span class="n">TerminalTypes</span><span class="o">.</span><span class="n">get_command</span><span class="p">(</span><span class="n">pname</span><span class="p">):</span>
+                    <span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="n">terminal_command</span>
+                    <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Auto-detected terminal: </span><span class="si">{</span><span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">process</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">Error</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_craft_gdb_migration_command</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crafts the command to migrate to GDB.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            migrate_breakpoints (bool): Whether to migrate the breakpoints.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The command to migrate to GDB.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gdb_command</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/bin/gdb -q --pid </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="si">}</span><span class="s1"> -ex &quot;source </span><span class="si">{</span><span class="n">GDB_GOBACK_LOCATION</span><span class="si">}</span><span class="s1"> &quot; -ex &quot;ni&quot; -ex &quot;ni&quot;&#39;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">migrate_breakpoints</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">gdb_command</span>
 
-        <span class="n">bp_args</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">bp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">breakpoints</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-                <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-ex&quot;</span><span class="p">)</span>
-
                 <span class="k">if</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span> <span class="ow">and</span> <span class="n">bp</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s2">&quot;rw&quot;</span><span class="p">:</span>
-                    <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;awatch *(int</span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="si">}</span><span class="s2">_t *) </span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="si">:</span><span class="s2">0x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">gdb_command</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; -ex &quot;awatch *(int</span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="si">}</span><span class="s1">_t *) </span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="si">:</span><span class="s1">#x</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
                 <span class="k">elif</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span> <span class="ow">and</span> <span class="n">bp</span><span class="o">.</span><span class="n">condition</span> <span class="o">==</span> <span class="s2">&quot;w&quot;</span><span class="p">:</span>
-                    <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;watch *(int</span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="si">}</span><span class="s2">_t *) </span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="si">:</span><span class="s2">0x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">gdb_command</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; -ex &quot;watch *(int</span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="si">}</span><span class="s1">_t *) </span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="si">:</span><span class="s1">#x</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
                 <span class="k">elif</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
-                    <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;hb *&quot;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">))</span>
+                    <span class="n">gdb_command</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; -ex &quot;hb *</span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="si">:</span><span class="s1">#x</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;b *&quot;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="p">))</span>
+                    <span class="n">gdb_command</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; -ex &quot;b *</span><span class="si">{</span><span class="n">bp</span><span class="o">.</span><span class="n">address</span><span class="si">:</span><span class="s1">#x</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">instruction_pointer</span> <span class="o">==</span> <span class="n">bp</span><span class="o">.</span><span class="n">address</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">bp</span><span class="o">.</span><span class="n">hardware</span><span class="p">:</span>
                     <span class="c1"># We have to enqueue an additional continue</span>
-                    <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-ex&quot;</span><span class="p">)</span>
-                    <span class="n">bp_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;ni&quot;</span><span class="p">)</span>
+                    <span class="n">gdb_command</span> <span class="o">+=</span> <span class="s1">&#39; -ex &quot;ni&quot;&#39;</span>
 
-        <span class="k">return</span> <span class="n">gdb_command</span> <span class="o">+</span> <span class="n">bp_args</span>
+        <span class="k">return</span> <span class="n">gdb_command</span>
 
-    <span class="k">def</span> <span class="nf">_open_gdb_in_new_process</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens GDB in a new process following the configuration in libcontext.terminal.&quot;&quot;&quot;</span>
-        <span class="n">initial_pid</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span> <span class="o">+</span> <span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">pid</span>
+    <span class="k">def</span> <span class="nf">_craft_gdb_migration_file</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">migrate_breakpoints</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crafts the file to migrate to GDB.</span>
 
-        <span class="n">os</span><span class="o">.</span><span class="n">waitpid</span><span class="p">(</span><span class="n">initial_pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="sd">        Args:</span>
+<span class="sd">            migrate_breakpoints (bool): Whether to migrate the breakpoints.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The path to the file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Different terminals accept what to run in different ways. To make this work with all terminals, we need to</span>
+        <span class="c1"># create a temporary script that will run the command. This script will be executed by the terminal.</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_craft_gdb_migration_command</span><span class="p">(</span><span class="n">migrate_breakpoints</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.sh&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
+            <span class="n">temp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;#!/bin/bash</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">temp_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+            <span class="n">script_path</span> <span class="o">=</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="c1"># Make the script executable</span>
+        <span class="n">Path</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">script_path</span><span class="p">),</span> <span class="mo">0o755</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">script_path</span>
+
+    <span class="k">def</span> <span class="nf">_open_gdb_in_new_process</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens GDB in a new process following the configuration in libcontext.terminal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            script_path (str): The path to the script to run in the terminal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create the command to open the terminal and run the script</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">libcontext</span><span class="o">.</span><span class="n">terminal</span><span class="p">,</span> <span class="n">script_path</span><span class="p">]</span>
+
+        <span class="c1"># Open GDB in a new terminal</span>
+        <span class="n">terminal_pid</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">)</span><span class="o">.</span><span class="n">pid</span>
+
+        <span class="c1"># This is the command line that we are looking for</span>
+        <span class="n">cmdline_target</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span> <span class="n">script_path</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_gdb</span><span class="p">(</span><span class="n">terminal_pid</span><span class="p">,</span> <span class="n">cmdline_target</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">wait_for_termination</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">liblog</span><span class="o">.</span><span class="n">debugger</span><span class="p">(</span><span class="s2">&quot;Waiting for GDB process to terminate...&quot;</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">process_iter</span><span class="p">():</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">cmdline</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">cmdline</span><span class="p">()</span>
-                <span class="k">except</span> <span class="n">psutil</span><span class="o">.</span><span class="n">ZombieProcess</span><span class="p">:</span>
+                <span class="k">except</span> <span class="n">ZombieProcess</span><span class="p">:</span>
                     <span class="c1"># This is a zombie process, which psutil tracks but we cannot interact with</span>
                     <span class="k">continue</span>
 
-                <span class="k">if</span> <span class="n">args</span> <span class="o">==</span> <span class="n">cmdline</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cmdline_target</span> <span class="o">==</span> <span class="n">cmdline</span><span class="p">:</span>
                     <span class="n">gdb_process</span> <span class="o">=</span> <span class="n">proc</span>
                     <span class="k">break</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;GDB process not found.&quot;</span><span class="p">)</span>
 
-            <span class="k">while</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">is_running</span><span class="p">()</span> <span class="ow">and</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">STATUS_ZOMBIE</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">is_running</span><span class="p">()</span> <span class="ow">and</span> <span class="n">gdb_process</span><span class="o">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">STATUS_ZOMBIE</span><span class="p">:</span>
                 <span class="c1"># As the GDB process is in a different group, we do not have the authority to wait on it</span>
                 <span class="c1"># So we must keep polling it until it is no longer running</span>
                 <span class="k">pass</span>
 
         <span class="k">return</span> <span class="n">wait_for_termination</span>
 
-    <span class="k">def</span> <span class="nf">_open_gdb_in_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open GDB in the current shell.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_open_gdb_in_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open GDB in the current shell.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            script_path (str): The path to the script to run in the terminal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">gdb_pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">gdb_pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># This is the child process.</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">execv</span><span class="p">(</span><span class="s2">&quot;/bin/gdb&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">execv</span><span class="p">(</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span> <span class="n">script_path</span><span class="p">])</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Failed to execute GDB.&quot;</span><span class="p">)</span>
 
         <span class="c1"># This is the parent process.</span>
@@ -1406,6 +1455,40 @@ document.write(`
             <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_DFL</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">wait_for_termination</span>
+
+    <span class="k">def</span> <span class="nf">_wait_for_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">,</span> <span class="n">terminal_pid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cmdline_target</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Waits for GDB to open in the terminal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            terminal_pid (int): The PID of the terminal process.</span>
+<span class="sd">            cmdline_target (list[str]): The command line that we are looking for.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to wait for GDB to open in the terminal. However, different terminals have different behaviors</span>
+        <span class="c1"># so we need to manually check if the terminal is still alive and if GDB has opened</span>
+        <span class="n">waiting_for_gdb</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">terminal_alive</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">scan_after_terminal_death</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">scan_after_terminal_death_max</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">while</span> <span class="n">waiting_for_gdb</span><span class="p">:</span>
+            <span class="n">terminal_alive</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">process_iter</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cmdline</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">cmdline</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">cmdline</span> <span class="o">==</span> <span class="n">cmdline_target</span><span class="p">:</span>
+                        <span class="n">waiting_for_gdb</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">elif</span> <span class="n">proc</span><span class="o">.</span><span class="n">pid</span> <span class="o">==</span> <span class="n">terminal_pid</span><span class="p">:</span>
+                        <span class="n">terminal_alive</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">except</span> <span class="n">ZombieProcess</span><span class="p">:</span>
+                    <span class="c1"># This is a zombie process, which psutil tracks but we cannot interact with</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">terminal_alive</span> <span class="ow">and</span> <span class="n">waiting_for_gdb</span> <span class="ow">and</span> <span class="n">scan_after_terminal_death</span> <span class="o">&lt;</span> <span class="n">scan_after_terminal_death_max</span><span class="p">:</span>
+                <span class="c1"># If the terminal has died, we need to wait a bit before we can be sure that GDB will not open.</span>
+                <span class="c1"># Indeed, some terminals take different steps to open GDB. We must be sure to refresh the list</span>
+                <span class="c1"># of processes. One extra iteration should be enough, but we will iterate more just to be sure.</span>
+                <span class="n">scan_after_terminal_death</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">terminal_alive</span> <span class="ow">and</span> <span class="n">waiting_for_gdb</span><span class="p">:</span>
+                <span class="c1"># If the terminal has died and GDB has not opened, we are sure that GDB will not open</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Failed to open GDB in terminal.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_resume_from_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">InternalDebugger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resumes the process after migrating from GDB.&quot;&quot;&quot;</span>
@@ -2177,7 +2260,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.2.
     <br/>
   </p>
 </div>

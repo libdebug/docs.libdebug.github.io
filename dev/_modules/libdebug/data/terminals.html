@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>libdebug.data.memory_map &#8212; libdebug 0.6.0 documentation</title>
+    <title>libdebug.data.terminals &#8212; libdebug 0.6.0 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/code-tabs.js?v=c983d12e"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/data/memory_map';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/libdebug/data/terminals';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -423,81 +423,53 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for libdebug.data.memory_map</h1><div class="highlight"><pre>
+  <h1>Source code for libdebug.data.terminals</h1><div class="highlight"><pre>
 <span></span><span class="c1">#</span>
 <span class="c1"># This file is part of libdebug Python library (https://github.com/libdebug/libdebug).</span>
-<span class="c1"># Copyright (c) 2023-2024 Roberto Alessandro Bertolini, Gabriele Digregorio. All rights reserved.</span>
+<span class="c1"># Copyright (c) 2024 Gabriele Digregorio. All rights reserved.</span>
 <span class="c1"># Licensed under the MIT license. See LICENSE file in the project root for details.</span>
 <span class="c1">#</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span>
 
 
-<div class="viewcode-block" id="MemoryMap">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_map.MemoryMap">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">MemoryMap</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A memory map of the target process.</span>
+<div class="viewcode-block" id="TerminalTypes">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.terminals.TerminalTypes">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TerminalTypes</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Terminal class for launching terminal emulators with predefined commands.&quot;&quot;&quot;</span>
 
-<span class="sd">    Attributes:</span>
-<span class="sd">        start (int): The start address of the memory map.</span>
-<span class="sd">        end (int): The end address of the memory map.</span>
-<span class="sd">        permissions (str): The permissions of the memory map.</span>
-<span class="sd">        size (int): The size of the memory map.</span>
-<span class="sd">        offset (int): The relative offset of the memory map.</span>
-<span class="sd">        backing_file (str): The backing file of the memory map, or the symbolic name of the memory map.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">terminals</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;gnome-terminal-server&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;gnome-terminal&quot;</span><span class="p">,</span> <span class="s2">&quot;--tab&quot;</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;konsole&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;konsole&quot;</span><span class="p">,</span> <span class="s2">&quot;--new-tab&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;xterm&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;xterm&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;lxterminal&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;lxterminal&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;mate-terminal&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mate-terminal&quot;</span><span class="p">,</span> <span class="s2">&quot;--tab&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;tilix&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;tilix&quot;</span><span class="p">,</span> <span class="s2">&quot;--action=app-new-session&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;kgx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;kgx&quot;</span><span class="p">,</span> <span class="s2">&quot;--tab&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;alacritty&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;alacritty&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;kitty&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;kitty&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;urxvt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;urxvt&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;tmux: server&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;tmux&quot;</span><span class="p">,</span> <span class="s2">&quot;split-window&quot;</span><span class="p">,</span> <span class="s2">&quot;-h&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;xfce4-terminal&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;xfce4-terminal&quot;</span><span class="p">,</span> <span class="s2">&quot;--tab&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;terminator&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;terminator&quot;</span><span class="p">,</span> <span class="s2">&quot;--new-tab&quot;</span><span class="p">,</span> <span class="s2">&quot;-e&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
 
-    <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">permissions</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The relative offset of the memory map inside the backing file, if any.&quot;&quot;&quot;</span>
-
-    <span class="n">backing_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The backing file of the memory map, such as &#39;libc.so.6&#39;, or the symbolic name of the memory map, such as &#39;[stack]&#39;.&quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="MemoryMap.parse">
-<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.memory_map.MemoryMap.parse">[docs]</a>
+<div class="viewcode-block" id="TerminalTypes.get_command">
+<a class="viewcode-back" href="../../../libdebug.data.html#libdebug.data.terminals.TerminalTypes.get_command">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">vmap</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MemoryMap</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parses a memory map from a /proc/pid/maps string representation.</span>
+    <span class="k">def</span> <span class="nf">get_command</span><span class="p">(</span><span class="n">terminal_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve the command list for a given terminal emulator name.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            vmap (str): The string containing the memory map.</span>
+<span class="sd">        terminal_name (str): the name of the terminal emulator.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            MemoryMap: The parsed memory map.</span>
+<span class="sd">        list[str]: the command list for the terminal emulator, or an empty list if not found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">address</span><span class="p">,</span> <span class="n">permissions</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="n">backing_file</span> <span class="o">=</span> <span class="n">vmap</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-            <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">address</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
-            <span class="n">end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">address</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
-            <span class="n">int_offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
-            <span class="n">backing_file</span> <span class="o">=</span> <span class="n">backing_file</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">backing_file</span><span class="p">:</span>
-                <span class="n">backing_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;anon_</span><span class="si">{</span><span class="n">start</span><span class="si">:</span><span class="s2">x</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid memory map: </span><span class="si">{</span><span class="n">vmap</span><span class="si">}</span><span class="s2">. Please specify a valid memory map.&quot;</span><span class="p">,</span>
-            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-
-        <span class="k">return</span> <span class="n">MemoryMap</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">permissions</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">int_offset</span><span class="p">,</span> <span class="n">backing_file</span><span class="p">)</span></div>
-
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">base</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for the start address of the memory map.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
-
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">MemoryMap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the string representation of the memory map.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;MemoryMap(start=</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span><span class="si">}</span><span class="s2">, end=</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">)</span><span class="si">}</span><span class="s2">, permissions=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">permissions</span><span class="si">}</span><span class="s2">, size=</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="si">}</span><span class="s2">, offset=</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span><span class="si">}</span><span class="s2">, backing_file=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">backing_file</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+        <span class="k">return</span> <span class="n">TerminalTypes</span><span class="o">.</span><span class="n">terminals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">terminal_name</span><span class="p">,</span> <span class="p">[])</span></div>
+</div>
 
 </pre></div>
 

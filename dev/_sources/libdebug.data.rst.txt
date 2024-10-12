@@ -84,6 +84,14 @@ libdebug.data.syscall\_handler module
    :undoc-members:
    :show-inheritance:
 
+libdebug.data.terminals module
+------------------------------
+
+.. automodule:: libdebug.data.terminals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

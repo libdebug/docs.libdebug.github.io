@@ -1277,6 +1277,31 @@ If the value is a string, it is treated as a symbol name.</p>
 </dd></dl>
 
 </section>
+<section id="module-libdebug.data.terminals">
+<span id="libdebug-data-terminals-module"></span><h2>libdebug.data.terminals module<a class="headerlink" href="#module-libdebug.data.terminals" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="libdebug.data.terminals.TerminalTypes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libdebug.data.terminals.</span></span><span class="sig-name descname"><span class="pre">TerminalTypes</span></span><a class="reference internal" href="_modules/libdebug/data/terminals.html#TerminalTypes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.terminals.TerminalTypes" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Terminal class for launching terminal emulators with predefined commands.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libdebug.data.terminals.TerminalTypes.terminals">
+<span class="sig-name descname"><span class="pre">terminals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'alacritty':</span> <span class="pre">['alacritty',</span> <span class="pre">'-e'],</span> <span class="pre">'gnome-terminal-server':</span> <span class="pre">['gnome-terminal',</span> <span class="pre">'--tab',</span> <span class="pre">'--'],</span> <span class="pre">'kgx':</span> <span class="pre">['kgx',</span> <span class="pre">'--tab',</span> <span class="pre">'-e'],</span> <span class="pre">'kitty':</span> <span class="pre">['kitty',</span> <span class="pre">'-e'],</span> <span class="pre">'konsole':</span> <span class="pre">['konsole',</span> <span class="pre">'--new-tab',</span> <span class="pre">'-e'],</span> <span class="pre">'lxterminal':</span> <span class="pre">['lxterminal',</span> <span class="pre">'-e'],</span> <span class="pre">'mate-terminal':</span> <span class="pre">['mate-terminal',</span> <span class="pre">'--tab',</span> <span class="pre">'-e'],</span> <span class="pre">'terminator':</span> <span class="pre">['terminator',</span> <span class="pre">'--new-tab',</span> <span class="pre">'-e'],</span> <span class="pre">'tilix':</span> <span class="pre">['tilix',</span> <span class="pre">'--action=app-new-session',</span> <span class="pre">'-e'],</span> <span class="pre">'tmux:</span> <span class="pre">server':</span> <span class="pre">['tmux',</span> <span class="pre">'split-window',</span> <span class="pre">'-h'],</span> <span class="pre">'urxvt':</span> <span class="pre">['urxvt',</span> <span class="pre">'-e'],</span> <span class="pre">'xfce4-terminal':</span> <span class="pre">['xfce4-terminal',</span> <span class="pre">'--tab',</span> <span class="pre">'-e'],</span> <span class="pre">'xterm':</span> <span class="pre">['xterm',</span> <span class="pre">'-e']}</span></em><a class="headerlink" href="#libdebug.data.terminals.TerminalTypes.terminals" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libdebug.data.terminals.TerminalTypes.get_command">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terminal_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libdebug/data/terminals.html#TerminalTypes.get_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libdebug.data.terminals.TerminalTypes.get_command" title="Link to this definition">#</a></dt>
+<dd><p>Retrieve the command list for a given terminal emulator name.</p>
+<p>Args:
+terminal_name (str): the name of the terminal emulator.</p>
+<p>Returns:
+list[str]: the command list for the terminal emulator, or an empty list if not found.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-libdebug.data">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-libdebug.data" title="Link to this heading">#</a></h2>
 </section>
@@ -1471,6 +1496,14 @@ If the value is a string, it is treated as a symbol name.</p>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data.terminals">libdebug.data.terminals module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.terminals.TerminalTypes"><code class="docutils literal notranslate"><span class="pre">TerminalTypes</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.terminals.TerminalTypes.terminals"><code class="docutils literal notranslate"><span class="pre">TerminalTypes.terminals</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#libdebug.data.terminals.TerminalTypes.get_command"><code class="docutils literal notranslate"><span class="pre">TerminalTypes.get_command()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-libdebug.data">Module contents</a></li>
 </ul>
   </nav></div>
@@ -1518,7 +1551,7 @@ If the value is a string, it is treated as a symbol name.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.0.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.2.
     <br/>
   </p>
 </div>
