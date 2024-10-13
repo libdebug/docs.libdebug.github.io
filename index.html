@@ -1,28 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=./latest">
-    <title>Chasing Bugs</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            padding-top: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-        .emoji {
-            font-size: 48px;
-            line-height: 48px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>Redirecting</title>
+  <noscript>
+    <meta http-equiv="refresh" content="1; url=latest/" />
+  </noscript>
+  <script>
+    window.location.replace(
+      "latest/" + window.location.search + window.location.hash
+    );
+  </script>
 </head>
 <body>
-    <h1>Hold on! We’re fixing things up...</h1>
-    <p class="emoji">🐍 ➡️ 🐞</p>
-    <p>If you aren't redirected automatically, <a href="./latest">click here</a>.</p>
+  Redirecting to <a href="latest/">latest/</a>...
 </body>
 </html>
