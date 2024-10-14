@@ -95,6 +95,7 @@ libdebug/ptrace/jumpstart/jumpstart.c
 libdebug/state/__init__.py
 libdebug/state/resume_context.py
 libdebug/state/thread_context.py
+libdebug/state/thread_snapshot.py
 libdebug/utils/__init__.py
 libdebug/utils/ansi_escape_codes.py
 libdebug/utils/arch_mappings.py

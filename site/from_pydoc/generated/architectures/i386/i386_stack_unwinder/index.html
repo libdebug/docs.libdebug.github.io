@@ -1760,8 +1760,8 @@
 </span><span id="__span-0-109"><a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="__span-0-110"><a id="__codelineno-0-110" name="__codelineno-0-110"></a>        <span class="n">preamble_state</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="__span-0-111"><a id="__codelineno-0-111" name="__codelineno-0-111"></a>
-</span><span id="__span-0-112"><a id="__codelineno-0-112" name="__codelineno-0-112"></a>        <span class="c1"># push ebp</span>
-</span><span id="__span-0-113"><a id="__codelineno-0-113" name="__codelineno-0-113"></a>        <span class="k">if</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x55</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">instruction_window</span><span class="p">:</span>
+</span><span id="__span-0-112"><a id="__codelineno-0-112" name="__codelineno-0-112"></a>        <span class="c1"># endbr32 and push ebp</span>
+</span><span id="__span-0-113"><a id="__codelineno-0-113" name="__codelineno-0-113"></a>        <span class="k">if</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xf3\x0f\x1e\xfb</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">instruction_window</span> <span class="ow">or</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x55</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">instruction_window</span><span class="p">:</span>
 </span><span id="__span-0-114"><a id="__codelineno-0-114" name="__codelineno-0-114"></a>            <span class="n">preamble_state</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="__span-0-115"><a id="__codelineno-0-115" name="__codelineno-0-115"></a>
 </span><span id="__span-0-116"><a id="__codelineno-0-116" name="__codelineno-0-116"></a>        <span class="c1"># mov ebp, esp</span>
