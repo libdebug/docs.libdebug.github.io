@@ -1,0 +1,4 @@
+/home/frank01001/.virtualenvs/libdebug-dev/lib/python3.13/site-packages/libdebug/ptrace/native/libdebug_ptrace_binding.cpython-313-x86_64-linux-gnu.so
+/home/frank01001/.virtualenvs/libdebug-dev/lib/python3.13/site-packages/libdebug/native/libdebug_linux_binding.cpython-313-x86_64-linux-gnu.so
+/home/frank01001/.virtualenvs/libdebug-dev/lib/python3.13/site-packages/libdebug/native/libdebug_debug_sym_parser.cpython-313-x86_64-linux-gnu.so
+/home/frank01001/.virtualenvs/libdebug-dev/lib/python3.13/site-packages/libdebug/ptrace/jumpstart/jumpstart

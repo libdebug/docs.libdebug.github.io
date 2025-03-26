@@ -1,0 +1,8 @@
+{
+  "source_dir": "/home/frank01001/Documents/Work Projects/libdebug",
+  "build_dir": "/home/frank01001/Documents/Work Projects/libdebug/build/cp312-abi3-linux_x86_64",
+  "cmake_path": "/usr/bin/cmake",
+  "skbuild_path": "/home/frank01001/.virtualenvs/libdebug-dev/lib/python3.13/site-packages/scikit_build_core",
+  "skbuild_version": "0.10.7",
+  "python_executable": "/home/frank01001/.virtualenvs/libdebug-dev/bin/python"
+}
