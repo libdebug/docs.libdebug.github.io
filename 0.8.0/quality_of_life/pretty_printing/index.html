@@ -1903,7 +1903,7 @@
 <p><strong>libdebug</strong> offers utilities to visualize the process's state in a human-readable format and with color highlighting. This can be especially useful when debugging complex binaries or when you need to quickly understand the behavior of a program.</p>
 <h2 id="registers-pretty-printing"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 7c-1.1 0-2 .9-2 2v6a2 2 0 0 0 2 2h2c1.11 0 2-.89 2-2V9a2 2 0 0 0-2-2zm0 2h2v6H7zm10.6 8-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg></span> Registers Pretty Printing</h2>
 <p>There are two functions available to print the registers of a thread: <code>pprint_registers()</code> and <code>print_registers_all()</code>. The former will print the current values of the most commonly-interesting registers, while the latter will print all available registers.</p>
-<p><img src="/assets/pprint_regs.jpeg" alt="Pretty Printing Registers" width="100%"/></p>
+<p><img src="../../assets/pprint_regs.jpeg" alt="Pretty Printing Registers" width="100%"/></p>
 <div class="admonition tip">
 <p class="admonition-title">Aliases</p>
 <p>If you don't like long function names, you can use aliases for the two register pretty print functions. The shorter aliases are <code>pprint_regs()</code> and <code>print_regs_all()</code>.</p>
@@ -1944,7 +1944,7 @@
 </tbody>
 </table>
 <p><a href="../../stopping_events/syscalls">Handled syscalls</a> with a callback associated with them will be listed as such. Additionally, syscalls <a href="../../stopping_events/debugging_flow#hijacking">hijacked</a> through the <strong>libdebug</strong> API will be highlighted as striken through, allowing you to monitor both the original behavior and your own changes to the flow. The id of the thread that made the syscall will be printed in the beginning of the line in white bold.</p>
-<p><img src="/assets/pprint_syscalls.jpeg" alt="Pretty Printing Syscalls" width="`100%"/></p>
+<p><img src="../../assets/pprint_syscalls.jpeg" alt="Pretty Printing Syscalls" width="`100%"/></p>
 <h2 id="memory-maps-pretty-printing"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 12c2.5 0 4.5 2 4.5 4.5 0 .88-.25 1.71-.69 2.4l3.08 3.1L21 23.39l-3.12-3.07c-.69.43-1.51.68-2.38.68-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5m0 2a2.5 2.5 0 0 0-2.5 2.5 2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5 2.5 2.5 0 0 0-2.5-2.5M14 6.11 8 4v11.89l1 .35v.26c0 .64.09 1.26.26 1.84L8 17.9l-5.34 2.07-.16.03a.5.5 0 0 1-.5-.5V4.38c0-.23.15-.41.36-.48L8 2l6 2.1L19.34 2h.16a.5.5 0 0 1 .5.5v9.31A6.48 6.48 0 0 0 15.5 10c-.5 0-1 .06-1.5.17z"/></svg></span> Memory Maps Pretty Printing</h2>
 <p>To pretty print the memory maps of a process, you can simply use the <code>pprint_maps()</code> function. This will print the memory maps of the process in a human-readable format, with color highlighting to distinguish between different memory regions.</p>
 <table>
@@ -1977,10 +1977,10 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/assets/pprint_maps.jpeg" alt="Pretty Printing Memory Maps" width="100%"/></p>
+<p><img src="../../assets/pprint_maps.jpeg" alt="Pretty Printing Memory Maps" width="100%"/></p>
 <h2 id="stack-trace-pretty-printing"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.063 1.456a1.75 1.75 0 0 1 1.874 0l8.383 5.316a1.75 1.75 0 0 1 0 2.956l-8.383 5.316a1.75 1.75 0 0 1-1.874 0L2.68 9.728a1.75 1.75 0 0 1 0-2.956Zm1.071 1.267a.25.25 0 0 0-.268 0L3.483 8.039a.25.25 0 0 0 0 .422l8.383 5.316a.25.25 0 0 0 .268 0l8.383-5.316a.25.25 0 0 0 0-.422Z"/><path d="M1.867 12.324a.75.75 0 0 1 1.035-.232l8.964 5.685a.25.25 0 0 0 .268 0l8.964-5.685a.75.75 0 0 1 .804 1.267l-8.965 5.685a1.75 1.75 0 0 1-1.874 0l-8.965-5.685a.75.75 0 0 1-.231-1.035"/><path d="M1.867 16.324a.75.75 0 0 1 1.035-.232l8.964 5.685a.25.25 0 0 0 .268 0l8.964-5.685a.75.75 0 0 1 .804 1.267l-8.965 5.685a1.75 1.75 0 0 1-1.874 0l-8.965-5.685a.75.75 0 0 1-.231-1.035"/></svg></span> Stack Trace Pretty Printing</h2>
 <p>To pretty print the stack trace (<a href="../stack_frame_utils">backtrace</a>) of a process, you can use the <code>pprint_backtrace()</code> function. This will print the stack trace of the process in a human-readable format.</p>
-<p><img src="/assets/pprint_backtrace.jpeg" alt="Pretty Printing Stack Trace" width="100%"/></p>
+<p><img src="../../assets/pprint_backtrace.jpeg" alt="Pretty Printing Stack Trace" width="100%"/></p>
 <h2 id="memory-pretty-printing"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M64 64C28.7 64 0 92.7 0 128v7.4c0 6.8 4.4 12.6 10.1 16.3C23.3 160.3 32 175.1 32 192s-8.7 31.7-21.9 40.3C4.4 236 0 241.8 0 248.6V320h576v-71.4c0-6.8-4.4-12.6-10.1-16.3-13.2-8.6-21.9-23.4-21.9-40.3s8.7-31.7 21.9-40.3c5.7-3.7 10.1-9.5 10.1-16.3V128c0-35.3-28.7-64-64-64zm512 288H0v64c0 17.7 14.3 32 32 32h48v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h96v-32c0-8.8 7.2-16 16-16s16 7.2 16 16v32h48c17.7 0 32-14.3 32-32zM192 160v64c0 17.7-14.3 32-32 32s-32-14.3-32-32v-64c0-17.7 14.3-32 32-32s32 14.3 32 32m128 0v64c0 17.7-14.3 32-32 32s-32-14.3-32-32v-64c0-17.7 14.3-32 32-32s32 14.3 32 32m128 0v64c0 17.7-14.3 32-32 32s-32-14.3-32-32v-64c0-17.7 14.3-32 32-32s32 14.3 32 32"/></svg></span> Memory Pretty Printing</h2>
 <p>The <code>pprint_memory()</code> function will print the contents of the process memory within a certain range of addresses.</p>
 <div class="admonition abstract">

@@ -1772,8 +1772,8 @@
 <p>Function calls in a binary executable are made according to a system calling convention. One constant in these conventions is the use of a stack frame to store the return addresses to resume at the end of the function.</p>
 <p>Different architectures have slightly different ways to retrieve the return address (for example, in AArch64, the latest return address is stored in <code>x30</code>, the Link Register). To abstract these differences, <strong>libdebug</strong> provides common utilities to resolve the stack trace (<em>backtrace</em>) of the running process (or thread).</p>
 <div style="text-align: center;">
-    <img src="/assets/backtrace_plot.png#only-light" loading="lazy" width="85%" />
-    <img src="/assets/backtrace_plot_dark.png#only-dark" loading="lazy" width="85%" />
+    <img src="../../assets/backtrace_plot.png#only-light" loading="lazy" width="85%" />
+    <img src="../../assets/backtrace_plot_dark.png#only-dark" loading="lazy" width="85%" />
 </div>
 
 <p><strong>libdebug</strong>'s <em>backtrace</em> is structured like a LIFO stack, with the top-most value being the current instruction pointer. Subsequent values are the return addresses of the functions that were called to reach the current instruction pointer.</p>
