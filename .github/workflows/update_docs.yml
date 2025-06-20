@@ -1,78 +1,49 @@
-name:  Update Documentation
+name: Sync libdebug gh-pages into main
 
 on:
-  repository_dispatch:
-    types: ["update_docs"]
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-
-      - name: Install documentation dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install --upgrade setuptools
-          python -m pip install --upgrade Sphinx
-          python -m pip install --upgrade pydata-sphinx-theme
-          python -m pip install --upgrade sphinx_code_tabs
-
-      - name: Install libdebug dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libdwarf-dev libelf-dev libiberty-dev linux-headers-generic libc6-dbg
-
-      - name: Checkout libdebug
+      - name: Checkout this repo
         uses: actions/checkout@v4
         with:
-          repository: 'libdebug/libdebug'
-          path: 'libdebug'
-          ref: ${{ github.event.client_payload.sha }}
+          fetch-depth: 0
 
-      - name: Install libdebug
-        run: |
-          cd libdebug
-          python -m pip install --upgrade .
-
-      - name: Build documentation
-        run: |
-          cd libdebug/docs
-          ./regenerate_docs.sh
-          rm -r build/html/_static/__pycache__
-
-      - name: Checkout docs
+      - name: Checkout libdebug gh-pages
         uses: actions/checkout@v4
         with:
-          path: 'docs'
+          repository: libdebug/libdebug
+          ref: gh-pages
+          path: libdebug-pages
+          fetch-depth: 1
 
-      - name: Update files and commit changes
+      - name: Sync files from gh-pages
         run: |
-          cd libdebug
-          export LIBDEBUG_VERSION=$(python -m setup --version 2>/dev/null)
-          cd ..
-          export OLD_VERSION=$(cat docs/latest/version)
-          echo "Removing docs/archive/$OLD_VERSION"
-          rm -rf "docs/archive/$OLD_VERSION"
-          mv docs/latest "docs/archive/$OLD_VERSION"
-          mv libdebug/docs/build/html docs/latest
-          echo $LIBDEBUG_VERSION > docs/latest/version
-          cd docs
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git tag -f $LIBDEBUG_VERSION
-          git add archive/$OLD_VERSION
-          git commit -a -m "Autorefresh Documentation"
-        
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          directory: 'docs'
-          force: true
-          tags: true
+          # copy all files over, but leave existing files intact and skip any .git dirs
+          rsync -av libdebug-pages/ . \
+            --exclude '.github/**' \
+            --exclude '.git' \
+            --exclude '.git/**'
+
+      - name: Commit & push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet; then
+            echo "✅ Nothing to commit."
+          else
+            git add --all
+            git commit -m "chore: sync content from libdebug/libdebug@gh-pages"
+            git push origin main
+          fi
