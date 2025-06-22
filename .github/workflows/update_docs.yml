@@ -17,17 +17,20 @@ jobs:
 
       - name: Checkout libdebug gh-pages
         uses: actions/checkout@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           repository: libdebug/libdebug
           ref: gh-pages
-          path: /tmp/libdebug-pages
+          path: libdebug-pages
           fetch-depth: 1
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Sync files
         run: |
-          rsync -av /tmp/libdebug-pages/ ./ \
-            --exclude '.git' --exclude '.github/**' --exclude 'CNAME'
+          rsync -av libdebug-pages/ ./ \
+            --exclude '.git' --exclude '.github/**'
+          rm -rf libdebug-pages
 
       - name: Commit & push
         env:
