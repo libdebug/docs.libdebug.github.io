@@ -1,49 +1,44 @@
 name: Sync libdebug gh-pages into main
-
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  repository_dispatch:
+    types: [refresh_rolling]
 
 jobs:
   sync:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: { contents: write }
 
     steps:
-      - name: Checkout this repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
 
       - name: Checkout libdebug gh-pages
         uses: actions/checkout@v4
         with:
           repository: libdebug/libdebug
           ref: gh-pages
-          path: libdebug-pages
+          path: /tmp/libdebug-pages
           fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Sync files from gh-pages
+      - name: Sync files
         run: |
-          # copy all files over, but leave existing files intact and skip any .git dirs
-          rsync -av libdebug-pages/ . \
-            --exclude '.github/**' \
-            --exclude '.git' \
-            --exclude '.git/**'
+          rsync -av /tmp/libdebug-pages/ ./ \
+            --exclude '.git' --exclude '.github/**' --exclude 'CNAME'
 
-      - name: Commit & push changes
+      - name: Commit & push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
           if git diff --quiet; then
             echo "✅ Nothing to commit."
           else
             git add --all
-            git commit -m "chore: sync content from libdebug/libdebug@gh-pages"
-            git push origin main
+            git commit -m "chore: sync content from libdebug@gh-pages"
+            git push origin HEAD
           fi
